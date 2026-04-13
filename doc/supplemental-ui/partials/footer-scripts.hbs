@@ -71,3 +71,96 @@
   }
 })();
 </script>
+<script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var toolbarNav = document.querySelector('.toolbar .spirit-nav');
+    if (!toolbarNav) return;
+
+    /* Home belongs in breadcrumbs (left). Remove duplicate house icons from the top spirit-nav only. */
+    Array.prototype.slice.call(toolbarNav.querySelectorAll('a')).forEach(function (a) {
+      var sp = a.querySelector('.material-symbols-outlined');
+      if (!sp) return;
+      var t = (sp.textContent || '').replace(/\s+/g, '');
+      if (t === 'home' && a.parentNode === toolbarNav) a.parentNode.removeChild(a);
+    });
+
+    function enableUp(anchor) {
+      if (!anchor) return;
+      if (anchor.classList.contains('disabled') || anchor.getAttribute('aria-disabled') === 'true') {
+        anchor.classList.remove('disabled');
+        anchor.removeAttribute('aria-disabled');
+        anchor.removeAttribute('tabindex');
+      }
+      anchor.setAttribute('href', 'index.html');
+      var ic = anchor.querySelector('.material-symbols-outlined');
+      if (ic) ic.setAttribute('title', 'Up: Boost.Accumulators (home)');
+    }
+
+    function ensureHome(container) {
+      if (!container || container.querySelector('a[accesskey="h"]')) return;
+      var home = document.createElement('a');
+      home.setAttribute('accesskey', 'h');
+      home.setAttribute('href', 'index.html');
+      var span = document.createElement('span');
+      span.className = 'material-symbols-outlined';
+      span.setAttribute('title', 'Home');
+      span.appendChild(document.createTextNode('home'));
+      home.appendChild(span);
+      var next = container.querySelector('a[accesskey="n"]');
+      var up = container.querySelector('a[accesskey="u"]');
+      if (next) {
+        next.parentNode.insertBefore(home, next);
+      } else if (up) {
+        if (up.nextSibling) up.parentNode.insertBefore(home, up.nextSibling);
+        else up.parentNode.appendChild(home);
+      } else {
+        var prev = container.querySelector('a[accesskey="p"]');
+        if (prev) {
+          if (prev.nextSibling) prev.parentNode.insertBefore(home, prev.nextSibling);
+          else prev.parentNode.appendChild(home);
+        } else {
+          container.appendChild(home);
+        }
+      }
+    }
+
+    function ensureNextPlaceholder(container) {
+      if (!container || container.querySelector('a[accesskey="n"]')) return;
+      var a = document.createElement('a');
+      a.className = 'disabled';
+      a.setAttribute('aria-disabled', 'true');
+      a.setAttribute('tabindex', '-1');
+      a.setAttribute('accesskey', 'n');
+      var sp = document.createElement('span');
+      sp.className = 'material-symbols-outlined';
+      sp.setAttribute('title', 'Next');
+      sp.appendChild(document.createTextNode('arrow_forward'));
+      a.appendChild(sp);
+      container.appendChild(a);
+    }
+
+    /* Top bar: keep Antora prev/up/next only; home is already in breadcrumbs (left). */
+    enableUp(toolbarNav.querySelector('a[accesskey="u"]'));
+
+    var article = document.querySelector('article.doc');
+    if (article && !article.querySelector('.spirit-nav-footer-wrap')) {
+      var wrap = document.createElement('div');
+      wrap.className = 'spirit-nav-footer-wrap';
+      wrap.setAttribute('role', 'navigation');
+      var bottom = toolbarNav.cloneNode(true);
+      bottom.classList.add('spirit-nav-bottom');
+      Array.prototype.forEach.call(bottom.querySelectorAll('a[accesskey="u"]'), enableUp);
+      ensureHome(bottom);
+      ensureNextPlaceholder(bottom);
+      wrap.appendChild(bottom);
+      var edit = article.querySelector('.edit-this-page');
+      if (edit) {
+        edit.parentNode.insertBefore(wrap, edit);
+      } else {
+        article.appendChild(wrap);
+      }
+    }
+  });
+})();
+</script>

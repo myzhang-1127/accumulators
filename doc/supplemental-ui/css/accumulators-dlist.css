@@ -46,3 +46,32 @@
 .doc .dlist > dl > dd > p:first-child {
   margin-top: 0;
 }
+
+/* Bottom spirit-nav (BoostBook-style), cloned from toolbar; matches qbk-html placement. */
+.doc .spirit-nav-footer-wrap {
+  border-top: 1px solid #eaf0f3;
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+  text-align: right;
+}
+
+.doc .spirit-nav-footer-wrap .spirit-nav-bottom {
+  padding-top: 0;
+}
+
+/* Toolbar spirit-nav uses light icon color; in the document footer use readable contrast. */
+.doc .spirit-nav-footer-wrap .spirit-nav a {
+  color: #314a57;
+}
+
+.doc .spirit-nav-footer-wrap .spirit-nav .material-symbols-outlined {
+  color: inherit;
+}
+
+html.dark .doc .spirit-nav-footer-wrap {
+  border-top-color: #051a26;
+}
+
+html.dark .doc .spirit-nav-footer-wrap .spirit-nav a {
+  color: #e6edf3;
+}

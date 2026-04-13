@@ -1,10 +1,35 @@
-= Boost.Accumulators
-Incremental accumulation framework and statistical accumulator library.
+= Chapter 1. Boost.Accumulators
+:page-aliases: preface.adoc
 
-== Sections
+*Eric Niebler*
 
-* xref:preface.adoc[Preface]
+[.copyright]#Copyright © 2005, 2006 Eric Niebler#
+
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt[http://www.boost.org/LICENSE_1_0.txt])
+
+== Table of contents
+
+* xref:index.adoc#accumulators.preface[Preface]
 * xref:user_s_guide.adoc[User's Guide]
+** xref:user_s_guide.adoc#accumulators.user_s_guide.hello__world_[Hello, World!]
+** xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework[The Accumulators Framework]
+** xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library[The Statistical Accumulators Library]
 * xref:acknowledgements.adoc[Acknowledgements]
 * xref:reference.adoc[Reference]
+** xref:reference.adoc#accumulators_framework_reference[Accumulators Framework Reference]
+** xref:reference.adoc#statistics_library_reference[Statistics Library Reference]
+** xref:reference.adoc#numeric_operators_library_reference[Numeric Operators Library Reference]
 
+[[accumulators.preface]]
+== Preface
+
+[quote]
+____
+It is better to be approximately right than exactly wrong. -- Old adage
+____
+
+[[accumulators.preface.description]]
+== Description
+
+Boost.Accumulators is both a library for incremental statistical computation as well as an extensible framework for incremental calculation in general. The library deals primarily with the concept of an _accumulator_, which is a primitive computational entity that accepts data one sample at a time and maintains some internal state. These accumulators may offload some of their computations on other accumulators, on which they depend. Accumulators are grouped within an _accumulator set_. Boost.Accumulators resolves the inter-dependencies between accumulators in a set and ensures that accumulators are processed in the proper order.
