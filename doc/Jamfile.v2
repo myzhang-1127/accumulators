@@ -243,7 +243,7 @@ boostbook standalone
         <dependency>statsdoc
         <dependency>opdoc
         <format>pdf:<xsl:param>img.src.path=$(images_location)/
-        <format>pdf:<xsl:param>boost.url.prefix=http://www.boost.org/doc/libs/release/doc/html
+        <format>pdf:<xsl:param>"boost.url.prefix=http://www.boost.org/doc/libs/release/doc/html"
     ;
 
 ###############################################################################
@@ -255,3 +255,17 @@ alias boostdoc
 explicit boostdoc ;
 alias boostrelease ;
 explicit boostrelease ;
+
+###############################################################################
+# Antora-based documentation (AsciiDoc). From Boost root:
+#   ./b2 libs/accumulators/doc//antora-html
+# Or: cd libs/accumulators/doc && bash build_antora.sh
+# Requires Node.js and bash. Doxygen HTML is copied into the site by build_antora.sh.
+
+actions run-accumulators-antora
+{
+    bash $(>)
+}
+
+make antora-html : build_antora.sh : @run-accumulators-antora ;
+explicit antora-html ;

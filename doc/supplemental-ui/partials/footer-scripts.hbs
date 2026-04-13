@@ -1,0 +1,73 @@
+<script id="site-script" src="{{{uiRootPath}}}/js/site.js" data-ui-root-path="{{{uiRootPath}}}"></script>
+<script async src="{{{uiRootPath}}}/js/vendor/highlight.js"></script>
+<script async src="{{{uiRootPath}}}/js/vendor/tabs.js" data-sync-storage-key="preferred-tab"></script>
+{{#if env.SITE_SEARCH_PROVIDER}}
+<script async src="{{{uiRootPath}}}/js/vendor/lunr.js"></script>
+<script async src="{{{uiRootPath}}}/js/search-ui.js" id="search-ui-script" data-site-root-path="{{{siteRootPath}}}"
+  data-ui-root-path="{{{uiRootPath}}}"></script>
+<script async src="{{{siteRootPath}}}/search-index.js"></script>
+{{/if}}
+{{!-- Scroll position on back/forward: supplemental dir must be wired as a string in the playbook (not [{path: ...}]). --}}
+<script>
+(function () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'auto';
+  }
+  function scrollKey() {
+    return 'accumulatorsDocScroll:' + location.pathname + location.search;
+  }
+  function isBackForwardNavigation() {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav && nav.type === 'back_forward') return true;
+    try {
+      var p = performance.navigation;
+      if (p && p.type === 2) return true;
+    } catch (e) {}
+    return false;
+  }
+  window.addEventListener('pagehide', function () {
+    try {
+      sessionStorage.setItem(scrollKey(), String(window.scrollY || window.pageYOffset || 0));
+    } catch (e) {}
+  });
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) return;
+    try {
+      if (!isBackForwardNavigation()) return;
+      var y = sessionStorage.getItem(scrollKey());
+      if (y == null) return;
+      var n = parseInt(y, 10);
+      if (isNaN(n)) return;
+      function applyScroll() {
+        window.scrollTo(0, n);
+      }
+      setTimeout(applyScroll, 0);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(applyScroll);
+      });
+    } catch (e) {}
+  });
+  function scrollToHash() {
+    var h = location.hash;
+    if (!h || h.length < 2) return;
+    var id = decodeURIComponent(h.slice(1));
+    var el = document.getElementById(id);
+    if (!el) {
+      try {
+        var esc = typeof CSS !== 'undefined' && CSS.escape ? CSS.escape(id) : id.replace(/"/g, '');
+        el = document.querySelector('[name="' + esc + '"]');
+      } catch (e) {}
+    }
+    if (el) el.scrollIntoView({ block: 'start' });
+  }
+  window.addEventListener('popstate', function () {
+    setTimeout(scrollToHash, 0);
+  });
+  window.addEventListener('hashchange', scrollToHash);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scrollToHash);
+  } else {
+    scrollToHash();
+  }
+})();
+</script>

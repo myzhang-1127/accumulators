@@ -1,0 +1,48 @@
+/* accumulators-dlist-injected — appended once by build_antora.sh; do not edit site.css by hand */
+/* Approximate BoostBook HTML: variablelist as a bordered table (.variablelist). */
+/* Light panel: keep explicit text color so dark UI themes (night mode) do not paint
+   inherited light-colored text on #fafafa (unreadable). */
+.doc .dlist > dl {
+  border: 1px solid #ccc;
+  border-collapse: separate;
+  border-spacing: 0;
+  padding: 0.5em 0.75em;
+  margin: 1em 0;
+  background: #fafafa;
+  color: #1a1a1a;
+}
+
+.doc .dlist > dl a {
+  color: #0b5cab;
+}
+
+.doc .dlist > dl a:visited {
+  color: #5c2d91;
+}
+
+.doc .dlist > dl code {
+  color: #1a1a1a;
+}
+
+.doc .dlist > dl > dt.hdlist1 {
+  margin-top: 0.65em;
+  padding-top: 0.35em;
+  border-top: 1px solid #e0e0e0;
+}
+
+.doc .dlist > dl > dt.hdlist1:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.doc .dlist > dl > dd {
+  margin: 0.25em 0 0.5em 0;
+  padding-left: 0.5em;
+  border-left: 2px solid #ddd;
+}
+
+.doc .dlist > dl > dd > .paragraph:first-child > p:first-child,
+.doc .dlist > dl > dd > p:first-child {
+  margin-top: 0;
+}

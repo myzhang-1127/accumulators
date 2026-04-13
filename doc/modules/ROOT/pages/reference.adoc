@@ -1,0 +1,247 @@
+= Reference
+:id: accumulators.reference
+
+[[accumulators.reference]]
+
+[[accumulators_framework_reference]]
+== Accumulators Framework Reference
+
+[[doxygen.accumulators_framework_reference.depends__on_8hpp]]
+=== Header link:https://github.com/boostorg/accumulators/blob/develop/include/boost/accumulators/framework/depends_on.hpp[&lt;boost/accumulators/framework/depends_on.hpp&gt;]
+
+[source,c++,subs=+macros]
+----
+namespace boost {
+  namespace accumulators {
+    template<typename Feature> struct <<doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1as__feature,as_feature>>;
+    template<typename Feature> struct <<doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1as__weighted__feature,as_weighted_feature>>;
+    template<typename Feature> struct <<doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1feature__of,feature_of>>;
+    template<typename Feature1, typename Feature2, ...> struct <<doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1depends__on,depends_on>>;
+  }
+}
+----
+
+[[doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1as__feature]]
+==== Struct template as_feature
+
+`boost::accumulators::as_feature`
+
+===== Synopsis
+
+[source,c++]
+----
+// In header: <boost/accumulators/framework/depends_on.hpp>
+
+template<typename Feature>
+struct as_feature {
+  // types
+  typedef Feature type;
+};
+----
+
+[[doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1as__weighted__feature]]
+==== Struct template as_weighted_feature
+
+`boost::accumulators::as_weighted_feature`
+
+===== Synopsis
+
+[source,c++]
+----
+// In header: <boost/accumulators/framework/depends_on.hpp>
+
+template<typename Feature>
+struct as_weighted_feature {
+  // types
+  typedef Feature type;
+};
+----
+
+[[doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1feature__of]]
+==== Struct template feature_of
+
+`boost::accumulators::feature_of`
+
+===== Synopsis
+
+[source,c++]
+----
+// In header: <boost/accumulators/framework/depends_on.hpp>
+
+template<typename Feature>
+struct feature_of {
+  // types
+  typedef Feature type;
+};
+----
+
+[[doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1depends__on]]
+==== Struct template depends_on
+
+`boost::accumulators::depends_on` — <<doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1depends__on,depends_on>>
+
+===== Synopsis
+
+[source,c++]
+----
+// In header: <boost/accumulators/framework/depends_on.hpp>
+
+template<typename Feature1, typename Feature2, ...>
+struct depends_on {
+  // types
+  typedef mpl::false_                                                                          is_weight_accumulator;
+  typedef mpl::transform< mpl::vector< Feature1, Feature2,... >, as_feature< mpl::_1 > >::type dependencies;
+};
+----
+
+[[doxygen.accumulators_framework_reference.extractor_8hpp]]
+=== Header link:https://github.com/boostorg/accumulators/blob/develop/include/boost/accumulators/framework/extractor.hpp[&lt;boost/accumulators/framework/extractor.hpp&gt;]
+
+[source,c++,subs=+macros]
+----
+
+
+<<doxygen.accumulators_framework_reference.extractor_8hpp_1a5e13d7e8840e54e5d68222029c7174c2,BOOST_ACCUMULATORS_DEFINE_EXTRACTOR>>(Tag, Feature, ParamSeq)
+----
+
+[source,c++,subs=+macros]
+----
+namespace boost {
+  namespace accumulators {
+    template<typename Feature> struct <<doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1extractor,extractor>>;
+  }
+}
+----
+
+[[doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1extractor]]
+==== Struct template extractor
+
+`boost::accumulators::extractor` — Extracts the result associated with Feature from the specified accumulator_set.
+
+===== Synopsis
+
+[source,c++,subs=+macros]
+----
+// In header: <boost/accumulators/framework/extractor.hpp>
+
+template<typename Feature>
+struct extractor {
+  // types
+  typedef extractor< Feature > this_type;
+
+  // member classes/structs/unions
+
+  // The result meta-function for determining the return type of the
+  // extractor.
+  template<typename F>
+  struct <<doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1extractor_1_1result,result>> {
+  };
+  template<typename A1>
+  struct <<doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1extractor_1_1result_3_01this__type_07_a1_08_4,result+++&lt;this_type(A1)&gt;+++>> {
+  };
+
+  // public member functions
+  template<typename Arg1> unspecified operator()(Arg1 const &) const;
+  template<typename AccumulatorSet, typename A1>
+    unspecified operator()(AccumulatorSet const &, A1 const &) const;
+  template<typename AccumulatorSet, typename A1, typename A2, ...>
+    unspecified operator()(AccumulatorSet const &, A1 const &, A2 const &,
+                           ...);
+};
+----
+
+===== Description
+
+====== `extractor` public member functions
+
+. {nbsp}
++
+[source,c++]
+----
+template<typename Arg1> unspecified operator()(Arg1 const & arg1) const;
+----
++
+Extract the result associated with Feature from the accumulator set
+
+. {nbsp}
++
+[source,c++]
+----
+template<typename AccumulatorSet, typename A1>
+  unspecified operator()(AccumulatorSet const & acc, A1 const & a1) const;
+----
++
+This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
+
++
+[cols="1,3",options="header"]
+|===
+|Parameters |
+|`a1` | Optional named parameter to be passed to the accumulator's result() function.
+|===
+
+. {nbsp}
++
+[source,c++]
+----
+template<typename AccumulatorSet, typename A1, typename A2, ...>
+  unspecified operator()(AccumulatorSet const & acc, A1 const & a1,
+                         A2 const & a2, ...);
+----
++
+This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
+
+[[doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1extractor_1_1result]]
+==== Struct template result
+
+`boost::accumulators::extractor::result` — The result meta-function for determining the return type of the extractor.
+
+===== Synopsis
+
+[source,c++]
+----
+// In header: <boost/accumulators/framework/extractor.hpp>
+
+
+// The result meta-function for determining the return type of the extractor.
+template<typename F>
+struct result {
+};
+----
+
+[[doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1extractor_1_1result_3_01this__type_07_a1_08_4]]
+==== Struct template result<this_type(A1)>
+
+`boost::accumulators::extractor::result<this_type(A1)>`
+
+===== Synopsis
+
+[source,c++]
+----
+// In header: <boost/accumulators/framework/extractor.hpp>
+
+
+template<typename A1>
+struct result<this_type(A1)> {
+};
+----
+
+[[doxygen.accumulators_framework_reference.extractor_8hpp_1a5e13d7e8840e54e5d68222029c7174c2]]
+==== Macro BOOST_ACCUMULATORS_DEFINE_EXTRACTOR
+
+`BOOST_ACCUMULATORS_DEFINE_EXTRACTOR`
+
+===== Synopsis
+
+[source,c++]
+----
+// In header: <boost/accumulators/framework/extractor.hpp>
+
+BOOST_ACCUMULATORS_DEFINE_EXTRACTOR(Tag, Feature, ParamSeq)
+----
+
+[[statistics_library_reference]]
+== Statistics Library Reference
+
+[[numeric_operators_library_reference]]
+== Numeric Operators Library Reference

@@ -1,0 +1,3 @@
+= Statistics Library Reference
+
+* link:../../_/ref/statsdoc/index.html[Statistics Library Reference]

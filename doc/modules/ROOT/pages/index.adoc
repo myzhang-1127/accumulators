@@ -1,0 +1,10 @@
+= Boost.Accumulators
+Incremental accumulation framework and statistical accumulator library.
+
+== Sections
+
+* xref:preface.adoc[Preface]
+* xref:user_s_guide.adoc[User's Guide]
+* xref:acknowledgements.adoc[Acknowledgements]
+* xref:reference.adoc[Reference]
+

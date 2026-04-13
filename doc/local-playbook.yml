@@ -1,0 +1,36 @@
+#
+# Local Antora playbook for Boost.Accumulators
+#
+
+site:
+  title: Boost.Accumulators
+  url: https://example.org/boost-accumulators
+  start_page: accumulators::index.adoc
+  robots: allow
+  keys:
+    repo_url: 'https://github.com/boostorg/accumulators'
+
+content:
+  sources:
+    - url: ..
+      start_path: doc
+      edit_url: 'https://github.com/boostorg/accumulators/edit/{refname}/{path}'
+
+ui:
+  bundle:
+    url: https://github.com/boostorg/website-v2-docs/releases/download/ui-master/ui-bundle.zip
+    snapshot: true
+  # Must be a directory path string (not [{ path: ... }]); the array form is treated as virtual in-memory files and skips this folder entirely.
+  supplemental_files: supplemental-ui
+
+antora:
+  extensions:
+    - require: '@antora/lunr-extension'
+      index_latest_only: true
+    - require: '@cppalliance/antora-downloads-extension'
+
+asciidoc:
+  attributes: {}
+  extensions:
+    - '@cppalliance/asciidoctor-boost-links'
+    - '@asciidoctor/tabs'

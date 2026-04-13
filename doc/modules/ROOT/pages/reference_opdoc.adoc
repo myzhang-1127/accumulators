@@ -1,0 +1,3 @@
+= Numeric Operators Library Reference
+
+* link:../../_/ref/opdoc/index.html[Numeric Operators Library Reference]
