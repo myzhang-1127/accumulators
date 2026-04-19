@@ -1,4 +1,27 @@
 /* accumulators-dlist-injected — appended once by build_antora.sh; do not edit site.css by hand */
+/* Section mini-TOC (BoostBook “section TOCs”) */
+.doc .sidebarblock.accumulators-mini-toc .content,
+.doc .literalblock.accumulators-mini-toc .content {
+  border: 1px solid #ccc;
+  padding: 0.55em 0.85em;
+  margin: 0.85em 0 1em 0;
+  background: #fafafa;
+  color: #1a1a1a;
+}
+
+.doc .sidebarblock.accumulators-mini-toc ul,
+.doc .literalblock.accumulators-mini-toc ul {
+  margin: 0;
+  padding-left: 1.25em;
+}
+
+.doc .sidebarblock.accumulators-mini-toc a {
+  color: #0b5cab;
+}
+
+.doc .sidebarblock.accumulators-mini-toc a:visited {
+  color: #5c2d91;
+}
 /* Approximate BoostBook HTML: variablelist as a bordered table (.variablelist). */
 /* Light panel: keep explicit text color so dark UI themes (night mode) do not paint
    inherited light-colored text on #fafafa (unreadable). */

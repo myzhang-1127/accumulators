@@ -25,7 +25,15 @@ Use the sibling project `boost-doc-modernize`:
 ```bash
 pip install -e path/to/boost-doc-modernize
 # Global `--boost-root` must come *before* the `convert` subcommand (Typer callback options).
-python -m boost_doc_modernize.cli --boost-root /path/to/boost convert --library accumulators
+# Do not overwrite the hand-generated `reference.adoc` (from boost.org) or the xinclude-based hub:
+python -m boost_doc_modernize.cli --boost-root /path/to/boost convert --library accumulators \
+  --skip-reference-hub --preserve-page reference.adoc
+```
+
+To refresh the monolithic `reference.adoc` from the official site (optional, needs `pip install beautifulsoup4` for the import tool):
+
+```bash
+python tools/import_reference_from_official.py --out modules/ROOT/pages/reference.adoc
 ```
 
 Or pass pre-generated BoostBook XML:
@@ -42,8 +50,7 @@ cd libs/accumulators/doc
 ./build_antora.sh
 ```
 
-**QuickBook → AsciiDoc parity (narrative terms):** Phrases such as `['_accumulator_set_]` in `accumulators.qbk` become BoostBook `<classname>` and, after `convert`, AsciiDoc `_accumulator_set_`. A fresh Antora build should render those as **emphasis** (`<em>accumulator_set</em>`), not as `<a href>`. If you still see hyperlinks around that word, regenerate pages with `boost-doc-modernize convert` (see §2), then rebuild with **`npx antora --clean`** so old HTML is not reused. From the `boost-doc-modernize` repo, after building the site:  
-`python scripts/verify_accumulators_narrative_html.py /path/to/boost/libs/accumulators/doc/build/site/accumulators/user_s_guide.html`
+**QuickBook → AsciiDoc parity (links):** `['_accumulator_set_]` and similar become BoostBook `<classname alt="…">` without an explicit `<link>`; the legacy HTML toolchain adds Reference targets. The converter maps those class names to `xref:reference.adoc#doxygen…​` (see `accumulators_reference_xref.py`). Regenerate with `convert` (§2), then **`npx antora --clean`** so cached HTML is not reused.
 
 Or from Boost root:
 
@@ -63,4 +70,6 @@ While both this `Jamfile.v2` (legacy) and Antora files exist, auto-detection pre
 
 ## Reference chapter
 
-The Quickbook `[xinclude]` Doxygen corpora are not inlined into AsciiDoc. The generated `reference.adoc` links to static HTML under `/_/ref/` after `build_antora.sh` runs.
+The committed `modules/ROOT/pages/reference.adoc` is **generated from** `https://www.boost.org/doc/libs/latest/doc/html/accumulators/reference.html` via `tools/import_reference_from_official.py` so anchors match the official Reference (required for User's Guide class-name links).
+
+Optional legacy Doxygen copies still land under `build/site/_/ref/{accdoc,statsdoc,opdoc}/` when `build_antora.sh` runs `b2` successfully.

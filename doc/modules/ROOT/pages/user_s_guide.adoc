@@ -3,6 +3,12 @@
 
 [[accumulators.user_s_guide]]
 
+[.accumulators-mini-toc]
+****
+* xref:#accumulators.user_s_guide.the_accumulators_framework[The Accumulators Framework]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library[The Statistical Accumulators Library]
+****
+
 This section describes how to use the Boost.Accumulators framework to create new accumulators and how to use the existing statistical accumulators to perform incremental statistical computation. For detailed information regarding specific components in Boost.Accumulators, check the xref:reference.adoc#accumulators_framework_reference[Reference] section.
 
 [[accumulators.user_s_guide.h0]]
@@ -56,13 +62,24 @@ Moment: 9.635
 
 == The Accumulators Framework
 
+[.accumulators-mini-toc]
+****
+* xref:#+++accumulators.user_s_guide.the_accumulators_framework.using___accumulator_set___+++[Using `accumulator_set<>`]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.extracting_results[Extracting Results]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.passing_optional_parameters[Passing Optional Parameters]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.weighted_samples[Weighted Samples]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.numeric_operators_sub_library[Numeric Operators Sub-Library]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework[Extending the Accumulators Framework]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.concepts[Concepts]
+****
+
 The Accumulators Framework is framework for performing incremental calculations. Usage of the framework follows the following pattern:
 
-* Users build a computational object, called an +++<em><code>accumulator_set&lt;&gt;</code></em>+++, by selecting the computations in which they are interested, or authoring their own computational primitives which fit within the framework.
-* Users push data into the +++<em><code>accumulator_set&lt;&gt;</code></em>+++ object one sample at a time.
-* The +++<em><code>accumulator_set&lt;&gt;</code></em>+++ computes the requested quantities in the most efficient method possible, resolving dependencies between requested calculations, possibly caching intermediate results.
+* Users build a computational object, called an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], by selecting the computations in which they are interested, or authoring their own computational primitives which fit within the framework.
+* Users push data into the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] object one sample at a time.
+* The xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] computes the requested quantities in the most efficient method possible, resolving dependencies between requested calculations, possibly caching intermediate results.
 
-The Accumulators Framework defines the utilities needed for defining primitive computational elements, called _accumulators_. It also provides the +++<em><code>accumulator_set&lt;&gt;</code></em>+++ type, described above.
+The Accumulators Framework defines the utilities needed for defining primitive computational elements, called _accumulators_. It also provides the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] type, described above.
 
 [[accumulators.user_s_guide.the_accumulators_framework.h0]]
 
@@ -73,13 +90,13 @@ The Accumulators Framework defines the utilities needed for defining primitive c
 The following terms are used in the rest of the documentation.
 
 Sample::
-  [[sample_type]] A datum that is pushed into an +++<em><code>accumulator_set&lt;&gt;</code></em>+++. The type of the sample is the _sample type_.
+  [[sample_type]] A datum that is pushed into an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. The type of the sample is the _sample type_.
 
 Weight::
   [[weight_type]] An optional scalar value passed along with the sample specifying the weight of the sample. Conceptually, each sample is multiplied with its weight. The type of the weight is the _weight type_.
 
 Feature::
-  An abstract primitive computational entity. When defining an +++<em><code>accumulator_set&lt;&gt;</code></em>+++, users specify the features in which they are interested, and the +++<em><code>accumulator_set&lt;&gt;</code></em>+++ figures out which _accumulators_ would best provide those features. Features may depend on other features. If they do, the accumulator set figures out which accumulators to add to satisfy the dependencies.
+  An abstract primitive computational entity. When defining an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], users specify the features in which they are interested, and the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] figures out which _accumulators_ would best provide those features. Features may depend on other features. If they do, the accumulator set figures out which accumulators to add to satisfy the dependencies.
 
 Accumulator::
   A concrete primitive computational entity. An accumulator is a concrete implementation of a feature. It satisfies exactly one abstract feature. Several different accumulators may provide the same feature, but may represent different implementation strategies.
@@ -88,7 +105,7 @@ Accumulator Set::
   A collection of accumulators. An accumulator set is specified with a sample type and a list of features. The accumulator set uses this information to generate an ordered set of accumulators depending on the feature dependency graph. An accumulator set accepts samples one datum at a time, propagating them to each accumulator in order. At any point, results can be extracted from the accumulator set.
 
 Extractor::
-  A function or function object that can be used to extract a result from an +++<em><code>accumulator_set&lt;&gt;</code></em>+++.
+  A function or function object that can be used to extract a result from an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
 
 [[accumulators.user_s_guide.the_accumulators_framework.h1]]
 
@@ -104,19 +121,19 @@ Here is a list of the important types and functions in the Accumulator Framework
 |===
 | Tool | Description
 
-| +++<em><code>accumulator_set&lt;&gt;</code></em>+++ | This is the most important type in the Accumulators Framework. It is a collection of accumulators. A datum pushed into an +++<em><code>accumulator_set&lt;&gt;</code></em>+++ is forwarded to each accumulator, in an order determined by the dependency relationships between the accumulators. Computational results can be extracted from an accumulator at any time.
+| xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] | This is the most important type in the Accumulators Framework. It is a collection of accumulators. A datum pushed into an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] is forwarded to each accumulator, in an order determined by the dependency relationships between the accumulators. Computational results can be extracted from an accumulator at any time.
 
-| xref:reference.adoc#doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1depends__on[+depends_on<>+] | Used to specify which other features a feature depends on.
+| xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++] | Used to specify which other features a feature depends on.
 
-| xref:reference.adoc#doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1feature__of[+feature_of<>+] | Trait used to tell the Accumulators Framework that, for the purpose of feature-based dependency resolution, one feature should be treated the same as another.
+| xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>feature_of&lt;&gt;</code></em>+++] | Trait used to tell the Accumulators Framework that, for the purpose of feature-based dependency resolution, one feature should be treated the same as another.
 
-| xref:reference.adoc#doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1as__feature[+as_feature<>+] | Used to create an alias for a feature. For example, if there are two features, fast_X and accurate_X, they can be mapped to X(fast) and X(accurate) with xref:reference.adoc#doxygen.accumulators_framework_reference.structboost_1_1accumulators_1_1as__feature[+as_feature<>+]. This is just syntactic sugar.
+| xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>as_feature&lt;&gt;</code></em>+++] | Used to create an alias for a feature. For example, if there are two features, fast_X and accurate_X, they can be mapped to X(fast) and X(accurate) with xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>as_feature&lt;&gt;</code></em>+++]. This is just syntactic sugar.
 
-| +++<em><code>features&lt;&gt;</code></em>+++ | An link:../../libs/mpl/index.html[MPL] sequence. We can use +++<em><code>features&lt;&gt;</code></em>+++ as the second template parameter when declaring an +++<em><code>accumulator_set&lt;&gt;</code></em>+++.
+| xref:reference.adoc#doxygen.accumulators_framework_reference.features_8hpp[+++<em><code>features&lt;&gt;</code></em>+++] | An link:../../libs/mpl/index.html[MPL] sequence. We can use xref:reference.adoc#doxygen.accumulators_framework_reference.features_8hpp[+++<em><code>features&lt;&gt;</code></em>+++] as the second template parameter when declaring an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
 
-| +++<em><code>external&lt;&gt;</code></em>+++ | Used when declaring an +++<em><code>accumulator_set&lt;&gt;</code></em>+++. If the weight type is specified with +++<em><code>external&lt;&gt;</code></em>+++, then the weight accumulators are assumed to reside in a separate accumulator set which will be passed in with a named parameter.
+| xref:reference.adoc#+++doxygen.accumulators_framework_reference.external__accumulator_8hpp+++[+++<em><code>external&lt;&gt;</code></em>+++] | Used when declaring an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. If the weight type is specified with xref:reference.adoc#+++doxygen.accumulators_framework_reference.external__accumulator_8hpp+++[+++<em><code>external&lt;&gt;</code></em>+++], then the weight accumulators are assumed to reside in a separate accumulator set which will be passed in with a named parameter.
 
-| +++<em><code>extractor&lt;&gt;</code></em>+++ | A class template useful for creating an extractor function object. It is parameterized on a feature, and it has member functions for extracting from an +++<em><code>accumulator_set&lt;&gt;</code></em>+++ the result corresponding to that feature.
+| +++<em><code>extractor&lt;&gt;</code></em>+++ | A class template useful for creating an extractor function object. It is parameterized on a feature, and it has member functions for extracting from an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] the result corresponding to that feature.
 
 |===
 
@@ -125,7 +142,7 @@ Here is a list of the important types and functions in the Accumulator Framework
 
 === Using `accumulator_set<>`
 
-Our tour of the +++<em><code>accumulator_set&lt;&gt;</code></em>+++ class template begins with the forward declaration:
+Our tour of the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] class template begins with the forward declaration:
 
 [source,c++]
 ----
@@ -145,7 +162,7 @@ Features::
 Weight::
   The type of the (optional) weight paramter.
 
-For example, the following line declares an +++<em><code>accumulator_set&lt;&gt;</code></em>+++ that will accept a sequence of doubles one at a time and calculate the min and mean:
+For example, the following line declares an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that will accept a sequence of doubles one at a time and calculate the min and mean:
 
 [source,text]
 ----
@@ -153,7 +170,7 @@ accumulator_set< double, features< tag::min, tag::mean > > acc;
 ----
 
 
-Notice that we use the +++<em><code>features&lt;&gt;</code></em>+++ template to specify a list of features to be calculated. +++<em><code>features&lt;&gt;</code></em>+++ is an MPL sequence of features.
+Notice that we use the xref:reference.adoc#doxygen.accumulators_framework_reference.features_8hpp[+++<em><code>features&lt;&gt;</code></em>+++] template to specify a list of features to be calculated. xref:reference.adoc#doxygen.accumulators_framework_reference.features_8hpp[+++<em><code>features&lt;&gt;</code></em>+++] is an MPL sequence of features.
 
 [NOTE]
 ====
@@ -161,7 +178,7 @@ features<> is a synonym of mpl::vector<>. In fact, we could use mpl::vector<> or
 ====
 
 
-Once we have defined an +++<em><code>accumulator_set&lt;&gt;</code></em>+++, we can then push data into it, and it will calculate the quantities you requested, as shown below.
+Once we have defined an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], we can then push data into it, and it will calculate the quantities you requested, as shown below.
 
 [source,text]
 ----
@@ -172,7 +189,7 @@ acc(3.4);
 ----
 
 
-Since +++<em><code>accumulator_set&lt;&gt;</code></em>+++ defines its accumulate function to be the function call operator, we might be tempted to use an +++<em><code>accumulator_set&lt;&gt;</code></em>+++ as a UnaryFunction to a standard algorithm such as `std::for_each`. That's fine as long as we keep in mind that the standard algorithms take UnaryFunction objects by value, which involves making a copy of the +++<em><code>accumulator_set&lt;&gt;</code></em>+++ object. Consider the following:
+Since xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] defines its accumulate function to be the function call operator, we might be tempted to use an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] as a UnaryFunction to a standard algorithm such as `std::for_each`. That's fine as long as we keep in mind that the standard algorithms take UnaryFunction objects by value, which involves making a copy of the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] object. Consider the following:
 
 [source,text]
 ----
@@ -187,7 +204,7 @@ acc = std::for_each( data.begin(), data.end(), acc );
 ----
 
 
-Notice how we must assign the return value of `std::for_each` back to the +++<em><code>accumulator_set&lt;&gt;</code></em>+++. This works, but some accumulators are not cheap to copy. For example, the +++<em><code>tail</code></em>+++ and +++<em><code>tail_variate&lt;&gt;</code></em>+++ accumulators must store a `std::vector<>`, so copying these accumulators involves a dynamic allocation. We might be better off in this case passing the accumulator by reference, with the help of `boost::bind()` and `boost::ref()`. See below:
+Notice how we must assign the return value of `std::for_each` back to the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. This works, but some accumulators are not cheap to copy. For example, the xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] accumulators must store a `std::vector<>`, so copying these accumulators involves a dynamic allocation. We might be better off in this case passing the accumulator by reference, with the help of `boost::bind()` and `boost::ref()`. See below:
 
 [source,text]
 ----
@@ -214,7 +231,7 @@ To use boost::bind() and boost::ref(), you must #include <boost/bind.hpp> and <b
 
 === Extracting Results
 
-Once we have declared an +++<em><code>accumulator_set&lt;&gt;</code></em>+++ and pushed data into it, we need to be able to extract results from it. For each feature we can add to an +++<em><code>accumulator_set&lt;&gt;</code></em>+++, there is a corresponding extractor for fetching its result. Usually, the extractor has the same name as the feature, but in a different namespace. For example, if we accumulate the `tag::min` and `tag::max` features, we can extract the results with the `min` and `max` extractors, as follows:
+Once we have declared an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] and pushed data into it, we need to be able to extract results from it. For each feature we can add to an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], there is a corresponding extractor for fetching its result. Usually, the extractor has the same name as the feature, but in a different namespace. For example, if we accumulate the `tag::min` and `tag::max` features, we can extract the results with the `min` and `max` extractors, as follows:
 
 [source,text]
 ----
@@ -237,7 +254,7 @@ On the Windows platform, min and max are preprocessor macros defined in WinDef.h
 ====
 
 
-Another way to extract a result from an +++<em><code>accumulator_set&lt;&gt;</code></em>+++ is with the `extract_result()` function. This can be more convenient if there isn't an extractor object handy for a certain feature. The line above which displays results could equally be written as:
+Another way to extract a result from an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] is with the `extract_result()` function. This can be more convenient if there isn't an extractor object handy for a certain feature. The line above which displays results could equally be written as:
 
 [source,text]
 ----
@@ -262,9 +279,9 @@ std::cout << '(' << min_( acc ) << ", " << max_( acc ) << ")\n";
 
 === Passing Optional Parameters
 
-Some accumulators need initialization parameters. In addition, perhaps some auxiliary information needs to be passed into the +++<em><code>accumulator_set&lt;&gt;</code></em>+++ along with each sample. Boost.Accumulators handles these cases with named parameters from the link:../../libs/parameter/index.html[Boost.Parameter] library.
+Some accumulators need initialization parameters. In addition, perhaps some auxiliary information needs to be passed into the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] along with each sample. Boost.Accumulators handles these cases with named parameters from the link:../../libs/parameter/index.html[Boost.Parameter] library.
 
-For example, consider the +++<em><code>tail</code></em>+++ and +++<em><code>tail_variate&lt;&gt;</code></em>+++ features. +++<em><code>tail</code></em>+++ keeps an ordered list of the largest `N` samples, where `N` can be specified at construction time. Also, the +++<em><code>tail_variate&lt;&gt;</code></em>+++ feature, which depends on +++<em><code>tail</code></em>+++, keeps track of some data that is covariate with the `N` samples tracked by +++<em><code>tail</code></em>+++. The code below shows how this all works, and is described in more detail below.
+For example, consider the xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] features. xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] keeps an ordered list of the largest `N` samples, where `N` can be specified at construction time. Also, the xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] feature, which depends on xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++], keeps track of some data that is covariate with the `N` samples tracked by xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++]. The code below shows how this all works, and is described in more detail below.
 
 [source,text]
 ----
@@ -296,11 +313,11 @@ std::copy( my_tail_variate( acc ).begin(), my_tail_variate( acc ).end(), iout );
 ----
 
 
-There are several things to note about the code above. First, notice that we didn't have to request that the +++<em><code>tail</code></em>+++ feature be calculated. That is implicit because the +++<em><code>tail_variate&lt;&gt;</code></em>+++ feature depends on the +++<em><code>tail</code></em>+++ feature. Next, notice how the `acc` object is initialized: `acc( tag::tail<left>::cache_size = 2 )`. Here, `cache_size` is a named parameter. It is used to tell the +++<em><code>tail</code></em>+++ and +++<em><code>tail_variate&lt;&gt;</code></em>+++ accumulators how many samples and covariates to store. Conceptually, every construction parameter is made available to every accumulator in an accumulator set.
+There are several things to note about the code above. First, notice that we didn't have to request that the xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] feature be calculated. That is implicit because the xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] feature depends on the xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] feature. Next, notice how the `acc` object is initialized: `acc( tag::tail<left>::cache_size = 2 )`. Here, `cache_size` is a named parameter. It is used to tell the xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] accumulators how many samples and covariates to store. Conceptually, every construction parameter is made available to every accumulator in an accumulator set.
 
 We also use a named parameter to pass covariate data into the accumulator set along with the samples. As with the constructor parameters, all parameters to the accumulate function are made available to all the accumulators in the set. In this case, only the accumulator for the `my_tail_variate` feature would be interested in the value of the `covariate1` named parameter.
 
-We can make one final observation about the example above. Since +++<em><code>tail</code></em>+++ and +++<em><code>tail_variate&lt;&gt;</code></em>+++ are multi-valued features, the result we extract for them is represented as an iterator range. That is why we can say `tail( acc ).begin()` and `tail( acc ).end()`.
+We can make one final observation about the example above. Since xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] are multi-valued features, the result we extract for them is represented as an iterator range. That is why we can say `tail( acc ).begin()` and `tail( acc ).end()`.
 
 Even the extractors can accept named parameters. In a bit, we'll see a situation where that is useful.
 
@@ -310,7 +327,7 @@ Even the extractors can accept named parameters. In a bit, we'll see a situation
 
 Some accumulators, statistical accumulators in particular, deal with data that are _weighted_. Each sample pushed into the accumulator has an associated weight, by which the sample is conceptually multiplied. The Statistical Accumulators Library provides an assortment of these weighted statistical accumulators. And many unweighted statistical accumulators have weighted variants. For instance, the weighted variant of the `sum` accumulator is called `weighted_sum`, and is calculated by accumulating all the samples multiplied by their weights.
 
-To declare an +++<em><code>accumulator_set&lt;&gt;</code></em>+++ that accepts weighted samples, you must specify the type of the weight parameter as the 3rd template parameter, as follows:
+To declare an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that accepts weighted samples, you must specify the type of the weight parameter as the 3rd template parameter, as follows:
 
 [source,text]
 ----
@@ -320,7 +337,7 @@ accumulator_set< int, features< tag::sum >, int > acc;
 ----
 
 
-When you specify a weight, all the accumulators in the set are replaced with their weighted equivalents. For example, the above +++<em><code>accumulator_set&lt;&gt;</code></em>+++ declaration is equivalent to the following:
+When you specify a weight, all the accumulators in the set are replaced with their weighted equivalents. For example, the above xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] declaration is equivalent to the following:
 
 [source,text]
 ----
@@ -372,6 +389,15 @@ The Numeric Operators Sub-Library also gives several ways to sub-class and a way
 [[accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework]]
 
 === Extending the Accumulators Framework
+
+[.accumulators-mini-toc]
+****
+* xref:#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator[__Defining a New Accumulator__]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_feature[__Defining a New Feature__]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_extractor[__Defining a New Extractor__]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.controlling_dependencies[__Controlling Dependencies__]
+* xref:#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.operators_ex[__Specializing Numeric Operators__]
+****
 
 This section describes how to extend the Accumulators Framework by defining new accumulators, features and extractors. Also covered are how to control the dependency resolution of features within an accumulator set.
 
@@ -435,7 +461,7 @@ on_drop(Args)::
 
 === Accessing Other Accumulators in the Set
 
-Some accumulators depend on other accumulators within the same accumulator set. In those cases, it is necessary to be able to access those other accumulators. To make this possible, the +++<em><code>accumulator_set&lt;&gt;</code></em>+++ passes a reference to itself when invoking the member functions of its contained accumulators. It can be accessed by using the special `accumulator` key with the argument pack. Consider how we might implement `mean_accumulator`:
+Some accumulators depend on other accumulators within the same accumulator set. In those cases, it is necessary to be able to access those other accumulators. To make this possible, the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] passes a reference to itself when invoking the member functions of its contained accumulators. It can be accessed by using the special `accumulator` key with the argument pack. Consider how we might implement `mean_accumulator`:
 
 [source,c++]
 ----
@@ -455,7 +481,7 @@ struct mean_accumulator : accumulator_base
 ----
 
 
-`mean` depends on the `sum` and `count` accumulators. (We'll see in the next section how to specify these dependencies.) The result of the mean accumulator is merely the result of the sum accumulator divided by the result of the count accumulator. Consider how we write that: `sum(args[accumulator]) / count(args[accumulator])`. The expression `args[accumulator]` evaluates to a reference to the +++<em><code>accumulator_set&lt;&gt;</code></em>+++ that contains this `mean_accumulator`. It also contains the `sum` and `count` accumulators, and we can access their results with the extractors defined for those features: `sum` and `count`.
+`mean` depends on the `sum` and `count` accumulators. (We'll see in the next section how to specify these dependencies.) The result of the mean accumulator is merely the result of the sum accumulator divided by the result of the count accumulator. Consider how we write that: `sum(args[accumulator]) / count(args[accumulator])`. The expression `args[accumulator]` evaluates to a reference to the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that contains this `mean_accumulator`. It also contains the `sum` and `count` accumulators, and we can access their results with the extractors defined for those features: `sum` and `count`.
 
 [NOTE]
 ====
@@ -463,7 +489,7 @@ Accumulators that inherit from accumulator_base get an empty operator (), so acc
 ====
 
 
-All the member functions that accept an argument pack have access to the enclosing +++<em><code>accumulator_set&lt;&gt;</code></em>+++ via the `accumulator` key, including the constructor. The accumulators within the set are constructed in an order determined by their interdependencies. As a result, it is safe for an accumulator to access one on which it depends during construction.
+All the member functions that accept an argument pack have access to the enclosing xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] via the `accumulator` key, including the constructor. The accumulators within the set are constructed in an order determined by their interdependencies. As a result, it is safe for an accumulator to access one on which it depends during construction.
 
 [[accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.h1]]
 
@@ -481,7 +507,7 @@ Consider `mean_accumulator` defined above. It divides the sum of the samples by 
 
 === Droppable Accumulators
 
-The term "droppable" refers to an accumulator that can be removed from the +++<em><code>accumulator_set&lt;&gt;</code></em>+++. You can request that an accumulator be made droppable by using the +++<em><code>droppable&lt;&gt;</code></em>+++ class template.
+The term "droppable" refers to an accumulator that can be removed from the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. You can request that an accumulator be made droppable by using the xref:reference.adoc#+++doxygen.accumulators_framework_reference.droppable__accumulator_8hpp+++[+++<em><code>droppable&lt;&gt;</code></em>+++] class template.
 
 [source,text]
 ----
@@ -566,7 +592,7 @@ And as an optimization:
 
 ==== __Defining a New Feature__
 
-Once we have implemented an accumulator, we must define a feature for it so that users can specify the feature when declaring an +++<em><code>accumulator_set&lt;&gt;</code></em>+++. We typically put the features into a nested namespace, so that later we can define an extractor of the same name. All features must satisfy the xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework.concepts.feature_concept[Feature Concept]. Using +++<em><code>depends_on&lt;&gt;</code></em>+++ makes satisfying the concept simple. Below is an example of a feature definition.
+Once we have implemented an accumulator, we must define a feature for it so that users can specify the feature when declaring an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. We typically put the features into a nested namespace, so that later we can define an extractor of the same name. All features must satisfy the xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework.concepts.feature_concept[Feature Concept]. Using xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++] makes satisfying the concept simple. Below is an example of a feature definition.
 
 [source,text]
 ----
@@ -584,7 +610,7 @@ struct mean                         // Features should inherit from
 ----
 
 
-The only two things we must do to define the `mean` feature is to specify the dependencies with +++<em><code>depends_on&lt;&gt;</code></em>+++ and define the nested `impl` typedef. Even features that have no dependencies should inherit from +++<em><code>depends_on&lt;&gt;</code></em>+++. The nested `impl` type must be an link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. The result of `mpl::apply< impl, sample-type, weight-type >::type` must be be the type of the accumulator that implements this feature. The use of link:../../libs/mpl/index.html[MPL] placeholders like `mpl::_1` make it especially easy to make a template such as `mean_accumulator<>` an link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. Here, `mpl::_1` will be replaced with the sample type. Had we used `mpl::_2`, it would have been replaced with the weight type.
+The only two things we must do to define the `mean` feature is to specify the dependencies with xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++] and define the nested `impl` typedef. Even features that have no dependencies should inherit from xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++]. The nested `impl` type must be an link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. The result of `mpl::apply< impl, sample-type, weight-type >::type` must be be the type of the accumulator that implements this feature. The use of link:../../libs/mpl/index.html[MPL] placeholders like `mpl::_1` make it especially easy to make a template such as `mean_accumulator<>` an link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. Here, `mpl::_1` will be replaced with the sample type. Had we used `mpl::_2`, it would have been replaced with the weight type.
 
 What about accumulator types that are not templates? If you have a `foo_accumulator` which is a plain struct and not a template, you could turn it into an link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression] using `mpl::always<>`, like this:
 
@@ -614,7 +640,7 @@ struct impl
 
 Here, `impl` is a binary link:../../libs/mpl/doc/refmanual/metafunction-class.html[MPL Metafunction Class], which is a kind of link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. The nested `apply<>` template is part of the metafunction class protocol and tells MPL how to build the accumulator type given the sample and weight types.
 
-All features must also provide a nested `is_weight_accumulator` typedef. It must be either `mpl::true_` or `mpl::false_`. +++<em><code>depends_on&lt;&gt;</code></em>+++ provides a default of `mpl::false_` for all features that inherit from it, but that can be overridden (or hidden, technically speaking) in the derived type. When the feature represents an accumulation of information about the weights instead of the samples, we can mark this feature as such with `typedef mpl::true_ is_weight_accumulator;`. The weight accumulators are made external if the weight type is specified using the +++<em><code>external&lt;&gt;</code></em>+++ template.
+All features must also provide a nested `is_weight_accumulator` typedef. It must be either `mpl::true_` or `mpl::false_`. xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++] provides a default of `mpl::false_` for all features that inherit from it, but that can be overridden (or hidden, technically speaking) in the derived type. When the feature represents an accumulation of information about the weights instead of the samples, we can mark this feature as such with `typedef mpl::true_ is_weight_accumulator;`. The weight accumulators are made external if the weight type is specified using the xref:reference.adoc#+++doxygen.accumulators_framework_reference.external__accumulator_8hpp+++[+++<em><code>external&lt;&gt;</code></em>+++] template.
 
 [[accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_extractor]]
 
@@ -637,7 +663,7 @@ using extract::mean;                    // Pull the extractor into the
 ----
 
 
-Once defined, the `mean` extractor can be used to extract the result of the `tag::mean` feature from an +++<em><code>accumulator_set&lt;&gt;</code></em>+++.
+Once defined, the `mean` extractor can be used to extract the result of the `tag::mean` feature from an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
 
 Parameterized features complicate this simple picture. Consider the `moment` feature, for calculating the `N`-th moment, where `N` is specified as a template parameter:
 
@@ -675,7 +701,7 @@ using extract::moment;                  // Pull the extractor into the
 ----
 
 
-The return type deserves some explanation. Every +++<em><code>accumulator_set&lt;&gt;</code></em>+++ type is actually a unary link:../../libs/mpl/doc/refmanual/metafunction-class.html[MPL Metafunction Class]. When you `mpl::apply<>` an +++<em><code>accumulator_set&lt;&gt;</code></em>+++ and a feature, the result is the type of the accumulator within the set that implements that feature. And every accumulator provides a nested `result_type` typedef that tells what its return type is. The extractor simply delegates its work to the `extract_result()` function.
+The return type deserves some explanation. Every xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] type is actually a unary link:../../libs/mpl/doc/refmanual/metafunction-class.html[MPL Metafunction Class]. When you `mpl::apply<>` an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] and a feature, the result is the type of the accumulator within the set that implements that feature. And every accumulator provides a nested `result_type` typedef that tells what its return type is. The extractor simply delegates its work to the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>extract_result()</code></em>+++] function.
 
 [[accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.controlling_dependencies]]
 
@@ -685,7 +711,7 @@ The feature-based dependency resolution of the Accumulators Framework is designe
 
 *Aliasing feature dependencies with `feature_of<>`*
 
-Imagine that you would like to implement the hypothetical _fubar_ statistic, and that you know two ways to calculate fubar on a bunch of samples: an accurate but slow calculation and an approximate but fast calculation. You might opt to make the accurate calculation the default, so you implement two accumulators and call them `impl::fubar_impl` and `impl::fast_fubar_impl`. You would also define the `tag::fubar` and `tag::fast_fubar` features as described xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_feature[above]. Now, you would like to inform the Accumulators Framework that these two features are the same from the point of view of dependency resolution. You can do that with +++<em><code>feature_of&lt;&gt;</code></em>+++, as follows:
+Imagine that you would like to implement the hypothetical _fubar_ statistic, and that you know two ways to calculate fubar on a bunch of samples: an accurate but slow calculation and an approximate but fast calculation. You might opt to make the accurate calculation the default, so you implement two accumulators and call them `impl::fubar_impl` and `impl::fast_fubar_impl`. You would also define the `tag::fubar` and `tag::fast_fubar` features as described xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_feature[above]. Now, you would like to inform the Accumulators Framework that these two features are the same from the point of view of dependency resolution. You can do that with xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>feature_of&lt;&gt;</code></em>+++], as follows:
 
 [source,c++]
 ----
@@ -706,7 +732,7 @@ The above code instructs the Accumulators Framework that, if another accumulator
 
 *Registering feature variants with `as_feature<>`*
 
-You may have noticed that some feature variants in the Accumulators Framework can be specified with a nicer syntax. For instance, instead of `tag::mean` and `tag::immediate_mean` you can specify them with `tag::mean(lazy)` and `tag::mean(immediate)` respectively. These are merely aliases, but the syntax makes the relationship between the two clearer. You can create these feature aliases with the +++<em><code>as_feature&lt;&gt;</code></em>+++ trait. Given the fubar example above, you might decide to alias `tag::fubar(accurate)` with `tag::fubar` and `tag::fubar(fast)` with `tag::fast_fubar`. You would do that as follows:
+You may have noticed that some feature variants in the Accumulators Framework can be specified with a nicer syntax. For instance, instead of `tag::mean` and `tag::immediate_mean` you can specify them with `tag::mean(lazy)` and `tag::mean(immediate)` respectively. These are merely aliases, but the syntax makes the relationship between the two clearer. You can create these feature aliases with the xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>as_feature&lt;&gt;</code></em>+++] trait. Given the fubar example above, you might decide to alias `tag::fubar(accurate)` with `tag::fubar` and `tag::fubar(fast)` with `tag::fast_fubar`. You would do that as follows:
 
 [source,c++]
 ----
@@ -867,6 +893,57 @@ In the following table, `F` is the type of a feature and `S` is some scalar type
 
 == The Statistical Accumulators Library
 
+[.accumulators-mini-toc]
+****
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.count[count]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.covariance[covariance]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.density[density]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.error_of_mean[error_of<mean>]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.extended_p_square[extended_p_square]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.extended_p_square_quantile[extended_p_square_quantile _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.kurtosis[kurtosis]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.max[max]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.mean[mean _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.median[median _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.min[min]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.moment[moment]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.p_square_cumulative_distribution[p_square_cumulative_distribution]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.p_square_quantile[p_square_quantile _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.peaks_over_threshold[peaks_over_threshold _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.pot_quantile[pot_quantile _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.pot_tail_mean[pot_tail_mean]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_count[rolling_count]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_sum[rolling_sum]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_mean[rolling_mean]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_moment[rolling_moment]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_variance[rolling_variance]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.skewness[skewness]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.sum[sum _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.tail[tail]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.coherent_tail_mean[coherent_tail_mean]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.non_coherent_tail_mean[non_coherent_tail_mean]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.tail_quantile[tail_quantile]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.tail_variate[tail_variate]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.tail_variate_means[tail_variate_means _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.variance[variance _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_covariance[weighted_covariance]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_density[weighted_density]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_extended_p_square[weighted_extended_p_square]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_kurtosis[weighted_kurtosis]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_mean[weighted_mean _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_median[weighted_median _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_moment[weighted_moment]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_p_square_cumulative_distribution[weighted_p_square_cumulative_distribution]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_p_square_quantile[weighted_p_square_quantile _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_peaks_over_threshold[weighted_peaks_over_threshold _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_skewness[weighted_skewness]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_sum[weighted_sum _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.non_coherent_weighted_tail_mean[non_coherent_weighted_tail_mean]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_tail_quantile[weighted_tail_quantile]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_tail_variate_means[weighted_tail_variate_means _and variants_]
+* xref:#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_variance[weighted_variance _and variants_]
+****
+
 The Statistical Accumulators Library defines accumulators for incremental statistical computations. It is built on top of xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework[The Accumulator Framework].
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.count]]
@@ -905,10 +982,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/count.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.count_8hpp">boost/accumulators/statistics/count.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -925,7 +1002,7 @@ assert(3 == count(acc));
 
 *See also*
 
-* +++<em><code>count_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.count_8hpp[+++<em><code>count_impl</code></em>+++]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.covariance]]
 
@@ -968,11 +1045,11 @@ Extractor Complexity::
 
 *Headers*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/covariance.hpp>
-#include <boost/accumulators/statistics/variates/covariate.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.covariance_8hpp">boost/accumulators/statistics/covariance.hpp</a>&gt;
+#include &lt;<a href="reference.html#doxygen.statistics_library_reference.covariate_8hpp">boost/accumulators/statistics/variates/covariate.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -990,7 +1067,7 @@ assert(covariance(acc) == -1.75);
 
 *See also*
 
-* +++<em><code>covariance_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.covariance_8hpp[+++<em><code>covariance_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.mean[`mean`]
 
@@ -998,7 +1075,7 @@ assert(covariance(acc) == -1.75);
 
 === density
 
-The `tag::density` feature returns a histogram of the sample distribution. For more implementation details, see +++<em><code>density_impl</code></em>+++.
+The `tag::density` feature returns a histogram of the sample distribution. For more implementation details, see xref:reference.adoc#doxygen.statistics_library_reference.density_8hpp[+++<em><code>density_impl</code></em>+++].
 
 Result Type::
 +
@@ -1040,10 +1117,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/density.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.density_8hpp">boost/accumulators/statistics/density.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Note*
@@ -1052,7 +1129,7 @@ Results from the `density` accumulator can only be extracted after the number of
 
 *See also*
 
-* +++<em><code>density_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.density_8hpp[+++<em><code>density_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.min[`min`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.max[`max`]
@@ -1094,11 +1171,11 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/error_of.hpp>
-#include <boost/accumulators/statistics/error_of_mean.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.error__of_8hpp">boost/accumulators/statistics/error_of.hpp</a>&gt;
+#include &lt;<a href="reference.html#doxygen.statistics_library_reference.error__of__mean_8hpp">boost/accumulators/statistics/error_of_mean.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1115,7 +1192,7 @@ assert(0.057735 == error_of<tag::mean>(acc));
 
 *See also*
 
-* +++<em><code>error_of_mean_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.error__of__mean_8hpp+++[+++<em><code>error_of_mean_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.variance[`variance`]
 
@@ -1123,7 +1200,7 @@ assert(0.057735 == error_of<tag::mean>(acc));
 
 === extended_p_square
 
-Multiple quantile estimation with the extended `P^2` algorithm. For further details, see +++<em><code>extended_p_square_impl</code></em>+++.
+Multiple quantile estimation with the extended `P^2` algorithm. For further details, see xref:reference.adoc#+++doxygen.statistics_library_reference.extended__p__square_8hpp+++[+++<em><code>extended_p_square_impl</code></em>+++].
 
 Result Type::
 +
@@ -1157,10 +1234,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/extended_p_square.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.extended__p__square_8hpp">boost/accumulators/statistics/extended_p_square.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1188,14 +1265,14 @@ for (std::size_t i=3; i < probs.size(); ++i)
 
 *See also*
 
-* +++<em><code>extended_p_square_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.extended__p__square_8hpp+++[+++<em><code>extended_p_square_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.extended_p_square_quantile]]
 
 === extended_p_square_quantile _and variants_
 
-Quantile estimation using the extended `P^2` algorithm for weighted and unweighted samples. By default, the calculation is linear and unweighted, but quadratic and weighted variants are also provided. For further implementation details, see +++<em><code>extended_p_square_quantile_impl</code></em>+++.
+Quantile estimation using the extended `P^2` algorithm for weighted and unweighted samples. By default, the calculation is linear and unweighted, but quadratic and weighted variants are also provided. For further implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.extended__p__square__quantile_8hpp+++[+++<em><code>extended_p_square_quantile_impl</code></em>+++].
 
 All the variants share the `tag::quantile` feature and can be extracted using the `quantile()` extractor.
 
@@ -1232,10 +1309,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/extended_p_square_quantile.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">boost/accumulators/statistics/extended_p_square_quantile.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1301,7 +1378,7 @@ for (std::size_t i = 0; i < probs.size() - 1; ++i)
 
 *See also*
 
-* +++<em><code>extended_p_square_quantile_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.extended__p__square__quantile_8hpp+++[+++<em><code>extended_p_square_quantile_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.extended_p_square[`extended_p_square`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_extended_p_square[`weighted_extended_p_square`]
 
@@ -1309,7 +1386,7 @@ for (std::size_t i = 0; i < probs.size() - 1; ++i)
 
 === kurtosis
 
-The kurtosis of a sample distribution is defined as the ratio of the 4th central moment and the square of the 2nd central moment (the variance) of the samples, minus 3. The term `-3` is added in order to ensure that the normal distribution has zero kurtosis. For more implementation details, see +++<em><code>kurtosis_impl</code></em>+++
+The kurtosis of a sample distribution is defined as the ratio of the 4th central moment and the square of the 2nd central moment (the variance) of the samples, minus 3. The term `-3` is added in order to ensure that the normal distribution has zero kurtosis. For more implementation details, see xref:reference.adoc#doxygen.statistics_library_reference.kurtosis_8hpp[+++<em><code>kurtosis_impl</code></em>+++]
 
 Result Type::
 +
@@ -1344,10 +1421,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/kurtosis.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.kurtosis_8hpp">boost/accumulators/statistics/kurtosis.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1372,7 +1449,7 @@ BOOST_CHECK_CLOSE( kurtosis(acc), -1.39965397924, 1e-6 );
 
 *See also*
 
-* +++<em><code>kurtosis_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.kurtosis_8hpp[+++<em><code>kurtosis_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.mean[`mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.moment[`moment`]
 
@@ -1412,10 +1489,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/max.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.max_8hpp">boost/accumulators/statistics/max.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1437,13 +1514,13 @@ BOOST_CHECK_EQUAL(2, (max)(acc));
 
 *See also*
 
-* +++<em><code>max_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.max_8hpp[+++<em><code>max_impl</code></em>+++]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.mean]]
 
 === mean _and variants_
 
-Calculates the mean of samples, weights or variates. The calculation is either lazy (in the result extractor), or immediate (in the accumulator). The lazy implementation is the default. For more implementation details, see +++<em><code>mean_impl</code></em>+++ or. +++<em><code>immediate_mean_impl</code></em>+++
+Calculates the mean of samples, weights or variates. The calculation is either lazy (in the result extractor), or immediate (in the accumulator). The lazy implementation is the default. For more implementation details, see xref:reference.adoc#doxygen.statistics_library_reference.mean_8hpp[+++<em><code>mean_impl</code></em>+++] or. xref:reference.adoc#doxygen.statistics_library_reference.mean_8hpp[+++<em><code>immediate_mean_impl</code></em>+++]
 
 Result Type::
   For samples, `numeric::functional::fdiv<sample-type, std::size_t>::result_type` +
@@ -1480,10 +1557,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/mean.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.mean_8hpp">boost/accumulators/statistics/mean.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1553,8 +1630,8 @@ BOOST_CHECK_CLOSE(5., (accumulators::mean_of_variates<int, tag::covariate1>(acc2
 
 *See also*
 
-* +++<em><code>mean_impl</code></em>+++
-* +++<em><code>immediate_mean_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.mean_8hpp[+++<em><code>mean_impl</code></em>+++]
+* xref:reference.adoc#doxygen.statistics_library_reference.mean_8hpp[+++<em><code>immediate_mean_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 
@@ -1562,7 +1639,7 @@ BOOST_CHECK_CLOSE(5., (accumulators::mean_of_variates<int, tag::covariate1>(acc2
 
 === median _and variants_
 
-Median estimation based on the `P^2` quantile estimator, the density estimator, or the `P^2` cumulative distribution estimator. For more implementation details, see +++<em><code>median_impl</code></em>+++, +++<em><code>with_density_median_impl</code></em>+++, and +++<em><code>with_p_square_cumulative_distribution_median_impl</code></em>+++.
+Median estimation based on the `P^2` quantile estimator, the density estimator, or the `P^2` cumulative distribution estimator. For more implementation details, see xref:reference.adoc#doxygen.statistics_library_reference.median_8hpp[+++<em><code>median_impl</code></em>+++], xref:reference.adoc#doxygen.statistics_library_reference.median_8hpp[+++<em><code>with_density_median_impl</code></em>+++], and xref:reference.adoc#doxygen.statistics_library_reference.median_8hpp[+++<em><code>with_p_square_cumulative_distribution_median_impl</code></em>+++].
 
 The three median accumulators all satisfy the `tag::median` feature, and can all be extracted with the `median()` extractor.
 
@@ -1600,10 +1677,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/median.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.median_8hpp">boost/accumulators/statistics/median.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1639,9 +1716,9 @@ BOOST_CHECK_CLOSE(1., median(acc_cdist), 3.);
 
 *See also*
 
-* +++<em><code>median_impl</code></em>+++
-* +++<em><code>with_density_median_impl</code></em>+++
-* +++<em><code>with_p_square_cumulative_distribution_median_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.median_8hpp[+++<em><code>median_impl</code></em>+++]
+* xref:reference.adoc#doxygen.statistics_library_reference.median_8hpp[+++<em><code>with_density_median_impl</code></em>+++]
+* xref:reference.adoc#doxygen.statistics_library_reference.median_8hpp[+++<em><code>with_p_square_cumulative_distribution_median_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.p_square_quantile[`p_square_quantile`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.p_square_cumulative_distribution[`p_square_cumulative_distribution`]
@@ -1682,10 +1759,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/min.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.min_8hpp">boost/accumulators/statistics/min.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1707,7 +1784,7 @@ BOOST_CHECK_EQUAL(0, (min)(acc));
 
 *See also*
 
-* +++<em><code>min_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.min_8hpp[+++<em><code>min_impl</code></em>+++]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.moment]]
 
@@ -1745,10 +1822,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/moment.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.moment_8hpp">boost/accumulators/statistics/moment.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1778,14 +1855,14 @@ BOOST_CHECK_CLOSE(1106., accumulators::moment<5>(acc2), 1e-5);
 
 *See also*
 
-* +++<em><code>moment_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.moment_8hpp[+++<em><code>moment_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.p_square_cumulative_distribution]]
 
 === p_square_cumulative_distribution
 
-Histogram calculation of the cumulative distribution with the `P^2` algorithm. For more implementation details, see +++<em><code>p_square_cumulative_distribution_impl</code></em>+++
+Histogram calculation of the cumulative distribution with the `P^2` algorithm. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.p__square__cumul__dist_8hpp+++[+++<em><code>p_square_cumulative_distribution_impl</code></em>+++]
 
 Result Type::
 +
@@ -1824,10 +1901,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/p_square_cumul_dist.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.p__square__cumul__dist_8hpp">boost/accumulators/statistics/p_square_cumul_dist.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1865,14 +1942,14 @@ for (std::size_t i = 0; i < histogram.size(); ++i)
 
 *See also*
 
-* +++<em><code>p_square_cumulative_distribution_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.p__square__cumul__dist_8hpp+++[+++<em><code>p_square_cumulative_distribution_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.p_square_quantile]]
 
 === p_square_quantile _and variants_
 
-Single quantile estimation with the `P^2` algorithm. For more implementation details, see +++<em><code>p_square_quantile_impl</code></em>+++
+Single quantile estimation with the `P^2` algorithm. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.p__square__quantile_8hpp+++[+++<em><code>p_square_quantile_impl</code></em>+++]
 
 Result Type::
 +
@@ -1904,10 +1981,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/p_square_quantile.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.p__square__quantile_8hpp">boost/accumulators/statistics/p_square_quantile.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -1960,14 +2037,14 @@ BOOST_CHECK_CLOSE( p_square_quantile(acc8), 0.999, epsilon );
 
 *See also*
 
-* +++<em><code>p_square_quantile_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.p__square__quantile_8hpp+++[+++<em><code>p_square_quantile_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.peaks_over_threshold]]
 
 === peaks_over_threshold _and variants_
 
-Peaks Over Threshold method for quantile and tail mean estimation. For implementation details, see +++<em><code>peaks_over_threshold_impl</code></em>+++ and +++<em><code>peaks_over_threshold_prob_impl</code></em>+++.
+Peaks Over Threshold method for quantile and tail mean estimation. For implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.peaks__over__threshold_8hpp+++[+++<em><code>peaks_over_threshold_impl</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.peaks__over__threshold_8hpp+++[+++<em><code>peaks_over_threshold_prob_impl</code></em>+++].
 
 Both `tag::peaks_over_threshold` and `tag::peaks_over_threshold_prob<>` satisfy the `tag::abstract_peaks_over_threshold` feature, and can be extracted with the `peaks_over_threshold()` extractor. The result is a 3-tuple representing the fit parameters `u_bar`, `beta_bar` and `xi_hat`.
 
@@ -2008,10 +2085,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/peaks_over_threshold.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.peaks__over__threshold_8hpp">boost/accumulators/statistics/peaks_over_threshold.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2020,8 +2097,8 @@ See example for xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical
 
 *See also*
 
-* +++<em><code>peaks_over_threshold_impl</code></em>+++
-* +++<em><code>peaks_over_threshold_prob_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.peaks__over__threshold_8hpp+++[+++<em><code>peaks_over_threshold_impl</code></em>+++]
+* xref:reference.adoc#+++doxygen.statistics_library_reference.peaks__over__threshold_8hpp+++[+++<em><code>peaks_over_threshold_prob_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail[`tail`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.pot_quantile[`pot_quantile`]
@@ -2031,7 +2108,7 @@ See example for xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical
 
 === pot_quantile _and variants_
 
-Quantile estimation based on Peaks over Threshold method (for both left and right tails). For implementation details, see +++<em><code>pot_quantile_impl</code></em>+++.
+Quantile estimation based on Peaks over Threshold method (for both left and right tails). For implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.pot__quantile_8hpp+++[+++<em><code>pot_quantile_impl</code></em>+++].
 
 Both `tag::pot_quantile<left-or-right>` and `tag::pot_quantile_prob<left-or-right>` satisfy the `tag::quantile` feature and can be extracted using the `quantile()` extractor.
 
@@ -2068,10 +2145,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/pot_quantile.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.pot__quantile_8hpp">boost/accumulators/statistics/pot_quantile.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2135,14 +2212,14 @@ BOOST_CHECK_CLOSE( quantile(acc4, quantile_probability = alpha), 6.908, epsilon 
 
 *See also*
 
-* +++<em><code>pot_quantile_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.pot__quantile_8hpp+++[+++<em><code>pot_quantile_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.peaks_over_threshold[`peaks_over_threshold`]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.pot_tail_mean]]
 
 === pot_tail_mean
 
-Estimation of the (coherent) tail mean based on the peaks over threshold method (for both left and right tails). For implementation details, see +++<em><code>pot_tail_mean_impl</code></em>+++.
+Estimation of the (coherent) tail mean based on the peaks over threshold method (for both left and right tails). For implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.pot__tail__mean_8hpp+++[+++<em><code>pot_tail_mean_impl</code></em>+++].
 
 Both `tag::pot_tail_mean<left-or-right>` and `tag::pot_tail_mean_prob<left-or-right>` satisfy the `tag::tail_mean` feature and can be extracted using the `tail_mean()` extractor.
 
@@ -2179,10 +2256,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/pot_tail_mean.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.pot__tail__mean_8hpp">boost/accumulators/statistics/pot_tail_mean.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2195,7 +2272,7 @@ Extractor Complexity::
 
 *See also*
 
-* +++<em><code>pot_tail_mean_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.pot__tail__mean_8hpp+++[+++<em><code>pot_tail_mean_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.peaks_over_threshold[`peaks_over_threshold`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.pot_quantile[`pot_quantile`]
 
@@ -2235,10 +2312,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/rolling_count.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.rolling__count_8hpp">boost/accumulators/statistics/rolling_count.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2268,7 +2345,7 @@ BOOST_CHECK_EQUAL(3u, rolling_count(acc));
 
 *See also*
 
-* +++<em><code>rolling_count_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__count_8hpp+++[+++<em><code>rolling_count_impl</code></em>+++]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.rolling_sum]]
 
@@ -2305,10 +2382,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/rolling_sum.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.rolling__sum_8hpp">boost/accumulators/statistics/rolling_sum.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2338,7 +2415,7 @@ BOOST_CHECK_EQUAL(12, rolling_sum(acc));
 
 *See also*
 
-* +++<em><code>rolling_sum_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__sum_8hpp+++[+++<em><code>rolling_sum_impl</code></em>+++]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.rolling_mean]]
 
@@ -2346,7 +2423,7 @@ BOOST_CHECK_EQUAL(12, rolling_sum(acc));
 
 The rolling mean is the mean over the last _N_ samples. It is computed by dividing the rolling sum by the rolling count.
 
-Lazy or iterative calculation of the mean over the last _N_ samples. The lazy calculation is associated with the `tag::lazy_rolling_mean` feature, and the iterative calculation (which is the default) with the `tag::immediate_rolling_mean` feature. Both can be extracted using the `tag::rolling_mean()` extractor. For more implementation details, see +++<em><code>lazy_rolling_mean_impl</code></em>+++ and +++<em><code>immediate_rolling_mean_impl</code></em>+++
+Lazy or iterative calculation of the mean over the last _N_ samples. The lazy calculation is associated with the `tag::lazy_rolling_mean` feature, and the iterative calculation (which is the default) with the `tag::immediate_rolling_mean` feature. Both can be extracted using the `tag::rolling_mean()` extractor. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__mean_8hpp+++[+++<em><code>lazy_rolling_mean_impl</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__mean_8hpp+++[+++<em><code>immediate_rolling_mean_impl</code></em>+++]
 
 Result Type::
 +
@@ -2380,10 +2457,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/rolling_mean.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.rolling__mean_8hpp">boost/accumulators/statistics/rolling_mean.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2409,8 +2486,8 @@ BOOST_CHECK_CLOSE( rolling_mean(acc), 5.0, 1e-6 );
 
 *See also*
 
-* +++<em><code>lazy_rolling_mean_impl</code></em>+++
-* +++<em><code>immediate_rolling_mean_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__mean_8hpp+++[+++<em><code>lazy_rolling_mean_impl</code></em>+++]
+* xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__mean_8hpp+++[+++<em><code>immediate_rolling_mean_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_count[`rolling_count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_sum[`rolling_sum`]
 
@@ -2450,10 +2527,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/rolling_moment.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.rolling__moment_8hpp">boost/accumulators/statistics/rolling_moment.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2476,13 +2553,13 @@ BOOST_CHECK_CLOSE( rolling_moment<2>(acc), (16.0 + 25.0 + 36.0)/3, 1e-5 );
 
 *See also*
 
-* +++<em><code>rolling_moment_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__moment_8hpp+++[+++<em><code>rolling_moment_impl</code></em>+++]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.rolling_variance]]
 
 === rolling_variance
 
-Lazy or iterative calculation of the variance over the last _N_ samples. The lazy calculation is associated with the `tag::lazy_rolling_variance` feature, and the iterative calculation with the `tag::immediate_rolling_variance` feature. Both can be extracted using the `tag::rolling_variance()` extractor. For more implementation details, see +++<em><code>lazy_rolling_variance_impl</code></em>+++ and +++<em><code>immediate_rolling_variance_impl</code></em>+++
+Lazy or iterative calculation of the variance over the last _N_ samples. The lazy calculation is associated with the `tag::lazy_rolling_variance` feature, and the iterative calculation with the `tag::immediate_rolling_variance` feature. Both can be extracted using the `tag::rolling_variance()` extractor. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__variance_8hpp+++[+++<em><code>lazy_rolling_variance_impl</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__variance_8hpp+++[+++<em><code>immediate_rolling_variance_impl</code></em>+++]
 
 Result Type::
 +
@@ -2516,10 +2593,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/rolling_variance.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.rolling__variance_8hpp">boost/accumulators/statistics/rolling_variance.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2548,8 +2625,8 @@ BOOST_CHECK_CLOSE( rolling_variance(acc), 8.41666666666667, 1e-10 ); // variance
 
 *See also*
 
-* +++<em><code>lazy_rolling_variance_impl</code></em>+++
-* +++<em><code>immediate_rolling_variance_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__variance_8hpp+++[+++<em><code>lazy_rolling_variance_impl</code></em>+++]
+* xref:reference.adoc#+++doxygen.statistics_library_reference.rolling__variance_8hpp+++[+++<em><code>immediate_rolling_variance_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_count[`rolling_count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_mean[`rolling_mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.immediate_rolling_mean[`immediate_rolling_mean`]
@@ -2559,7 +2636,7 @@ BOOST_CHECK_CLOSE( rolling_variance(acc), 8.41666666666667, 1e-10 ); // variance
 
 === skewness
 
-The skewness of a sample distribution is defined as the ratio of the 3rd central moment and the `3/2`-th power of the 2nd central moment (the variance) of the samples 3. For implementation details, see +++<em><code>skewness_impl</code></em>+++.
+The skewness of a sample distribution is defined as the ratio of the 3rd central moment and the `3/2`-th power of the 2nd central moment (the variance) of the samples 3. For implementation details, see xref:reference.adoc#doxygen.statistics_library_reference.skewness_8hpp[+++<em><code>skewness_impl</code></em>+++].
 
 Result Type::
 +
@@ -2593,10 +2670,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/skewness.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.skewness_8hpp">boost/accumulators/statistics/skewness.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2620,7 +2697,7 @@ BOOST_CHECK_CLOSE( skewness(acc2), 0.406040288214, 1e-6 );
 
 *See also*
 
-* +++<em><code>skewness_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.skewness_8hpp[+++<em><code>skewness_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.mean[`mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.moment[`moment`]
 
@@ -2664,11 +2741,11 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/sum.hpp>
-#include <boost/accumulators/statistics/sum_kahan.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.sum_8hpp">boost/accumulators/statistics/sum.hpp</a>&gt;
+#include &lt;<a href="reference.html#doxygen.statistics_library_reference.sum__kahan_8hpp">boost/accumulators/statistics/sum_kahan.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2712,14 +2789,14 @@ BOOST_CHECK_EQUAL(1.0f, sum_kahan(acc));
 
 *See also*
 
-* +++<em><code>sum_impl</code></em>+++
-* +++<em><code>sum_kahan_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.sum_8hpp[+++<em><code>sum_impl</code></em>+++]
+* xref:reference.adoc#+++doxygen.statistics_library_reference.sum__kahan_8hpp+++[+++<em><code>sum_kahan_impl</code></em>+++]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.tail]]
 
 === tail
 
-Tracks the largest or smallest `N` values. `tag::tail<right>` tracks the largest `N`, and `tag::tail<left>` tracks the smallest. The parameter `N` is specified with the `tag::tail<left-or-right>::cache_size` initialization parameter. For implementation details, see +++<em><code>tail_impl</code></em>+++.
+Tracks the largest or smallest `N` values. `tag::tail<right>` tracks the largest `N`, and `tag::tail<left>` tracks the smallest. The parameter `N` is specified with the `tag::tail<left-or-right>::cache_size` initialization parameter. For implementation details, see xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail_impl</code></em>+++].
 
 Both `tag::tail<left>` and `tag::tail<right>` satisfy the `tag::abstract_tail` feature and can be extracted with the `tail()` extractor.
 
@@ -2760,10 +2837,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/tail.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.tail_8hpp">boost/accumulators/statistics/tail.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2772,14 +2849,14 @@ See the Example for xref:user_s_guide.adoc#accumulators.user_s_guide.the_statist
 
 *See also*
 
-* +++<em><code>tail_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail_variate[`tail_variate`]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.coherent_tail_mean]]
 
 === coherent_tail_mean
 
-Estimation of the coherent tail mean based on order statistics (for both left and right tails). The left coherent tail mean feature is `tag::coherent_tail_mean<left>`, and the right coherent tail mean feature is `tag::coherent_tail_mean<right>`. They both share the `tag::tail_mean` feature and can be extracted with the `tail_mean()` extractor. For more implementation details, see +++<em><code>coherent_tail_mean_impl</code></em>+++
+Estimation of the coherent tail mean based on order statistics (for both left and right tails). The left coherent tail mean feature is `tag::coherent_tail_mean<left>`, and the right coherent tail mean feature is `tag::coherent_tail_mean<right>`. They both share the `tag::tail_mean` feature and can be extracted with the `tail_mean()` extractor. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.tail__mean_8hpp+++[+++<em><code>coherent_tail_mean_impl</code></em>+++]
 
 Result Type::
 +
@@ -2813,10 +2890,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/tail_mean.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.tail__mean_8hpp">boost/accumulators/statistics/tail_mean.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2825,7 +2902,7 @@ See the example for xref:user_s_guide.adoc#accumulators.user_s_guide.the_statist
 
 *See also*
 
-* +++<em><code>coherent_tail_mean_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.tail__mean_8hpp+++[+++<em><code>coherent_tail_mean_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.extended_p_square_quantile[`extended_p_square_quantile`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.pot_quantile[`pot_quantile`]
@@ -2836,7 +2913,7 @@ See the example for xref:user_s_guide.adoc#accumulators.user_s_guide.the_statist
 
 === non_coherent_tail_mean
 
-Estimation of the (non-coherent) tail mean based on order statistics (for both left and right tails). The left non-coherent tail mean feature is `tag::non_coherent_tail_mean<left>`, and the right non-choherent tail mean feature is `tag::non_coherent_tail_mean<right>`. They both share the `tag::abstract_non_coherent_tail_mean` feature and can be extracted with the `non_coherent_tail_mean()` extractor. For more implementation details, see +++<em><code>non_coherent_tail_mean_impl</code></em>+++
+Estimation of the (non-coherent) tail mean based on order statistics (for both left and right tails). The left non-coherent tail mean feature is `tag::non_coherent_tail_mean<left>`, and the right non-choherent tail mean feature is `tag::non_coherent_tail_mean<right>`. They both share the `tag::abstract_non_coherent_tail_mean` feature and can be extracted with the `non_coherent_tail_mean()` extractor. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.tail__mean_8hpp+++[+++<em><code>non_coherent_tail_mean_impl</code></em>+++]
 
 Result Type::
 +
@@ -2869,10 +2946,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/tail_mean.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.tail__mean_8hpp">boost/accumulators/statistics/tail_mean.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -2929,7 +3006,7 @@ BOOST_CHECK_CLOSE( tail_mean(acc3, quantile_probability = 0.001), 0.0005, 10 );
 
 *See also*
 
-* +++<em><code>non_coherent_tail_mean_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.tail__mean_8hpp+++[+++<em><code>non_coherent_tail_mean_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail[`tail`]
 
@@ -2937,7 +3014,7 @@ BOOST_CHECK_CLOSE( tail_mean(acc3, quantile_probability = 0.001), 0.0005, 10 );
 
 === tail_quantile
 
-Tail quantile estimation based on order statistics (for both left and right tails). The left tail quantile feature is `tag::tail_quantile<left>`, and the right tail quantile feature is `tag::tail_quantile<right>`. They both share the `tag::quantile` feature and can be extracted with the `quantile()` extractor. For more implementation details, see +++<em><code>tail_quantile_impl</code></em>+++
+Tail quantile estimation based on order statistics (for both left and right tails). The left tail quantile feature is `tag::tail_quantile<left>`, and the right tail quantile feature is `tag::tail_quantile<right>`. They both share the `tag::quantile` feature and can be extracted with the `quantile()` extractor. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.tail__quantile_8hpp+++[+++<em><code>tail_quantile_impl</code></em>+++]
 
 Result Type::
 +
@@ -2970,10 +3047,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/tail_quantile.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.tail__quantile_8hpp">boost/accumulators/statistics/tail_quantile.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3029,7 +3106,7 @@ BOOST_CHECK_CLOSE( quantile(acc3, quantile_probability  = 0.001), -3.090232, eps
 
 *See also*
 
-* +++<em><code>tail_quantile_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.tail__quantile_8hpp+++[+++<em><code>tail_quantile_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail[`tail`]
 
@@ -3037,7 +3114,7 @@ BOOST_CHECK_CLOSE( quantile(acc3, quantile_probability  = 0.001), -3.090232, eps
 
 === tail_variate
 
-Tracks the covariates of largest or smallest `N` samples. `tag::tail_variate<variate-type, variate-tag, right>` tracks the covariate associated with +++<em>&lt;variate-tag&gt;</em>+++ for the largest `N`, and `tag::tail_variate<variate-type, variate-tag, left>` for the smallest. The parameter `N` is specified with the `tag::tail<left-or-right>::cache_size` initialization parameter. For implementation details, see +++<em><code>tail_variate_impl</code></em>+++.
+Tracks the covariates of largest or smallest `N` samples. `tag::tail_variate<variate-type, variate-tag, right>` tracks the covariate associated with +++<em>&lt;variate-tag&gt;</em>+++ for the largest `N`, and `tag::tail_variate<variate-type, variate-tag, left>` for the smallest. The parameter `N` is specified with the `tag::tail<left-or-right>::cache_size` initialization parameter. For implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate_impl</code></em>+++].
 
 Both `tag::tail_variate<variate-type, variate-tag, right>` and `tag::tail_variate<variate-type, variate-tag, left>` satisfy the `tag::abstract_tail_variate` feature and can be extracted with the `tail_variate()` extractor.
 
@@ -3078,10 +3155,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/tail_variate.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.tail__variate_8hpp">boost/accumulators/statistics/tail_variate.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3120,7 +3197,7 @@ CHECK_RANGE_EQUAL(tail_variate(acc), {5, 1, 4, 7});
 
 *See also*
 
-* +++<em><code>tail_variate_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail[`tail`]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.tail_variate_means]]
@@ -3129,7 +3206,7 @@ CHECK_RANGE_EQUAL(tail_variate(acc), {5, 1, 4, 7});
 
 Estimation of the absolute and relative tail variate means (for both left and right tails). The absolute tail variate means has the feature `tag::absolute_tail_variate_means<left-or-right, variate-type, variate-tag>` and the relative tail variate mean has the feature `tag::relative_tail_variate_means<left-or-right, variate-type, variate-tag>`. All absolute tail variate mean features share the `tag::abstract_absolute_tail_variate_means` feature and can be extracted with the `tail_variate_means()` extractor. All the relative tail variate mean features share the `tag::abstract_relative_tail_variate_means` feature and can be extracted with the `relative_tail_variate_means()` extractor.
 
-For more implementation details, see +++<em><code>tail_variate_means_impl</code></em>+++
+For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate__means_8hpp+++[+++<em><code>tail_variate_means_impl</code></em>+++]
 
 Result Type::
 +
@@ -3167,10 +3244,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/tail_variate_means.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.tail__variate__means_8hpp">boost/accumulators/statistics/tail_variate_means.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3283,7 +3360,7 @@ BOOST_CHECK_EQUAL( *(tail_variate_means(acc4, quantile_probability = 0.1).begin(
 
 *See also*
 
-* +++<em><code>tail_variate_means_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate__means_8hpp+++[+++<em><code>tail_variate_means_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.non_coherent_tail_mean[`non_coherent_tail_mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail_variate[`tail_variate`]
 
@@ -3291,7 +3368,7 @@ BOOST_CHECK_EQUAL( *(tail_variate_means(acc4, quantile_probability = 0.1).begin(
 
 === variance _and variants_
 
-Lazy or iterative calculation of the variance. The lazy calculation is associated with the `tag::lazy_variance` feature, and the iterative calculation with the `tag::variance` feature. Both can be extracted using the `tag::variance()` extractor. For more implementation details, see +++<em><code>lazy_variance_impl</code></em>+++ and +++<em><code>variance_impl</code></em>+++
+Lazy or iterative calculation of the variance. The lazy calculation is associated with the `tag::lazy_variance` feature, and the iterative calculation with the `tag::variance` feature. Both can be extracted using the `tag::variance()` extractor. For more implementation details, see xref:reference.adoc#doxygen.statistics_library_reference.variance_8hpp[+++<em><code>lazy_variance_impl</code></em>+++] and xref:reference.adoc#doxygen.statistics_library_reference.variance_8hpp[+++<em><code>variance_impl</code></em>+++]
 
 Result Type::
 +
@@ -3325,10 +3402,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/variance.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.variance_8hpp">boost/accumulators/statistics/variance.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3366,8 +3443,8 @@ BOOST_CHECK_CLOSE(2., variance(acc2), 1e-5);
 
 *See also*
 
-* +++<em><code>lazy_variance_impl</code></em>+++
-* +++<em><code>variance_impl</code></em>+++
+* xref:reference.adoc#doxygen.statistics_library_reference.variance_8hpp[+++<em><code>lazy_variance_impl</code></em>+++]
+* xref:reference.adoc#doxygen.statistics_library_reference.variance_8hpp[+++<em><code>variance_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.mean[`mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.moment[`moment`]
@@ -3376,7 +3453,7 @@ BOOST_CHECK_CLOSE(2., variance(acc2), 1e-5);
 
 === weighted_covariance
 
-An iterative Monte Carlo estimator for the weighted covariance. The feature is specified as `tag::weighted_covariance<variate-type, variate-tag>` and is extracted with the `weighted_variate()` extractor. For more implementation details, see +++<em><code>weighted_covariance_impl</code></em>+++
+An iterative Monte Carlo estimator for the weighted covariance. The feature is specified as `tag::weighted_covariance<variate-type, variate-tag>` and is extracted with the `weighted_variate()` extractor. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__covariance_8hpp+++[+++<em><code>weighted_covariance_impl</code></em>+++]
 
 Result Type::
 +
@@ -3421,10 +3498,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_covariance.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__covariance_8hpp">boost/accumulators/statistics/weighted_covariance.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3445,7 +3522,7 @@ BOOST_CHECK_CLOSE(weighted_covariance(acc), -2.39, epsilon);
 
 *See also*
 
-* +++<em><code>weighted_covariance_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__covariance_8hpp+++[+++<em><code>weighted_covariance_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_mean[`weighted_mean`]
@@ -3454,7 +3531,7 @@ BOOST_CHECK_CLOSE(weighted_covariance(acc), -2.39, epsilon);
 
 === weighted_density
 
-The `tag::weighted_density` feature returns a histogram of the weighted sample distribution. For more implementation details, see +++<em><code>weighted_density_impl</code></em>+++.
+The `tag::weighted_density` feature returns a histogram of the weighted sample distribution. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__density_8hpp+++[+++<em><code>weighted_density_impl</code></em>+++].
 
 Result Type::
 +
@@ -3497,15 +3574,15 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_density.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__density_8hpp">boost/accumulators/statistics/weighted_density.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *See also*
 
-* +++<em><code>weighted_density_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__density_8hpp+++[+++<em><code>weighted_density_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.min[`min`]
@@ -3515,7 +3592,7 @@ Extractor Complexity::
 
 === weighted_extended_p_square
 
-Multiple quantile estimation with the extended `P^2` algorithm for weighted samples. For further details, see +++<em><code>weighted_extended_p_square_impl</code></em>+++.
+Multiple quantile estimation with the extended `P^2` algorithm for weighted samples. For further details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__extended__p__square_8hpp+++[+++<em><code>weighted_extended_p_square_impl</code></em>+++].
 
 Result Type::
 +
@@ -3550,10 +3627,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_extended_p_square.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__extended__p__square_8hpp">boost/accumulators/statistics/weighted_extended_p_square.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3620,7 +3697,7 @@ for (std::size_t i = 0; i < probs_normal1.size(); ++i)
 
 *See also*
 
-* +++<em><code>weighted_extended_p_square_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__extended__p__square_8hpp+++[+++<em><code>weighted_extended_p_square_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 
@@ -3628,7 +3705,7 @@ for (std::size_t i = 0; i < probs_normal1.size(); ++i)
 
 === weighted_kurtosis
 
-The kurtosis of a sample distribution is defined as the ratio of the 4th central moment and the square of the 2nd central moment (the variance) of the samples, minus 3. The term `-3` is added in order to ensure that the normal distribution has zero kurtosis. For more implementation details, see +++<em><code>weighted_kurtosis_impl</code></em>+++
+The kurtosis of a sample distribution is defined as the ratio of the 4th central moment and the square of the 2nd central moment (the variance) of the samples, minus 3. The term `-3` is added in order to ensure that the normal distribution has zero kurtosis. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__kurtosis_8hpp+++[+++<em><code>weighted_kurtosis_impl</code></em>+++]
 
 Result Type::
 +
@@ -3666,10 +3743,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_kurtosis.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__kurtosis_8hpp">boost/accumulators/statistics/weighted_kurtosis.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3694,7 +3771,7 @@ BOOST_CHECK_CLOSE( weighted_kurtosis(acc2), 0.58137026432, 1e-6 );
 
 *See also*
 
-* +++<em><code>weighted_kurtosis_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__kurtosis_8hpp+++[+++<em><code>weighted_kurtosis_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_mean[`weighted_mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_moment[`weighted_moment`]
 
@@ -3702,7 +3779,7 @@ BOOST_CHECK_CLOSE( weighted_kurtosis(acc2), 0.58137026432, 1e-6 );
 
 === weighted_mean _and variants_
 
-Calculates the weighted mean of samples or variates. The calculation is either lazy (in the result extractor), or immediate (in the accumulator). The lazy implementation is the default. For more implementation details, see +++<em><code>weighted_mean_impl</code></em>+++ or. +++<em><code>immediate_weighted_mean_impl</code></em>+++
+Calculates the weighted mean of samples or variates. The calculation is either lazy (in the result extractor), or immediate (in the accumulator). The lazy implementation is the default. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__mean_8hpp+++[+++<em><code>weighted_mean_impl</code></em>+++] or. xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__mean_8hpp+++[+++<em><code>immediate_weighted_mean_impl</code></em>+++]
 
 Result Type::
   For samples, `numeric::functional::fdiv<numeric::functional::multiplies<sample-type, weight-type>::result_type, weight-type>::result_type` +
@@ -3735,10 +3812,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_mean.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__mean_8hpp">boost/accumulators/statistics/weighted_mean.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3799,8 +3876,8 @@ BOOST_CHECK_EQUAL(52./7., (accumulators::weighted_mean_of_variates<int, tag::cov
 
 *See also*
 
-* +++<em><code>weighted_mean_impl</code></em>+++
-* +++<em><code>immediate_weighted_mean_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__mean_8hpp+++[+++<em><code>weighted_mean_impl</code></em>+++]
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__mean_8hpp+++[+++<em><code>immediate_weighted_mean_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_sum[`weighted_sum`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 
@@ -3808,7 +3885,7 @@ BOOST_CHECK_EQUAL(52./7., (accumulators::weighted_mean_of_variates<int, tag::cov
 
 === weighted_median _and variants_
 
-Median estimation for weighted samples based on the `P^2` quantile estimator, the density estimator, or the `P^2` cumulative distribution estimator. For more implementation details, see +++<em><code>weighted_median_impl</code></em>+++, +++<em><code>with_weighted_density_median_impl</code></em>+++, and +++<em><code>with_weighted_p_square_cumulative_distribution_median_impl</code></em>+++.
+Median estimation for weighted samples based on the `P^2` quantile estimator, the density estimator, or the `P^2` cumulative distribution estimator. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__median_8hpp+++[+++<em><code>weighted_median_impl</code></em>+++], +++<em><code>with_weighted_density_median_impl</code></em>+++, and +++<em><code>with_weighted_p_square_cumulative_distribution_median_impl</code></em>+++.
 
 The three median accumulators all satisfy the `tag::weighted_median` feature, and can all be extracted with the `weighted_median()` extractor.
 
@@ -3846,10 +3923,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_median.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__median_8hpp">boost/accumulators/statistics/weighted_median.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3889,7 +3966,7 @@ BOOST_CHECK_CLOSE(1., weighted_median(acc_cdist), 1e-1);
 
 *See also*
 
-* +++<em><code>weighted_median_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__median_8hpp+++[+++<em><code>weighted_median_impl</code></em>+++]
 * +++<em><code>with_weighted_density_median_impl</code></em>+++
 * +++<em><code>with_weighted_p_square_cumulative_distribution_median_impl</code></em>+++
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
@@ -3936,10 +4013,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_moment.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__moment_8hpp">boost/accumulators/statistics/weighted_moment.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -3964,7 +4041,7 @@ BOOST_CHECK_CLOSE(548.54182, accumulators::weighted_moment<7>(acc7), 1e-5);
 
 *See also*
 
-* +++<em><code>weighted_moment_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__moment_8hpp+++[+++<em><code>weighted_moment_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 
@@ -3972,7 +4049,7 @@ BOOST_CHECK_CLOSE(548.54182, accumulators::weighted_moment<7>(acc7), 1e-5);
 
 === weighted_p_square_cumulative_distribution
 
-Histogram calculation of the cumulative distribution with the `P^2` algorithm for weighted samples. For more implementation details, see +++<em><code>weighted_p_square_cumulative_distribution_impl</code></em>+++
+Histogram calculation of the cumulative distribution with the `P^2` algorithm for weighted samples. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__p__square__cumul__dist_8hpp+++[+++<em><code>weighted_p_square_cumulative_distribution_impl</code></em>+++]
 
 Result Type::
 +
@@ -4013,10 +4090,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__p__square__cumul__dist_8hpp">boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -4076,7 +4153,7 @@ for (std::size_t i = 0; i < histogram_upper.size(); ++i)
 
 *See also*
 
-* +++<em><code>weighted_p_square_cumulative_distribution_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__p__square__cumul__dist_8hpp+++[+++<em><code>weighted_p_square_cumulative_distribution_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 
@@ -4084,7 +4161,7 @@ for (std::size_t i = 0; i < histogram_upper.size(); ++i)
 
 === weighted_p_square_quantile _and variants_
 
-Single quantile estimation with the `P^2` algorithm. For more implementation details, see +++<em><code>weighted_p_square_quantile_impl</code></em>+++
+Single quantile estimation with the `P^2` algorithm. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp+++[+++<em><code>weighted_p_square_quantile_impl</code></em>+++]
 
 Result Type::
 +
@@ -4120,10 +4197,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_p_square_quantile.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp">boost/accumulators/statistics/weighted_p_square_quantile.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -4195,7 +4272,7 @@ BOOST_CHECK_CLOSE( weighted_p_square_quantile(acc7),  3.090232, epsilon );
 
 *See also*
 
-* +++<em><code>weighted_p_square_quantile_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp+++[+++<em><code>weighted_p_square_quantile_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 
@@ -4203,7 +4280,7 @@ BOOST_CHECK_CLOSE( weighted_p_square_quantile(acc7),  3.090232, epsilon );
 
 === weighted_peaks_over_threshold _and variants_
 
-Weighted peaks over threshold method for weighted quantile and weighted tail mean estimation. For more implementation details, see +++<em><code>weighted_peaks_over_threshold_impl</code></em>+++ and +++<em><code>weighted_peaks_over_threshold_prob_impl</code></em>+++.
+Weighted peaks over threshold method for weighted quantile and weighted tail mean estimation. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp+++[+++<em><code>weighted_peaks_over_threshold_impl</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp+++[+++<em><code>weighted_peaks_over_threshold_prob_impl</code></em>+++].
 
 Both `tag::weighted_peaks_over_threshold<left-or-right>` and `tag::weighted_peaks_over_threshold_prob<left-or-right>` satisfy the `tag::weighted_peaks_over_threshold<left-or-right>` feature and can be extracted using the `weighted_peaks_over_threshold()` extractor.
 
@@ -4244,16 +4321,16 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_peaks_over_threshold.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp">boost/accumulators/statistics/weighted_peaks_over_threshold.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *See also*
 
-* +++<em><code>weighted_peaks_over_threshold_impl</code></em>+++
-* +++<em><code>weighted_peaks_over_threshold_prob_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp+++[+++<em><code>weighted_peaks_over_threshold_impl</code></em>+++]
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp+++[+++<em><code>weighted_peaks_over_threshold_prob_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail[`tail`]
 
@@ -4263,7 +4340,7 @@ Extractor Complexity::
 
 The skewness of a sample distribution is defined as the ratio of the 3rd central moment and the `3/2`-th power of the 2nd central moment (the variance) of the samples 3. The skewness estimator for weighted samples is formally identical to the estimator for unweighted samples, except that the weighted counterparts of all measures it depends on are to be taken.
 
-For implementation details, see +++<em><code>weighted_skewness_impl</code></em>+++.
+For implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__skewness_8hpp+++[+++<em><code>weighted_skewness_impl</code></em>+++].
 
 Result Type::
 +
@@ -4300,10 +4377,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_skewness.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__skewness_8hpp">boost/accumulators/statistics/weighted_skewness.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -4327,7 +4404,7 @@ BOOST_CHECK_CLOSE( weighted_skewness(acc2), 1.30708406282, 1e-6 );
 
 *See also*
 
-* +++<em><code>weighted_skewness_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__skewness_8hpp+++[+++<em><code>weighted_skewness_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_mean[`weighted_mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_moment[`weighted_moment`]
 
@@ -4368,11 +4445,11 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_sum.hpp>
-#include <boost/accumulators/statistics/weighted_sum_kahan.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__sum_8hpp">boost/accumulators/statistics/weighted_sum.hpp</a>&gt;
+#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__sum__kahan_8hpp">boost/accumulators/statistics/weighted_sum_kahan.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -4405,14 +4482,14 @@ BOOST_CHECK_EQUAL(1.0f, weighted_sum_kahan(acc));
 
 *See also*
 
-* +++<em><code>weighted_sum_impl</code></em>+++
-* +++<em><code>weighted_sum_kahan_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__sum_8hpp+++[+++<em><code>weighted_sum_impl</code></em>+++]
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__sum_8hpp+++[+++<em><code>weighted_sum_kahan_impl</code></em>+++]
 
 [[accumulators.user_s_guide.the_statistical_accumulators_library.non_coherent_weighted_tail_mean]]
 
 === non_coherent_weighted_tail_mean
 
-Estimation of the (non-coherent) weighted tail mean based on order statistics (for both left and right tails). The left non-coherent weighted tail mean feature is `tag::non_coherent_weighted_tail_mean<left>`, and the right non-choherent weighted tail mean feature is `tag::non_coherent_weighted_tail_mean<right>`. They both share the `tag::abstract_non_coherent_tail_mean` feature with the unweighted non-coherent tail mean accumulators and can be extracted with either the `non_coherent_tail_mean()` or the `non_coherent_weighted_tail_mean()` extractors. For more implementation details, see +++<em><code>non_coherent_weighted_tail_mean_impl</code></em>+++.
+Estimation of the (non-coherent) weighted tail mean based on order statistics (for both left and right tails). The left non-coherent weighted tail mean feature is `tag::non_coherent_weighted_tail_mean<left>`, and the right non-choherent weighted tail mean feature is `tag::non_coherent_weighted_tail_mean<right>`. They both share the `tag::abstract_non_coherent_tail_mean` feature with the unweighted non-coherent tail mean accumulators and can be extracted with either the `non_coherent_tail_mean()` or the `non_coherent_weighted_tail_mean()` extractors. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__tail__mean_8hpp+++[+++<em><code>non_coherent_weighted_tail_mean_impl</code></em>+++].
 
 Result Type::
 +
@@ -4448,10 +4525,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_tail_mean.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__tail__mean_8hpp">boost/accumulators/statistics/weighted_tail_mean.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -4498,7 +4575,7 @@ BOOST_CHECK_CLOSE( non_coherent_weighted_tail_mean(acc1, quantile_probability = 
 
 *See also*
 
-* +++<em><code>non_coherent_weighted_tail_mean_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__tail__mean_8hpp+++[+++<em><code>non_coherent_weighted_tail_mean_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail[`tail`]
 
@@ -4506,7 +4583,7 @@ BOOST_CHECK_CLOSE( non_coherent_weighted_tail_mean(acc1, quantile_probability = 
 
 === weighted_tail_quantile
 
-Tail quantile estimation based on order statistics of weighted samples (for both left and right tails). The left weighted tail quantile feature is `tag::weighted_tail_quantile<left>`, and the right weighted tail quantile feature is `tag::weighted_tail_quantile<right>`. They both share the `tag::quantile` feature with the unweighted tail quantile accumulators and can be extracted with either the `quantile()` or the `weighted_tail_quantile()` extractors. For more implementation details, see +++<em><code>weighted_tail_quantile_impl</code></em>+++
+Tail quantile estimation based on order statistics of weighted samples (for both left and right tails). The left weighted tail quantile feature is `tag::weighted_tail_quantile<left>`, and the right weighted tail quantile feature is `tag::weighted_tail_quantile<right>`. They both share the `tag::quantile` feature with the unweighted tail quantile accumulators and can be extracted with either the `quantile()` or the `weighted_tail_quantile()` extractors. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__tail__quantile_8hpp+++[+++<em><code>weighted_tail_quantile_impl</code></em>+++]
 
 Result Type::
 +
@@ -4539,10 +4616,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_tail_quantile.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__tail__quantile_8hpp">boost/accumulators/statistics/weighted_tail_quantile.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -4587,7 +4664,7 @@ BOOST_CHECK_CLOSE( quantile(acc2, quantile_probability  = 0.001), -3.090232, eps
 
 *See also*
 
-* +++<em><code>weighted_tail_quantile_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__tail__quantile_8hpp+++[+++<em><code>weighted_tail_quantile_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.sum[`sum`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail[`tail`]
 
@@ -4597,7 +4674,7 @@ BOOST_CHECK_CLOSE( quantile(acc2, quantile_probability  = 0.001), -3.090232, eps
 
 Estimation of the absolute and relative weighted tail variate means (for both left and right tails) The absolute weighted tail variate means has the feature `tag::absolute_weighted_tail_variate_means<left-or-right, variate-type, variate-tag>` and the relative weighted tail variate mean has the feature `tag::relative_weighted_tail_variate_means<left-or-right, variate-type, variate-tag>`. All absolute weighted tail variate mean features share the `tag::abstract_absolute_tail_variate_means` feature with their unweighted variants and can be extracted with the `tail_variate_means()` and `weighted_tail_variate_means()` extractors. All the relative weighted tail variate mean features share the `tag::abstract_relative_tail_variate_means` feature with their unweighted variants and can be extracted with either the `relative_tail_variate_means()` or `relative_weighted_tail_variate_means()` extractors.
 
-For more implementation details, see +++<em><code>weighted_tail_variate_means_impl</code></em>+++
+For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp+++[+++<em><code>weighted_tail_variate_means_impl</code></em>+++]
 
 Result Type::
 +
@@ -4637,10 +4714,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_tail_variate_means.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp">boost/accumulators/statistics/weighted_tail_variate_means.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -4741,7 +4818,7 @@ BOOST_CHECK_EQUAL( *(weighted_tail_variate_means(acc4, quantile_probability = 0.
 
 *See also*
 
-* +++<em><code>weighted_tail_variate_means_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp+++[+++<em><code>weighted_tail_variate_means_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.non_coherent_weighted_tail_mean[`non_coherent_weighted_tail_mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail_variate[`tail_variate`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.tail[`tail`]
@@ -4750,7 +4827,7 @@ BOOST_CHECK_EQUAL( *(weighted_tail_variate_means(acc4, quantile_probability = 0.
 
 === weighted_variance _and variants_
 
-Lazy or iterative calculation of the weighted variance. The lazy calculation is associated with the `tag::lazy_weighted_variance` feature, and the iterative calculation with the `tag::weighted_variance` feature. Both can be extracted using the `tag::weighted_variance()` extractor. For more implementation details, see +++<em><code>lazy_weighted_variance_impl</code></em>+++ and +++<em><code>weighted_variance_impl</code></em>+++
+Lazy or iterative calculation of the weighted variance. The lazy calculation is associated with the `tag::lazy_weighted_variance` feature, and the iterative calculation with the `tag::weighted_variance` feature. Both can be extracted using the `tag::weighted_variance()` extractor. For more implementation details, see xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__variance_8hpp+++[+++<em><code>lazy_weighted_variance_impl</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__variance_8hpp+++[+++<em><code>weighted_variance_impl</code></em>+++]
 
 Result Type::
 +
@@ -4787,10 +4864,10 @@ Extractor Complexity::
 
 *Header*
 
-[source,c++]
-----
-#include <boost/accumulators/statistics/weighted_variance.hpp>
-----
+++++
+<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.weighted__variance_8hpp">boost/accumulators/statistics/weighted_variance.hpp</a>&gt;
+</code></pre>
+++++
 
 
 *Example*
@@ -4850,8 +4927,8 @@ BOOST_CHECK_CLOSE(1., weighted_variance(acc_immediate), 1.);
 
 *See also*
 
-* +++<em><code>lazy_weighted_variance_impl</code></em>+++
-* +++<em><code>weighted_variance_impl</code></em>+++
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__variance_8hpp+++[+++<em><code>lazy_weighted_variance_impl</code></em>+++]
+* xref:reference.adoc#+++doxygen.statistics_library_reference.weighted__variance_8hpp+++[+++<em><code>weighted_variance_impl</code></em>+++]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.count[`count`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_mean[`weighted_mean`]
 * xref:user_s_guide.adoc#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_moment[`weighted_moment`]
