@@ -1,0 +1,2470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<style>html.fonts-loading{visibility:hidden;opacity:0}</style>
+<script>document.documentElement.classList.add('fonts-loading');</script>
+
+<link rel="preload" href="../_/font/NotoSansDisplay.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="../_/font/NotoSansDisplay-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="../_/font/MonaspaceNeon-Var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="../_/font/MonaspaceXenon-Var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+<script>
+(function() {
+  'use strict';
+  
+  var revealed = false;
+  
+  var reveal = function() {
+    if (revealed) return;
+    revealed = true;
+    document.documentElement.classList.remove('fonts-loading');
+  };
+  
+  setTimeout(reveal, 3000);
+  
+  if (!('FontFace' in window) || !('fonts' in document)) {
+    setTimeout(reveal, 100);
+    return;
+  }
+  
+  var uiRoot = '../_';
+  var fonts = [
+    { 
+      family: 'Noto Sans', 
+      url: uiRoot + '/font/NotoSansDisplay.woff2',
+      descriptors: { style: 'normal', weight: '100 900', stretch: '62.5% 100%' }
+    },
+    { 
+      family: 'Noto Sans', 
+      url: uiRoot + '/font/NotoSansDisplay-Italic.woff2',
+      descriptors: { style: 'italic', weight: '100 900', stretch: '62.5% 100%' }
+    },
+    { 
+      family: 'Monaspace Neon', 
+      url: uiRoot + '/font/MonaspaceNeon-Var.woff2',
+      descriptors: { style: 'normal', weight: '400' }
+    },
+    { 
+      family: 'Monaspace Xenon', 
+      url: uiRoot + '/font/MonaspaceXenon-Var.woff2',
+      descriptors: { style: 'italic', weight: '400' }
+    }
+  ];
+  
+  var loadPromises = fonts.map(function(f) {
+    try {
+      var face = new FontFace(f.family, 'url("' + f.url + '")', f.descriptors);
+      return face.load().then(function(loaded) {
+        document.fonts.add(loaded);
+        return loaded;
+      }).catch(function() {
+        return null;
+      });
+    } catch (e) {
+      return Promise.resolve(null);
+    }
+  });
+  
+  Promise.all(loadPromises)
+    .then(function() {
+      return document.fonts.ready;
+    })
+    .then(reveal)
+    .catch(reveal);
+})();
+</script>    <title>Reference :: Boost.Accumulators</title>
+  <link rel="canonical" href="https://example.org/boost-accumulators/accumulators/reference.html">
+  <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="../_/css/boostlook.css">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/tabs.css">
+    <script>
+    (function() {
+      if (window.self !== window.top) return;
+      var theme = localStorage.getItem('antora-theme');
+      if (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        theme = 'dark';
+      }
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+    </script>
+    <script>var uiRootPath = '../_'</script>
+<link rel="icon" href="../_/img/favicons/favicon.ico" type="image/x-icon">
+    <!-- Favicon configuration -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../_/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../_/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../_/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="../_/img/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="../_/img/favicons/favicon.ico">
+  </head>
+  <body class="article toc2 toc-left">
+    <div class="boostlook">
+   <div id="header">
+      <div id="toc" class="nav-container toc2" data-component="accumulators" data-version="">
+  <aside class="nav">
+    <button class="nav-close"></button>
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+      <div class="title-row">
+        <h3 class="title"><a href="index.html">Boost.Accumulators</a></h3>
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme" style="display:none">
+  <i class="fas fa-sun theme-icon-light"></i>
+  <i class="fas fa-moon theme-icon-dark"></i>
+</button>      </div>
+      <ul class="nav-list">
+        <ul class="nav-list">
+        <li class="" data-depth="1">
+            <a class="nav-link" href="index.html">Chapter 1. Boost.Accumulators</a>
+        </li>
+              <li class="" data-depth="1">
+            <a class="nav-link" href="preface.html">Preface</a>
+        </li>
+              <li class="" data-depth="1">
+            <a class="nav-link" href="user_s_guide.html">User&#8217;s Guide</a>
+        </li>
+              <li class="" data-depth="1">
+            <a class="nav-link" href="acknowledgements.html">Acknowledgements</a>
+        </li>
+              <li class=" is-current-page" data-depth="1">
+            <a class="nav-link" href="reference.html">Reference</a>
+        </li>
+        </ul>
+  </ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+  </div>  <div id="content">
+    <article class="doc max-width-reset">
+  <div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>
+      <a href="index.html" aria-label="Home: Boost.Accumulators">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 -960 960 960" fill="#000000" aria-hidden="true"><path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z"/></svg>
+      </a>
+    </li>
+    <li><a href="reference.html">Reference</a></li>
+  </ul>
+</nav>
+  <div class="search-container">
+    <div id="search-field" class="field has-filter">
+      <input id="search-input" type="text" placeholder="Search the docs" >
+    </div>
+  </div>
+<div class="spirit-nav">
+    <a accesskey="p" href="acknowledgements.html">
+      <span class="material-symbols-outlined" title="Previous: Acknowledgements">arrow_back</span>
+    </a>
+    <a class="disabled" accesskey="u" aria-disabled="true" tabindex="-1">
+      <span class="material-symbols-outlined" title="Up:">arrow_upward</span>
+    </a>
+</div></div>
+    <h1 class="page">Reference</h1>
+  <div id="preamble">
+<div class="sectionbody">
+<style>
+/* Same-page synopsis links (Doxygen-style); default boostlook keeps <a> the same color as code. */
+.doc pre.programlisting code a,
+.doc pre.programlisting a {
+  color: #0b5cad;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+</style>
+<div class="sidebarblock accumulators-mini-toc">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#accumulators_framework_reference">Accumulators Framework Reference</a></p>
+</li>
+<li>
+<p><a href="#statistics_library_reference">Statistics Library Reference</a></p>
+</li>
+<li>
+<p><a href="#numeric_operators_library_reference">Numeric Operators Library Reference</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="accumulators_framework_reference"><a class="anchor" href="#accumulators_framework_reference"></a>Accumulators Framework Reference</h2>
+<div class="sectionbody">
+<div class="sidebarblock accumulators-mini-toc">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.accumulators_8hpp">Header &lt;boost/accumulators/accumulators.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.accumulators__fwd_8hpp">Header &lt;boost/accumulators/accumulators_fwd.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.accumulator__base_8hpp">Header &lt;boost/accumulators/framework/accumulator_base.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.accumulator__concept_8hpp">Header &lt;boost/accumulators/framework/accumulator_concept.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">Header &lt;boost/accumulators/framework/accumulator_set.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">Header &lt;boost/accumulators/framework/accumulators/droppable_accumulator.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.external__accumulator_8hpp">Header &lt;boost/accumulators/framework/accumulators/external_accumulator.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.reference__accumulator_8hpp">Header &lt;boost/accumulators/framework/accumulators/reference_accumulator.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.value__accumulator_8hpp">Header &lt;boost/accumulators/framework/accumulators/value_accumulator.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.depends__on_8hpp">Header &lt;boost/accumulators/framework/depends_on.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.extractor_8hpp">Header &lt;boost/accumulators/framework/extractor.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.features_8hpp">Header &lt;boost/accumulators/framework/features.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.accumulator_8hpp">Header &lt;boost/accumulators/framework/parameters/accumulator.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.sample_8hpp">Header &lt;boost/accumulators/framework/parameters/sample.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.weight_8hpp">Header &lt;boost/accumulators/framework/parameters/weight.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.accumulators_framework_reference.weights_8hpp">Header &lt;boost/accumulators/framework/parameters/weights.hpp&gt;</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.accumulators_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.accumulators_8hpp"></a>Header &lt; boost/accumulators/accumulators.hpp &gt;</h3>
+<div class="paragraph">
+<p>Includes all of the Accumulators Framework.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.accumulators__fwd_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.accumulators__fwd_8hpp"></a>Header &lt; boost/accumulators/accumulators_fwd.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++"><a href="#doxygen.accumulators_framework_reference.accumulators__fwd_8hpp">BOOST_ACCUMULATORS_MAX_FEATURES</a>
+<a href="#doxygen.accumulators_framework_reference.accumulators__fwd_8hpp">BOOST_ACCUMULATORS_MAX_ARGS</a>
+<a href="#doxygen.accumulators_framework_reference.accumulators__fwd_8hpp">BOOST_ACCUMULATORS_PROTO_DISABLE_IF_IS_CONST(T)</a>
+<a href="#doxygen.accumulators_framework_reference.accumulators__fwd_8hpp">BOOST_ACCUMULATORS_GCC_VERSION</a>
+<a href="#doxygen.accumulators_framework_reference.accumulators__fwd_8hpp">BOOST_ACCUMULATORS_IGNORE_GLOBAL(X)</a>
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.accumulator__base_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.accumulator__base_8hpp"></a>Header &lt; boost/accumulators/framework/accumulator_base.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    struct <a href="#doxygen.accumulators_framework_reference.accumulator__base_8hpp">accumulator_base</a>;
+    struct <a href="#doxygen.accumulators_framework_reference.accumulator__base_8hpp">dont_care</a>;
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.accumulator__concept_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.accumulator__concept_8hpp"></a>Header &lt; boost/accumulators/framework/accumulator_concept.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Stat&gt; struct <a href="#doxygen.accumulators_framework_reference.accumulator__concept_8hpp">accumulator_concept</a>;
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.accumulator__set_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp"></a>Header &lt; boost/accumulators/framework/accumulator_set.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Sample, typename Features, typename Weight&gt;
+      struct <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">accumulator_set</a>;
+
+    // This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
+    template&lt;typename Feature, typename <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>&gt;
+      mpl::apply&lt; <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>, Feature &gt;::type const &amp;
+      find_accumulator(<a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a> const &amp; acc);
+    template&lt;typename Feature, typename <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>&gt;
+      mpl::apply&lt; <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>, Feature &gt;::type::result_type
+      <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">extract_result</a>(<a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a> const &amp; acc);
+    template&lt;typename Feature, typename <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>&gt;
+      mpl::apply&lt; <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>, Feature &gt;::type &amp;
+      find_accumulator(<a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a> &amp;acc  <a href="#doxygen.accumulators_framework_reference.accumulators__fwd_8hpp">BOOST_ACCUMULATORS_PROTO_DISABLE_IF_IS_CONST</a>);
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.droppable__accumulator_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp"></a>Header &lt; boost/accumulators/framework/accumulators/droppable_accumulator.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Feature&gt; struct <a href="#doxygen.accumulators_framework_reference.depends__on_8hpp">as_feature</a>&lt;tag::<a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">droppable</a>&lt; Feature &gt;&gt;;
+    template&lt;typename Feature&gt;
+      struct <a href="#doxygen.accumulators_framework_reference.depends__on_8hpp">as_weighted_feature</a>&lt;tag::<a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">droppable</a>&lt; Feature &gt;&gt;;
+
+    template&lt;typename Feature&gt; struct <a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">droppable</a>;
+    template&lt;typename Accumulator&gt; struct <a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">droppable_accumulator</a>;
+    template&lt;typename Accumulator&gt; struct <a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">droppable_accumulator_base</a>;
+
+    template&lt;typename Feature&gt; struct <a href="#doxygen.accumulators_framework_reference.depends__on_8hpp">feature_of</a>&lt;tag::<a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">droppable</a>&lt; Feature &gt;&gt;;
+
+    template&lt;typename Accumulator&gt; struct <a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">with_cached_result</a>;
+    namespace tag {
+      template&lt;typename Feature&gt; struct <a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">as_droppable</a>;
+
+      template&lt;typename Feature&gt; struct <a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">as_droppable</a>&lt;<a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">droppable</a>&lt; Feature &gt;&gt;;
+
+      template&lt;typename Feature&gt; struct <a href="#doxygen.accumulators_framework_reference.droppable__accumulator_8hpp">droppable</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.external__accumulator_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.external__accumulator_8hpp"></a>Header &lt; boost/accumulators/framework/accumulators/external_accumulator.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Feature, typename Tag, typename <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>&gt;
+      struct external;
+
+    template&lt;typename Feature, typename Tag, typename <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>&gt;
+      struct feature_of&lt;tag::external&lt; Feature, Tag, <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a> &gt;&gt;;
+    namespace impl {
+    }
+    namespace tag {
+      template&lt;typename Feature, typename Tag, typename <a href="#doxygen.accumulators_framework_reference.accumulator__set_8hpp">AccumulatorSet</a>&gt;
+        struct external;
+
+      template&lt;typename Feature, typename Tag&gt;
+        struct external&lt;Feature, Tag, void&gt;;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.reference__accumulator_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.reference__accumulator_8hpp"></a>Header &lt; boost/accumulators/framework/accumulators/reference_accumulator.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename ValueType, typename Tag&gt;
+      struct feature_of&lt;tag::reference&lt; ValueType, Tag &gt;&gt;;
+    namespace extract {
+    }
+    namespace impl {
+      template&lt;typename Referent, typename Tag&gt; struct reference_accumulator_impl;
+    }
+    namespace tag {
+      template&lt;typename Referent, typename Tag&gt; struct reference;
+      template&lt;typename Tag&gt; struct reference_tag;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.value__accumulator_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.value__accumulator_8hpp"></a>Header &lt; boost/accumulators/framework/accumulators/value_accumulator.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename ValueType, typename Tag&gt;
+      struct feature_of&lt;tag::value&lt; ValueType, Tag &gt;&gt;;
+    namespace extract {
+    }
+    namespace impl {
+      template&lt;typename ValueType, typename Tag&gt; struct value_accumulator_impl;
+    }
+    namespace tag {
+      template&lt;typename ValueType, typename Tag&gt; struct value;
+      template&lt;typename Tag&gt; struct value_tag;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.depends__on_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.depends__on_8hpp"></a>Header &lt; boost/accumulators/framework/depends_on.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Feature&gt; struct as_feature;
+    template&lt;typename Feature&gt; struct as_weighted_feature;
+    template&lt;typename Feature1, typename Feature2, ...&gt; struct <a href="#doxygen.accumulators_framework_reference.depends__on_8hpp">depends_on</a>;
+    template&lt;typename Feature&gt; struct feature_of;
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.extractor_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.extractor_8hpp"></a>Header &lt; boost/accumulators/framework/extractor.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++"><a href="#doxygen.accumulators_framework_reference.extractor_8hpp">BOOST_ACCUMULATORS_DEFINE_EXTRACTOR</a>(Tag, Feature, ParamSeq)
+</code></pre>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Feature&gt; struct <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>;
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.features_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.features_8hpp"></a>Header &lt; boost/accumulators/framework/features.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Feature1, typename Feature2, ...&gt; struct <a href="#doxygen.accumulators_framework_reference.features_8hpp">features</a>;
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.accumulator_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.accumulator_8hpp"></a>Header &lt; boost/accumulators/framework/parameters/accumulator.hpp &gt;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.sample_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.sample_8hpp"></a>Header &lt; boost/accumulators/framework/parameters/sample.hpp &gt;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.weight_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.weight_8hpp"></a>Header &lt; boost/accumulators/framework/parameters/weight.hpp &gt;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="doxygen.accumulators_framework_reference.weights_8hpp"><a class="anchor" href="#doxygen.accumulators_framework_reference.weights_8hpp"></a>Header &lt; boost/accumulators/framework/parameters/weights.hpp &gt;</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="statistics_library_reference"><a class="anchor" href="#statistics_library_reference"></a>Statistics Library Reference</h2>
+<div class="sectionbody">
+<div class="sidebarblock accumulators-mini-toc">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#doxygen.statistics_library_reference.statistics_8hpp">Header &lt;boost/accumulators/statistics.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.count_8hpp">Header &lt;boost/accumulators/statistics/count.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.covariance_8hpp">Header &lt;boost/accumulators/statistics/covariance.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.density_8hpp">Header &lt;boost/accumulators/statistics/density.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.error__of_8hpp">Header &lt;boost/accumulators/statistics/error_of.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.error__of__mean_8hpp">Header &lt;boost/accumulators/statistics/error_of_mean.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.extended__p__square_8hpp">Header &lt;boost/accumulators/statistics/extended_p_square.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">Header &lt;boost/accumulators/statistics/extended_p_square_quantile.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.kurtosis_8hpp">Header &lt;boost/accumulators/statistics/kurtosis.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.max_8hpp">Header &lt;boost/accumulators/statistics/max.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.mean_8hpp">Header &lt;boost/accumulators/statistics/mean.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.median_8hpp">Header &lt;boost/accumulators/statistics/median.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.min_8hpp">Header &lt;boost/accumulators/statistics/min.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.moment_8hpp">Header &lt;boost/accumulators/statistics/moment.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.p__square__cumul__dist_8hpp">Header &lt;boost/accumulators/statistics/p_square_cumul_dist.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.p__square__quantile_8hpp">Header &lt;boost/accumulators/statistics/p_square_quantile.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.peaks__over__threshold_8hpp">Header &lt;boost/accumulators/statistics/peaks_over_threshold.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.pot__quantile_8hpp">Header &lt;boost/accumulators/statistics/pot_quantile.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.pot__tail__mean_8hpp">Header &lt;boost/accumulators/statistics/pot_tail_mean.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.rolling__count_8hpp">Header &lt;boost/accumulators/statistics/rolling_count.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.rolling__mean_8hpp">Header &lt;boost/accumulators/statistics/rolling_mean.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.rolling__moment_8hpp">Header &lt;boost/accumulators/statistics/rolling_moment.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.rolling__sum_8hpp">Header &lt;boost/accumulators/statistics/rolling_sum.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.rolling__variance_8hpp">Header &lt;boost/accumulators/statistics/rolling_variance.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.rolling__window_8hpp">Header &lt;boost/accumulators/statistics/rolling_window.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.skewness_8hpp">Header &lt;boost/accumulators/statistics/skewness.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.stats_8hpp">Header &lt;boost/accumulators/statistics/stats.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.sum_8hpp">Header &lt;boost/accumulators/statistics/sum.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.sum__kahan_8hpp">Header &lt;boost/accumulators/statistics/sum_kahan.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.tail_8hpp">Header &lt;boost/accumulators/statistics/tail.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.tail__mean_8hpp">Header &lt;boost/accumulators/statistics/tail_mean.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.tail__quantile_8hpp">Header &lt;boost/accumulators/statistics/tail_quantile.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.tail__variate_8hpp">Header &lt;boost/accumulators/statistics/tail_variate.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.tail__variate__means_8hpp">Header &lt;boost/accumulators/statistics/tail_variate_means.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.times2__iterator_8hpp">Header &lt;boost/accumulators/statistics/times2_iterator.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.variance_8hpp">Header &lt;boost/accumulators/statistics/variance.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.covariate_8hpp">Header &lt;boost/accumulators/statistics/variates/covariate.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__covariance_8hpp">Header &lt;boost/accumulators/statistics/weighted_covariance.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__density_8hpp">Header &lt;boost/accumulators/statistics/weighted_density.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__extended__p__square_8hpp">Header &lt;boost/accumulators/statistics/weighted_extended_p_square.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__kurtosis_8hpp">Header &lt;boost/accumulators/statistics/weighted_kurtosis.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__mean_8hpp">Header &lt;boost/accumulators/statistics/weighted_mean.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__median_8hpp">Header &lt;boost/accumulators/statistics/weighted_median.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__moment_8hpp">Header &lt;boost/accumulators/statistics/weighted_moment.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__p__square__cumul__dist_8hpp">Header &lt;boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp">Header &lt;boost/accumulators/statistics/weighted_p_square_quantile.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp">Header &lt;boost/accumulators/statistics/weighted_peaks_over_threshold.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__skewness_8hpp">Header &lt;boost/accumulators/statistics/weighted_skewness.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__sum_8hpp">Header &lt;boost/accumulators/statistics/weighted_sum.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__sum__kahan_8hpp">Header &lt;boost/accumulators/statistics/weighted_sum_kahan.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__tail__mean_8hpp">Header &lt;boost/accumulators/statistics/weighted_tail_mean.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__tail__quantile_8hpp">Header &lt;boost/accumulators/statistics/weighted_tail_quantile.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp">Header &lt;boost/accumulators/statistics/weighted_tail_variate_means.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.weighted__variance_8hpp">Header &lt;boost/accumulators/statistics/weighted_variance.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.with__error_8hpp">Header &lt;boost/accumulators/statistics/with_error.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.statistics_library_reference.statistics__fwd_8hpp">Header &lt;boost/accumulators/statistics_fwd.hpp&gt;</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.statistics_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.statistics_8hpp"></a>Header &lt; boost/accumulators/statistics.hpp &gt;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.count_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.count_8hpp"></a>Header &lt; boost/accumulators/statistics/count.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.count_8hpp">count</a> &gt; const <a href="#doxygen.statistics_library_reference.count_8hpp">count</a>;
+    }
+    namespace impl {
+      struct count_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.count_8hpp">count</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.covariance_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.covariance_8hpp"></a>Header &lt; boost/accumulators/statistics/covariance.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.covariance_8hpp">covariance</a>&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.covariance_8hpp">covariance</a>&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__covariance_8hpp">weighted_covariance</a>&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_covariance &gt; const <a href="#doxygen.statistics_library_reference.covariance_8hpp">covariance</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct covariance_impl;
+    }
+    namespace tag {
+      struct abstract_covariance;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt; struct <a href="#doxygen.statistics_library_reference.covariance_8hpp">covariance</a>;
+    }
+  }
+  namespace numeric {
+    namespace functional {
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct outer_product;
+
+      template&lt;typename Left, typename Right&gt;
+        struct outer_product&lt;Left, Right, std_vector_tag, std_vector_tag&gt;;
+
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct outer_product_base;
+    }
+    namespace op {
+      struct outer_product;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.density_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.density_8hpp"></a>Header &lt; boost/accumulators/statistics/density.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.density_8hpp">density</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__density_8hpp">weighted_density</a>&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.density_8hpp">density</a> &gt; const <a href="#doxygen.statistics_library_reference.density_8hpp">density</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct density_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.density_8hpp">density</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.error__of_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.error__of_8hpp"></a>Header &lt; boost/accumulators/statistics/error_of.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Feature&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.error__of_8hpp">error_of</a>&lt; Feature &gt;&gt;;
+    template&lt;typename Feature&gt;
+      struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.error__of_8hpp">error_of</a>&lt; Feature &gt;&gt;;
+    namespace extract {
+    }
+    namespace impl {
+    }
+    namespace tag {
+      template&lt;typename Feature&gt; struct <a href="#doxygen.statistics_library_reference.error__of_8hpp">error_of</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.error__of__mean_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.error__of__mean_8hpp"></a>Header &lt; boost/accumulators/statistics/error_of_mean.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace impl {
+      template&lt;typename Sample, typename Variance&gt; struct error_of_mean_impl;
+    }
+    namespace tag {
+      template&lt;&gt; struct <a href="#doxygen.statistics_library_reference.error__of_8hpp">error_of</a>&lt;immediate_mean&gt;;
+      template&lt;&gt; struct <a href="#doxygen.statistics_library_reference.error__of_8hpp">error_of</a>&lt;<a href="#doxygen.statistics_library_reference.mean_8hpp">mean</a>&gt;;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.extended__p__square_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.extended__p__square_8hpp"></a>Header &lt; boost/accumulators/statistics/extended_p_square.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.extended__p__square_8hpp">extended_p_square</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__extended__p__square_8hpp">weighted_extended_p_square</a>&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.extended__p__square_8hpp">extended_p_square</a> &gt; const <a href="#doxygen.statistics_library_reference.extended__p__square_8hpp">extended_p_square</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct extended_p_square_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.extended__p__square_8hpp">extended_p_square</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.extended__p__square__quantile_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp"></a>Header &lt; boost/accumulators/statistics/extended_p_square_quantile.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">extended_p_square_quantile</a>(linear)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">extended_p_square_quantile</a>(quadratic)&gt;;
+    template&lt;&gt;
+      struct as_feature&lt;tag::weighted_extended_p_square_quantile(linear)&gt;;
+    template&lt;&gt;
+      struct as_feature&lt;tag::weighted_extended_p_square_quantile(quadratic)&gt;;
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">extended_p_square_quantile</a>&gt;;
+    template&lt;&gt;
+      struct as_weighted_feature&lt;tag::extended_p_square_quantile_quadratic&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">extended_p_square_quantile</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::extended_p_square_quantile_quadratic&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::weighted_extended_p_square_quantile&gt;;
+    template&lt;&gt;
+      struct feature_of&lt;tag::weighted_extended_p_square_quantile_quadratic&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">extended_p_square_quantile</a> &gt; const <a href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">extended_p_square_quantile</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::extended_p_square_quantile_quadratic &gt; const extended_p_square_quantile_quadratic;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::weighted_extended_p_square_quantile &gt; const weighted_extended_p_square_quantile;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::weighted_extended_p_square_quantile_quadratic &gt; const weighted_extended_p_square_quantile_quadratic;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Impl1, typename Impl2&gt;
+        struct extended_p_square_quantile_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.extended__p__square__quantile_8hpp">extended_p_square_quantile</a>;
+      struct extended_p_square_quantile_quadratic;
+      struct weighted_extended_p_square_quantile;
+      struct weighted_extended_p_square_quantile_quadratic;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.kurtosis_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.kurtosis_8hpp"></a>Header &lt; boost/accumulators/statistics/kurtosis.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.kurtosis_8hpp">kurtosis</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__kurtosis_8hpp">weighted_kurtosis</a>&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.kurtosis_8hpp">kurtosis</a> &gt; const <a href="#doxygen.statistics_library_reference.kurtosis_8hpp">kurtosis</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct kurtosis_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.kurtosis_8hpp">kurtosis</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.max_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.max_8hpp"></a>Header &lt; boost/accumulators/statistics/max.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.max_8hpp">max</a> &gt; const <a href="#doxygen.statistics_library_reference.max_8hpp">max</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct max_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.max_8hpp">max</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.mean_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.mean_8hpp"></a>Header &lt; boost/accumulators/statistics/mean.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.mean_8hpp">mean</a>(immediate)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.mean_8hpp">mean</a>(lazy)&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_feature&lt;tag::mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;(immediate)&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_feature&lt;tag::mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;(lazy)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::mean_of_weights(immediate)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::mean_of_weights(lazy)&gt;;
+    template&lt;&gt; struct as_weighted_feature&lt;tag::immediate_mean&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_weighted_feature&lt;tag::immediate_mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.mean_8hpp">mean</a>&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_weighted_feature&lt;tag::mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::immediate_mean&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::immediate_mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::immediate_mean_of_weights&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::immediate_weighted_mean&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::immediate_weighted_mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__mean_8hpp">weighted_mean</a>&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::weighted_mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.mean_8hpp">mean</a> &gt; const <a href="#doxygen.statistics_library_reference.mean_8hpp">mean</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::mean_of_weights &gt; const mean_of_weights;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Tag&gt; struct immediate_mean_impl;
+      template&lt;typename Sample, typename SumFeature&gt; struct mean_impl;
+    }
+    namespace tag {
+      struct immediate_mean;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct immediate_mean_of_variates;
+      struct immediate_mean_of_weights;
+      struct <a href="#doxygen.statistics_library_reference.mean_8hpp">mean</a>;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt; struct mean_of_variates;
+      struct mean_of_weights;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.median_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.median_8hpp"></a>Header &lt; boost/accumulators/statistics/median.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.median_8hpp">median</a>(with_density)&gt;;
+    template&lt;&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.median_8hpp">median</a>(with_p_square_cumulative_distribution)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.median_8hpp">median</a>(with_p_square_quantile)&gt;;
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.median_8hpp">median</a>&gt;;
+    template&lt;&gt; struct as_weighted_feature&lt;tag::with_density_median&gt;;
+    template&lt;&gt;
+      struct as_weighted_feature&lt;tag::with_p_square_cumulative_distribution_median&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__median_8hpp">weighted_median</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::with_density_median&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::with_density_weighted_median&gt;;
+    template&lt;&gt;
+      struct feature_of&lt;tag::with_p_square_cumulative_distribution_median&gt;;
+    template&lt;&gt;
+      struct feature_of&lt;tag::with_p_square_cumulative_distribution_weighted_median&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.median_8hpp">median</a> &gt; const <a href="#doxygen.statistics_library_reference.median_8hpp">median</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::with_density_median &gt; const with_density_median;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::with_p_square_cumulative_distribution_median &gt; const with_p_square_cumulative_distribution_median;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct median_impl;
+      template&lt;typename Sample&gt; struct with_density_median_impl;
+      template&lt;typename Sample&gt;
+        struct with_p_square_cumulative_distribution_median_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.median_8hpp">median</a>;
+      struct with_density_median;
+      struct with_p_square_cumulative_distribution_median;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.min_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.min_8hpp"></a>Header &lt; boost/accumulators/statistics/min.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.min_8hpp">min</a> &gt; const <a href="#doxygen.statistics_library_reference.min_8hpp">min</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct min_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.min_8hpp">min</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.moment_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.moment_8hpp"></a>Header &lt; boost/accumulators/statistics/moment.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;int N&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.moment_8hpp">moment</a>&lt; N &gt;&gt;;
+    template&lt;int N&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__moment_8hpp">weighted_moment</a>&lt; N &gt;&gt;;
+    namespace extract {
+    }
+    namespace impl {
+      template&lt;typename N, typename Sample&gt; struct moment_impl;
+    }
+    namespace tag {
+      template&lt;int N&gt; struct <a href="#doxygen.statistics_library_reference.moment_8hpp">moment</a>;
+    }
+  }
+  namespace numeric {
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.p__square__cumul__dist_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.p__square__cumul__dist_8hpp"></a>Header &lt; boost/accumulators/statistics/p_square_cumul_dist.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt;
+      struct as_weighted_feature&lt;tag::p_square_cumulative_distribution&gt;;
+    template&lt;&gt;
+      struct feature_of&lt;tag::weighted_p_square_cumulative_distribution&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::p_square_cumulative_distribution &gt; const p_square_cumulative_distribution;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct p_square_cumulative_distribution_impl;
+    }
+    namespace tag {
+      struct p_square_cumulative_distribution;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.p__square__quantile_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.p__square__quantile_8hpp"></a>Header &lt; boost/accumulators/statistics/p_square_quantile.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.p__square__quantile_8hpp">p_square_quantile</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp">weighted_p_square_quantile</a>&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.p__square__quantile_8hpp">p_square_quantile</a> &gt; const <a href="#doxygen.statistics_library_reference.p__square__quantile_8hpp">p_square_quantile</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::p_square_quantile_for_median &gt; const p_square_quantile_for_median;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Impl&gt; struct p_square_quantile_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.p__square__quantile_8hpp">p_square_quantile</a>;
+      struct p_square_quantile_for_median;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.peaks__over__threshold_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.peaks__over__threshold_8hpp"></a>Header &lt; boost/accumulators/statistics/peaks_over_threshold.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.peaks__over__threshold_8hpp">peaks_over_threshold</a>&lt; LeftRight &gt;(with_threshold_probability)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.peaks__over__threshold_8hpp">peaks_over_threshold</a>&lt; LeftRight &gt;(with_threshold_value)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.peaks__over__threshold_8hpp">peaks_over_threshold</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_weighted_feature&lt;tag::peaks_over_threshold_prob&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.peaks__over__threshold_8hpp">peaks_over_threshold</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::peaks_over_threshold_prob&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp">weighted_peaks_over_threshold</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::weighted_peaks_over_threshold_prob&lt; LeftRight &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_peaks_over_threshold &gt; const <a href="#doxygen.statistics_library_reference.peaks__over__threshold_8hpp">peaks_over_threshold</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename LeftRight&gt;
+        struct peaks_over_threshold_impl;
+      template&lt;typename Sample, typename LeftRight&gt;
+        struct peaks_over_threshold_prob_impl;
+    }
+    namespace tag {
+      struct abstract_peaks_over_threshold;
+      template&lt;typename LeftRight&gt; struct <a href="#doxygen.statistics_library_reference.peaks__over__threshold_8hpp">peaks_over_threshold</a>;
+      template&lt;typename LeftRight&gt; struct peaks_over_threshold_prob;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.pot__quantile_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.pot__quantile_8hpp"></a>Header &lt; boost/accumulators/statistics/pot_quantile.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.pot__quantile_8hpp">pot_quantile</a>&lt; LeftRight &gt;(with_threshold_probability)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.pot__quantile_8hpp">pot_quantile</a>&lt; LeftRight &gt;(with_threshold_value)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::weighted_pot_quantile&lt; LeftRight &gt;(with_threshold_probability)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::weighted_pot_quantile&lt; LeftRight &gt;(with_threshold_value)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.pot__quantile_8hpp">pot_quantile</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_weighted_feature&lt;tag::pot_quantile_prob&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.pot__quantile_8hpp">pot_quantile</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::pot_quantile_prob&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::weighted_pot_quantile&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::weighted_pot_quantile_prob&lt; LeftRight &gt;&gt;;
+    namespace impl {
+      template&lt;typename Sample, typename Impl, typename LeftRight&gt;
+        struct pot_quantile_impl;
+    }
+    namespace tag {
+      template&lt;typename LeftRight&gt; struct <a href="#doxygen.statistics_library_reference.pot__quantile_8hpp">pot_quantile</a>;
+      template&lt;typename LeftRight&gt; struct pot_quantile_prob;
+      template&lt;typename LeftRight&gt; struct weighted_pot_quantile;
+      template&lt;typename LeftRight&gt; struct weighted_pot_quantile_prob;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.pot__tail__mean_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.pot__tail__mean_8hpp"></a>Header &lt; boost/accumulators/statistics/pot_tail_mean.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.pot__tail__mean_8hpp">pot_tail_mean</a>&lt; LeftRight &gt;(with_threshold_probability)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.pot__tail__mean_8hpp">pot_tail_mean</a>&lt; LeftRight &gt;(with_threshold_value)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::weighted_pot_tail_mean&lt; LeftRight &gt;(with_threshold_probability)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::weighted_pot_tail_mean&lt; LeftRight &gt;(with_threshold_value)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.pot__tail__mean_8hpp">pot_tail_mean</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_weighted_feature&lt;tag::pot_tail_mean_prob&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.pot__tail__mean_8hpp">pot_tail_mean</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::pot_tail_mean_prob&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::weighted_pot_tail_mean&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::weighted_pot_tail_mean_prob&lt; LeftRight &gt;&gt;;
+    namespace impl {
+      template&lt;typename Sample, typename Impl, typename LeftRight&gt;
+        struct pot_tail_mean_impl;
+    }
+    namespace tag {
+      template&lt;typename LeftRight&gt; struct <a href="#doxygen.statistics_library_reference.pot__tail__mean_8hpp">pot_tail_mean</a>;
+      template&lt;typename LeftRight&gt; struct pot_tail_mean_prob;
+      template&lt;typename LeftRight&gt; struct weighted_pot_tail_mean;
+      template&lt;typename LeftRight&gt; struct weighted_pot_tail_mean_prob;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.rolling__count_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.rolling__count_8hpp"></a>Header &lt; boost/accumulators/statistics/rolling_count.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.rolling__count_8hpp">rolling_count</a> &gt; const <a href="#doxygen.statistics_library_reference.rolling__count_8hpp">rolling_count</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct rolling_count_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.rolling__count_8hpp">rolling_count</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.rolling__mean_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.rolling__mean_8hpp"></a>Header &lt; boost/accumulators/statistics/rolling_mean.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.rolling__mean_8hpp">rolling_mean</a>(immediate)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.rolling__mean_8hpp">rolling_mean</a>(lazy)&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::immediate_rolling_mean&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::lazy_rolling_mean&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::lazy_rolling_mean &gt; const lazy_rolling_mean;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::immediate_rolling_mean &gt; const immediate_rolling_mean;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.rolling__mean_8hpp">rolling_mean</a> &gt; const <a href="#doxygen.statistics_library_reference.rolling__mean_8hpp">rolling_mean</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct immediate_rolling_mean_impl;
+      template&lt;typename Sample&gt; struct lazy_rolling_mean_impl;
+    }
+    namespace tag {
+      struct immediate_rolling_mean;
+      struct lazy_rolling_mean;
+      struct <a href="#doxygen.statistics_library_reference.rolling__mean_8hpp">rolling_mean</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.rolling__moment_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.rolling__moment_8hpp"></a>Header &lt; boost/accumulators/statistics/rolling_moment.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+    }
+    namespace impl {
+      template&lt;typename N, typename Sample&gt; struct rolling_moment_impl;
+    }
+    namespace tag {
+      template&lt;int N&gt; struct <a href="#doxygen.statistics_library_reference.rolling__moment_8hpp">rolling_moment</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.rolling__sum_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.rolling__sum_8hpp"></a>Header &lt; boost/accumulators/statistics/rolling_sum.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.rolling__sum_8hpp">rolling_sum</a> &gt; const <a href="#doxygen.statistics_library_reference.rolling__sum_8hpp">rolling_sum</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct rolling_sum_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.rolling__sum_8hpp">rolling_sum</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.rolling__variance_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.rolling__variance_8hpp"></a>Header &lt; boost/accumulators/statistics/rolling_variance.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.rolling__variance_8hpp">rolling_variance</a>(immediate)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.rolling__variance_8hpp">rolling_variance</a>(lazy)&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::immediate_rolling_variance&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::lazy_rolling_variance&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::lazy_rolling_variance &gt; const lazy_rolling_variance;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::immediate_rolling_variance &gt; const immediate_rolling_variance;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.rolling__variance_8hpp">rolling_variance</a> &gt; const <a href="#doxygen.statistics_library_reference.rolling__variance_8hpp">rolling_variance</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct immediate_rolling_variance_impl;
+      template&lt;typename Sample&gt; struct lazy_rolling_variance_impl;
+    }
+    namespace tag {
+      struct immediate_rolling_variance;
+      struct lazy_rolling_variance;
+      struct <a href="#doxygen.statistics_library_reference.rolling__variance_8hpp">rolling_variance</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.rolling__window_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.rolling__window_8hpp"></a>Header &lt; boost/accumulators/statistics/rolling_window.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::rolling_window_plus1 &gt; const rolling_window_plus1;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.rolling__window_8hpp">rolling_window</a> &gt; const <a href="#doxygen.statistics_library_reference.rolling__window_8hpp">rolling_window</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct rolling_window_impl;
+      template&lt;typename Sample&gt; struct rolling_window_plus1_impl;
+      template&lt;typename Args&gt;
+        bool is_rolling_window_plus1_full(Args const &amp; args);
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.rolling__window_8hpp">rolling_window</a>;
+      struct rolling_window_plus1;
+    }
+  }
+  namespace serialization {
+    template&lt;typename Archive, typename T&gt;
+      void save(Archive &amp; ar, const circular_buffer&lt; T &gt; &amp; b,
+                const unsigned int);
+    template&lt;typename Archive, typename T&gt;
+      void load(Archive &amp; ar, circular_buffer&lt; T &gt; &amp; b, const unsigned int);
+    template&lt;typename Archive, typename T&gt;
+      void serialize(Archive &amp; ar, circular_buffer&lt; T &gt; &amp; b,
+                     const unsigned int version);
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.skewness_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.skewness_8hpp"></a>Header &lt; boost/accumulators/statistics/skewness.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.skewness_8hpp">skewness</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__skewness_8hpp">weighted_skewness</a>&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.skewness_8hpp">skewness</a> &gt; const <a href="#doxygen.statistics_library_reference.skewness_8hpp">skewness</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct skewness_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.skewness_8hpp">skewness</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.stats_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.stats_8hpp"></a>Header &lt; boost/accumulators/statistics/stats.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Stat1, typename Stat2, ...&gt; struct <a href="#doxygen.statistics_library_reference.stats_8hpp">stats</a>;
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.sum_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.sum_8hpp"></a>Header &lt; boost/accumulators/statistics/sum.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.sum_8hpp">sum</a>&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::sum_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__sum_8hpp">weighted_sum</a>&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.sum_8hpp">sum</a> &gt; const <a href="#doxygen.statistics_library_reference.sum_8hpp">sum</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::sum_of_weights &gt; const sum_of_weights;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_sum_of_variates &gt; const sum_of_variates;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Tag&gt; struct sum_impl;
+    }
+    namespace tag {
+      struct abstract_sum_of_variates;
+      struct <a href="#doxygen.statistics_library_reference.sum_8hpp">sum</a>;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt; struct sum_of_variates;
+      struct sum_of_weights;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.sum__kahan_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.sum__kahan_8hpp"></a>Header &lt; boost/accumulators/statistics/sum_kahan.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.sum_8hpp">sum</a>(kahan)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::sum_of_weights(kahan)&gt;;
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.sum__kahan_8hpp">sum_kahan</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.sum__kahan_8hpp">sum_kahan</a>&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::sum_of_variates_kahan&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::sum_of_weights_kahan&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__sum__kahan_8hpp">weighted_sum_kahan</a>&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.sum__kahan_8hpp">sum_kahan</a> &gt; const <a href="#doxygen.statistics_library_reference.sum__kahan_8hpp">sum_kahan</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::sum_of_weights_kahan &gt; const sum_of_weights_kahan;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_sum_of_variates &gt; const sum_of_variates_kahan;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Tag&gt; struct sum_kahan_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.sum__kahan_8hpp">sum_kahan</a>;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct sum_of_variates_kahan;
+      struct sum_of_weights_kahan;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.tail_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.tail_8hpp"></a>Header &lt; boost/accumulators/statistics/tail.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.tail_8hpp">tail</a>&lt; LeftRight &gt;&gt;;
+
+    template&lt;typename T&gt; struct tail_cache_size_named_arg;
+
+    template&lt;&gt; struct tail_cache_size_named_arg&lt;left&gt;;
+    template&lt;&gt; struct tail_cache_size_named_arg&lt;right&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_tail &gt; const <a href="#doxygen.statistics_library_reference.tail_8hpp">tail</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename LeftRight&gt; struct tail_impl;
+    }
+    namespace tag {
+      struct abstract_tail;
+      template&lt;typename LeftRight&gt; struct <a href="#doxygen.statistics_library_reference.tail_8hpp">tail</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.tail__mean_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.tail__mean_8hpp"></a>Header &lt; boost/accumulators/statistics/tail_mean.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight&gt;
+      struct as_weighted_feature&lt;tag::non_coherent_tail_mean&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::coherent_tail_mean&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::non_coherent_tail_mean&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::non_coherent_weighted_tail_mean&lt; LeftRight &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_non_coherent_tail_mean &gt; const non_coherent_tail_mean;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.tail__mean_8hpp">tail_mean</a> &gt; const coherent_tail_mean;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename LeftRight&gt;
+        struct coherent_tail_mean_impl;
+      template&lt;typename Sample, typename LeftRight&gt;
+        struct non_coherent_tail_mean_impl;
+    }
+    namespace tag {
+      struct abstract_non_coherent_tail_mean;
+      template&lt;typename LeftRight&gt; struct coherent_tail_mean;
+      template&lt;typename LeftRight&gt; struct non_coherent_tail_mean;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.tail__quantile_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.tail__quantile_8hpp"></a>Header &lt; boost/accumulators/statistics/tail_quantile.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight&gt;
+      struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.tail__quantile_8hpp">tail_quantile</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.tail__quantile_8hpp">tail_quantile</a>&lt; LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__tail__quantile_8hpp">weighted_tail_quantile</a>&lt; LeftRight &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::quantile &gt; const <a href="#doxygen.statistics_library_reference.tail__quantile_8hpp">tail_quantile</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename LeftRight&gt; struct tail_quantile_impl;
+    }
+    namespace tag {
+      template&lt;typename LeftRight&gt; struct <a href="#doxygen.statistics_library_reference.tail__quantile_8hpp">tail_quantile</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.tail__variate_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.tail__variate_8hpp"></a>Header &lt; boost/accumulators/statistics/tail_variate.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>, typename LeftRight&gt;
+      struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.tail__variate_8hpp">tail_variate</a>&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>, LeftRight &gt;&gt;;
+    template&lt;typename LeftRight&gt;
+      struct feature_of&lt;tag::tail_weights&lt; LeftRight &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_tail_variate &gt; const <a href="#doxygen.statistics_library_reference.tail__variate_8hpp">tail_variate</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_tail_weights &gt; const tail_weights;
+    }
+    namespace impl {
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>, typename LeftRight&gt;
+        struct tail_variate_impl;
+    }
+    namespace tag {
+      struct abstract_tail_variate;
+      struct abstract_tail_weights;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>, typename LeftRight&gt;
+        struct <a href="#doxygen.statistics_library_reference.tail__variate_8hpp">tail_variate</a>;
+      template&lt;typename LeftRight&gt; struct tail_weights;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.tail__variate__means_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.tail__variate__means_8hpp"></a>Header &lt; boost/accumulators/statistics/tail_variate_means.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.tail__variate__means_8hpp">tail_variate_means</a>&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;(absolute)&gt;;
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.tail__variate__means_8hpp">tail_variate_means</a>&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;(relative)&gt;;
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_weighted_feature&lt;tag::absolute_tail_variate_means&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_weighted_feature&lt;tag::relative_tail_variate_means&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::absolute_tail_variate_means&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::absolute_weighted_tail_variate_means&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::relative_tail_variate_means&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::relative_weighted_tail_variate_means&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_absolute_tail_variate_means &gt; const <a href="#doxygen.statistics_library_reference.tail__variate__means_8hpp">tail_variate_means</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_relative_tail_variate_means &gt; const relative_tail_variate_means;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Impl, typename LeftRight,
+               typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct tail_variate_means_impl;
+    }
+    namespace tag {
+      template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct absolute_tail_variate_means;
+      struct abstract_absolute_tail_variate_means;
+      struct abstract_relative_tail_variate_means;
+      template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct relative_tail_variate_means;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.times2__iterator_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.times2__iterator_8hpp"></a>Header &lt; boost/accumulators/statistics/times2_iterator.hpp &gt;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.variance_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.variance_8hpp"></a>Header &lt; boost/accumulators/statistics/variance.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.variance_8hpp">variance</a>(immediate)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.variance_8hpp">variance</a>(lazy)&gt;;
+    template&lt;&gt; struct as_weighted_feature&lt;tag::lazy_variance&gt;;
+    template&lt;&gt; struct as_weighted_feature&lt;tag::<a href="#doxygen.statistics_library_reference.variance_8hpp">variance</a>&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::lazy_variance&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::lazy_weighted_variance&gt;;
+    template&lt;&gt; struct feature_of&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__variance_8hpp">weighted_variance</a>&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::lazy_variance &gt; const lazy_variance;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.variance_8hpp">variance</a> &gt; const <a href="#doxygen.statistics_library_reference.variance_8hpp">variance</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename MeanFeature&gt; struct lazy_variance_impl;
+      template&lt;typename Sample, typename MeanFeature, typename Tag&gt;
+        struct variance_impl;
+    }
+    namespace tag {
+      struct lazy_variance;
+      struct <a href="#doxygen.statistics_library_reference.variance_8hpp">variance</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.covariate_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.covariate_8hpp"></a>Header &lt; boost/accumulators/statistics/variates/covariate.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    boost::parameter::keyword&lt; tag ::covariate1 &gt; const covariate1;
+    boost::parameter::keyword&lt; tag ::covariate2 &gt; const covariate2;
+    namespace tag {
+      struct covariate1;
+      struct covariate2;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__covariance_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__covariance_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_covariance.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_covariance &gt; const <a href="#doxygen.statistics_library_reference.weighted__covariance_8hpp">weighted_covariance</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>,
+               typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct weighted_covariance_impl;
+    }
+    namespace tag {
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct <a href="#doxygen.statistics_library_reference.weighted__covariance_8hpp">weighted_covariance</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__density_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__density_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_density.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.density_8hpp">density</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__density_8hpp">weighted_density</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight&gt; struct weighted_density_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.weighted__density_8hpp">weighted_density</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__extended__p__square_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__extended__p__square_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_extended_p_square.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.weighted__extended__p__square_8hpp">weighted_extended_p_square</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__extended__p__square_8hpp">weighted_extended_p_square</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight&gt;
+        struct weighted_extended_p_square_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.weighted__extended__p__square_8hpp">weighted_extended_p_square</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__kurtosis_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__kurtosis_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_kurtosis.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.weighted__kurtosis_8hpp">weighted_kurtosis</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__kurtosis_8hpp">weighted_kurtosis</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight&gt; struct weighted_kurtosis_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.weighted__kurtosis_8hpp">weighted_kurtosis</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__mean_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__mean_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_mean.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__mean_8hpp">weighted_mean</a>(immediate)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__mean_8hpp">weighted_mean</a>(lazy)&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_feature&lt;tag::weighted_mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;(immediate)&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_feature&lt;tag::weighted_mean_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;(lazy)&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.mean_8hpp">mean</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__mean_8hpp">weighted_mean</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename Tag&gt;
+        struct immediate_weighted_mean_impl;
+      template&lt;typename Sample, typename Weight, typename Tag&gt;
+        struct weighted_mean_impl;
+    }
+    namespace tag {
+      struct immediate_weighted_mean;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct immediate_weighted_mean_of_variates;
+      struct <a href="#doxygen.statistics_library_reference.weighted__mean_8hpp">weighted_mean</a>;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct weighted_mean_of_variates;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__median_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__median_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_median.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__median_8hpp">weighted_median</a>(with_density)&gt;;
+    template&lt;&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__median_8hpp">weighted_median</a>(with_p_square_cumulative_distribution)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__median_8hpp">weighted_median</a>(with_p_square_quantile)&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.median_8hpp">median</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__median_8hpp">weighted_median</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct weighted_median_impl;
+      template&lt;typename Sample&gt; struct with_density_weighted_median_impl;
+      template&lt;typename Sample, typename Weight&gt;
+        struct with_p_square_cumulative_distribution_weighted_median_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.weighted__median_8hpp">weighted_median</a>;
+      struct with_density_weighted_median;
+      struct with_p_square_cumulative_distribution_weighted_median;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__moment_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__moment_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_moment.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+    }
+    namespace impl {
+      template&lt;typename N, typename Sample, typename Weight&gt;
+        struct weighted_moment_impl;
+    }
+    namespace tag {
+      template&lt;int N&gt; struct <a href="#doxygen.statistics_library_reference.weighted__moment_8hpp">weighted_moment</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__p__square__cumul__dist_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__p__square__cumul__dist_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::weighted_p_square_cumulative_distribution &gt; const weighted_p_square_cumulative_distribution;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight&gt;
+        struct weighted_p_square_cumulative_distribution_impl;
+    }
+    namespace tag {
+      struct weighted_p_square_cumulative_distribution;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_p_square_quantile.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp">weighted_p_square_quantile</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp">weighted_p_square_quantile</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::weighted_p_square_quantile_for_median &gt; const weighted_p_square_quantile_for_median;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename Impl&gt;
+        struct weighted_p_square_quantile_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.weighted__p__square__quantile_8hpp">weighted_p_square_quantile</a>;
+      struct weighted_p_square_quantile_for_median;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_peaks_over_threshold.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp">weighted_peaks_over_threshold</a>&lt; LeftRight &gt;(with_threshold_probability)&gt;;
+    template&lt;typename LeftRight&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp">weighted_peaks_over_threshold</a>&lt; LeftRight &gt;(with_threshold_value)&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_peaks_over_threshold &gt; const <a href="#doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp">weighted_peaks_over_threshold</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename LeftRight&gt;
+        struct weighted_peaks_over_threshold_impl;
+      template&lt;typename Sample, typename Weight, typename LeftRight&gt;
+        struct weighted_peaks_over_threshold_prob_impl;
+    }
+    namespace tag {
+      template&lt;typename LeftRight&gt; struct <a href="#doxygen.statistics_library_reference.weighted__peaks__over__threshold_8hpp">weighted_peaks_over_threshold</a>;
+      template&lt;typename LeftRight&gt; struct weighted_peaks_over_threshold_prob;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__skewness_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__skewness_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_skewness.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.weighted__skewness_8hpp">weighted_skewness</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__skewness_8hpp">weighted_skewness</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight&gt; struct weighted_skewness_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.weighted__skewness_8hpp">weighted_skewness</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__sum_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__sum_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_sum.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::weighted_sum_of_variates&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.weighted__sum_8hpp">weighted_sum</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__sum_8hpp">weighted_sum</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_weighted_sum_of_variates &gt; const weighted_sum_of_variates;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename Tag&gt;
+        struct weighted_sum_impl;
+    }
+    namespace tag {
+      struct abstract_weighted_sum_of_variates;
+      struct <a href="#doxygen.statistics_library_reference.weighted__sum_8hpp">weighted_sum</a>;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct weighted_sum_of_variates;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__sum__kahan_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__sum__kahan_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_sum_kahan.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__sum_8hpp">weighted_sum</a>(kahan)&gt;;
+    template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct feature_of&lt;tag::weighted_sum_of_variates_kahan&lt; <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.weighted__sum__kahan_8hpp">weighted_sum_kahan</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__sum__kahan_8hpp">weighted_sum_kahan</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_weighted_sum_of_variates &gt; const weighted_sum_of_variates_kahan;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename Tag&gt;
+        struct weighted_sum_kahan_impl;
+    }
+    namespace tag {
+      struct <a href="#doxygen.statistics_library_reference.weighted__sum__kahan_8hpp">weighted_sum_kahan</a>;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct weighted_sum_of_variates_kahan;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__tail__mean_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__tail__mean_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_tail_mean.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_non_coherent_tail_mean &gt; const non_coherent_weighted_tail_mean;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename LeftRight&gt;
+        struct non_coherent_weighted_tail_mean_impl;
+    }
+    namespace tag {
+      template&lt;typename LeftRight&gt; struct non_coherent_weighted_tail_mean;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__tail__quantile_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__tail__quantile_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_tail_quantile.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::quantile &gt; const <a href="#doxygen.statistics_library_reference.weighted__tail__quantile_8hpp">weighted_tail_quantile</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename LeftRight&gt;
+        struct weighted_tail_quantile_impl;
+    }
+    namespace tag {
+      template&lt;typename LeftRight&gt; struct <a href="#doxygen.statistics_library_reference.weighted__tail__quantile_8hpp">weighted_tail_quantile</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_tail_variate_means.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp">weighted_tail_variate_means</a>&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;(absolute)&gt;;
+    template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+      struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp">weighted_tail_variate_means</a>&lt; LeftRight, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a> &gt;(relative)&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_absolute_tail_variate_means &gt; const <a href="#doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp">weighted_tail_variate_means</a>;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::abstract_relative_tail_variate_means &gt; const relative_weighted_tail_variate_means;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename Impl,
+               typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>&gt;
+        struct weighted_tail_variate_means_impl;
+    }
+    namespace tag {
+      template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct absolute_weighted_tail_variate_means;
+      template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct relative_weighted_tail_variate_means;
+    }
+  }
+  namespace numeric {
+    namespace functional {
+      template&lt;typename T, typename U&gt; struct multiply_and_promote_to_double;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.weighted__variance_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.weighted__variance_8hpp"></a>Header &lt; boost/accumulators/statistics/weighted_variance.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__variance_8hpp">weighted_variance</a>(immediate)&gt;;
+    template&lt;&gt; struct as_feature&lt;tag::<a href="#doxygen.statistics_library_reference.weighted__variance_8hpp">weighted_variance</a>(lazy)&gt;;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::lazy_weighted_variance &gt; const lazy_weighted_variance;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.weighted__variance_8hpp">weighted_variance</a> &gt; const <a href="#doxygen.statistics_library_reference.weighted__variance_8hpp">weighted_variance</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample, typename Weight, typename MeanFeature&gt;
+        struct lazy_weighted_variance_impl;
+      template&lt;typename Sample, typename Weight, typename MeanFeature,
+               typename Tag&gt;
+        struct weighted_variance_impl;
+    }
+    namespace tag {
+      struct lazy_weighted_variance;
+      struct <a href="#doxygen.statistics_library_reference.weighted__variance_8hpp">weighted_variance</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.with__error_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.with__error_8hpp"></a>Header &lt; boost/accumulators/statistics/with_error.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    template&lt;typename Feature1, typename Feature2, ...&gt; struct <a href="#doxygen.statistics_library_reference.with__error_8hpp">with_error</a>;
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.statistics_library_reference.statistics__fwd_8hpp"><a class="anchor" href="#doxygen.statistics_library_reference.statistics__fwd_8hpp"></a>Header &lt; boost/accumulators/statistics_fwd.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace accumulators {
+    struct absolute;
+    struct for_median;
+    struct immediate;
+    struct kahan;
+    struct lazy;
+    struct left;
+    struct linear;
+    struct quadratic;
+    struct regular;
+    struct relative;
+    struct right;
+    struct unweighted;
+    struct weighted;
+    struct with_density;
+    struct with_p_square_cumulative_distribution;
+    struct with_p_square_quantile;
+    struct with_threshold_probability;
+    struct with_threshold_value;
+    namespace extract {
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::quantile &gt; const quantile;
+      <a href="#doxygen.accumulators_framework_reference.extractor_8hpp">extractor</a>&lt; tag::<a href="#doxygen.statistics_library_reference.tail__mean_8hpp">tail_mean</a> &gt; const <a href="#doxygen.statistics_library_reference.tail__mean_8hpp">tail_mean</a>;
+    }
+    namespace impl {
+      template&lt;typename Sample&gt; struct rolling_mean_impl;
+    }
+    namespace tag {
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>, typename LeftRight&gt;
+        struct left_tail_variate;
+      struct quantile;
+      template&lt;typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>, typename LeftRight&gt;
+        struct right_tail_variate;
+      struct <a href="#doxygen.statistics_library_reference.tail__mean_8hpp">tail_mean</a>;
+      template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct <a href="#doxygen.statistics_library_reference.tail__variate__means_8hpp">tail_variate_means</a>;
+      template&lt;typename LeftRight, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateType</a>, typename <a href="#doxygen.statistics_library_reference.covariate_8hpp">VariateTag</a>&gt;
+        struct <a href="#doxygen.statistics_library_reference.weighted__tail__variate__means_8hpp">weighted_tail_variate_means</a>;
+    }
+  }
+}
+</code></pre>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="numeric_operators_library_reference"><a class="anchor" href="#numeric_operators_library_reference"></a>Numeric Operators Library Reference</h2>
+<div class="sectionbody">
+<div class="sidebarblock accumulators-mini-toc">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#doxygen.numeric_operators_library_reference.functional_8hpp">Header &lt;boost/accumulators/numeric/functional.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.numeric_operators_library_reference.complex_8hpp">Header &lt;boost/accumulators/numeric/functional/complex.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.numeric_operators_library_reference.valarray_8hpp">Header &lt;boost/accumulators/numeric/functional/valarray.hpp&gt;</a></p>
+</li>
+<li>
+<p><a href="#doxygen.numeric_operators_library_reference.vector_8hpp">Header &lt;boost/accumulators/numeric/functional/vector.hpp&gt;</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doxygen.numeric_operators_library_reference.functional_8hpp"><a class="anchor" href="#doxygen.numeric_operators_library_reference.functional_8hpp"></a>Header &lt; boost/accumulators/numeric/functional.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace numeric {
+    template&lt;typename T&gt; struct default_;
+    template&lt;typename T&gt; struct one;
+    template&lt;typename T&gt; struct one_or_default;
+    template&lt;typename T&gt; struct zero;
+    template&lt;typename T&gt; struct zero_or_default;
+
+    T const default_&lt; T &gt;::value;
+    T const one&lt; T &gt;::value;
+    T const zero&lt; T &gt;::value;
+    template&lt;typename To, typename From&gt;
+      lazy_disable_if&lt; is_const&lt; From &gt;, mpl::if_&lt; is_same&lt; To, From &gt;, To &amp;, To &gt; &gt;::type
+      promote(From &amp; from);
+    template&lt;typename To, typename From&gt;
+      mpl::if_&lt; is_same&lt; Toconst, Fromconst &gt;, Toconst &amp;, Toconst &gt;::type
+      promote(From const &amp; from);
+    namespace functional {
+      template&lt;typename Arg, typename Tag&gt; struct as_max;
+      template&lt;typename Arg, typename EnableIf&gt; struct as_max_base;
+      template&lt;typename Arg, typename Tag&gt; struct as_min;
+      template&lt;typename Arg, typename EnableIf&gt; struct as_min_base;
+
+      template&lt;typename Arg&gt;
+        struct as_min_base&lt;Arg, typename enable_if&lt; is_floating_point&lt; Arg &gt; &gt;::type&gt;;
+
+      template&lt;typename Arg, typename Tag&gt; struct as_one;
+      template&lt;typename Arg, typename EnableIf&gt; struct as_one_base;
+      template&lt;typename Arg, typename Tag&gt; struct as_zero;
+      template&lt;typename Arg, typename EnableIf&gt; struct as_zero_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct assign;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct assign_base;
+      template&lt;typename Arg, typename Tag = typename tag&lt;Arg&gt;::type&gt;
+        struct complement;
+      template&lt;typename Arg, typename EnableIf = void&gt; struct complement_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct divides;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct divides_assign;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct divides_assign_base;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct divides_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct equal_to;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct equal_to_base;
+      template&lt;typename Left, typename Right, typename LeftTag,
+               typename RightTag&gt;
+        struct fdiv;
+      template&lt;typename Left, typename Right, typename EnableIf&gt; struct fdiv_base;
+
+      template&lt;typename Left, typename Right&gt;
+        struct fdiv_base&lt;Left, Right, typename enable_if&lt; are_integral&lt; Left, Right &gt; &gt;::type&gt;;
+
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct greater;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct greater_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct greater_equal;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct greater_equal_base;
+      template&lt;typename Left, typename Right&gt; struct left_ref;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct less;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct less_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct less_equal;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct less_equal_base;
+      template&lt;typename Arg, typename Tag = typename tag&lt;Arg&gt;::type&gt;
+        struct logical_not;
+      template&lt;typename Arg, typename EnableIf = void&gt; struct logical_not_base;
+      template&lt;typename Left, typename Right, typename LeftTag,
+               typename RightTag&gt;
+        struct max_assign;
+      template&lt;typename Left, typename Right, typename EnableIf&gt;
+        struct max_assign_base;
+      template&lt;typename Left, typename Right, typename LeftTag,
+               typename RightTag&gt;
+        struct min_assign;
+      template&lt;typename Left, typename Right, typename EnableIf&gt;
+        struct min_assign_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct minus;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct minus_assign;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct minus_assign_base;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct minus_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct modulus;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct modulus_assign;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct modulus_assign_base;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct modulus_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct multiplies;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct multiplies_assign;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct multiplies_assign_base;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct multiplies_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct not_equal_to;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct not_equal_to_base;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct plus;
+      template&lt;typename Left, typename Right,
+               typename LeftTag = typename tag&lt;Left&gt;::type,
+               typename RightTag = typename tag&lt;Right&gt;::type&gt;
+        struct plus_assign;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct plus_assign_base;
+      template&lt;typename Left, typename Right, typename EnableIf = void&gt;
+        struct plus_base;
+      template&lt;typename To, typename From, typename ToTag, typename FromTag&gt;
+        struct promote;
+      template&lt;typename To, typename From, typename EnableIf&gt; struct promote_base;
+
+      template&lt;typename ToFrom&gt; struct promote_base&lt;ToFrom, ToFrom, void&gt;;
+
+      template&lt;typename Arg, typename Tag = typename tag&lt;Arg&gt;::type&gt;
+        struct unary_minus;
+      template&lt;typename Arg, typename EnableIf = void&gt; struct unary_minus_base;
+      template&lt;typename Arg, typename Tag = typename tag&lt;Arg&gt;::type&gt;
+        struct unary_plus;
+      template&lt;typename Arg, typename EnableIf = void&gt; struct unary_plus_base;
+    }
+    namespace op {
+      struct as_max;
+      struct as_min;
+      struct as_one;
+      struct as_zero;
+      struct assign;
+      struct complement;
+      struct divides;
+      struct divides_assign;
+      struct equal_to;
+      struct fdiv;
+      struct greater;
+      struct greater_equal;
+      struct less;
+      struct less_equal;
+      struct logical_not;
+      struct max_assign;
+      struct min_assign;
+      struct minus;
+      struct minus_assign;
+      struct modulus;
+      struct modulus_assign;
+      struct multiplies;
+      struct multiplies_assign;
+      struct not_equal_to;
+      struct plus;
+      struct plus_assign;
+      template&lt;typename To&gt; struct promote;
+      struct unary_minus;
+      struct unary_plus;
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.numeric_operators_library_reference.complex_8hpp"><a class="anchor" href="#doxygen.numeric_operators_library_reference.complex_8hpp"></a>Header &lt; boost/accumulators/numeric/functional/complex.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace numeric {
+    namespace operators {
+      template&lt;typename T, typename U&gt;
+        disable_if&lt; mpl::or_&lt; is_same&lt; T, U &gt;, is_same&lt; std::<a href="#doxygen.numeric_operators_library_reference.complex_8hpp">complex</a>&lt; T &gt;, U &gt; &gt;, std::<a href="#doxygen.numeric_operators_library_reference.complex_8hpp">complex</a>&lt; T &gt; &gt;::type
+        operator*(std::<a href="#doxygen.numeric_operators_library_reference.complex_8hpp">complex</a>&lt; T &gt; ri, U const &amp; u);
+      template&lt;typename T, typename U&gt;
+        disable_if&lt; mpl::or_&lt; is_same&lt; T, U &gt;, is_same&lt; std::<a href="#doxygen.numeric_operators_library_reference.complex_8hpp">complex</a>&lt; T &gt;, U &gt; &gt;, std::<a href="#doxygen.numeric_operators_library_reference.complex_8hpp">complex</a>&lt; T &gt; &gt;::type
+        operator/(std::<a href="#doxygen.numeric_operators_library_reference.complex_8hpp">complex</a>&lt; T &gt; ri, U const &amp; u);
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.numeric_operators_library_reference.valarray_8hpp"><a class="anchor" href="#doxygen.numeric_operators_library_reference.valarray_8hpp"></a>Header &lt; boost/accumulators/numeric/functional/valarray.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace numeric {
+    namespace functional {
+      template&lt;typename T&gt; struct as_max&lt;T, std_valarray_tag&gt;;
+      template&lt;typename T&gt; struct as_min&lt;T, std_valarray_tag&gt;;
+      template&lt;typename T&gt; struct as_one&lt;T, std_valarray_tag&gt;;
+      template&lt;typename T&gt; struct as_zero&lt;T, std_valarray_tag&gt;;
+      template&lt;typename Left, typename Right, typename RightTag&gt;
+        struct fdiv&lt;Left, Right, std_valarray_tag, RightTag&gt;;
+      template&lt;typename Left, typename Right&gt;
+        struct max_assign&lt;Left, Right, std_valarray_tag, std_valarray_tag&gt;;
+      template&lt;typename Left, typename Right&gt;
+        struct min_assign&lt;Left, Right, std_valarray_tag, std_valarray_tag&gt;;
+      template&lt;typename From&gt;
+        struct promote&lt;bool const, From, void, std_valarray_tag&gt;;
+      template&lt;typename From&gt; struct promote&lt;bool, From, void, std_valarray_tag&gt;;
+      template&lt;typename To, typename From&gt;
+        struct promote&lt;To, From, std_valarray_tag, std_valarray_tag&gt;;
+      template&lt;typename ToFrom&gt;
+        struct promote&lt;ToFrom, ToFrom, std_valarray_tag, std_valarray_tag&gt;;
+      template&lt;typename T&gt; struct tag&lt;std::<a href="#doxygen.numeric_operators_library_reference.valarray_8hpp">valarray</a>&lt; T &gt;&gt;;
+    }
+    namespace operators {
+      template&lt;typename Left, typename Right&gt;
+        unspecified operator/(std::<a href="#doxygen.numeric_operators_library_reference.valarray_8hpp">valarray</a>&lt; Left &gt; const &amp; left,
+                              Right const &amp; right);
+      template&lt;typename Left, typename Right&gt;
+        unspecified operator*(std::<a href="#doxygen.numeric_operators_library_reference.valarray_8hpp">valarray</a>&lt; Left &gt; const &amp; left,
+                              Right const &amp; right);
+      template&lt;typename Left, typename Right&gt;
+        unspecified operator+(std::<a href="#doxygen.numeric_operators_library_reference.valarray_8hpp">valarray</a>&lt; Left &gt; const &amp; left,
+                              std::<a href="#doxygen.numeric_operators_library_reference.valarray_8hpp">valarray</a>&lt; Right &gt; const &amp; right);
+    }
+  }
+}
+</code></pre>
+</div>
+<div class="sect2">
+<h3 id="doxygen.numeric_operators_library_reference.vector_8hpp"><a class="anchor" href="#doxygen.numeric_operators_library_reference.vector_8hpp"></a>Header &lt; boost/accumulators/numeric/functional/vector.hpp &gt;</h3>
+<pre class="programlisting"><code class="language-c++">namespace boost {
+  namespace numeric {
+    namespace functional {
+      template&lt;typename T&gt; struct as_max&lt;T, std_vector_tag&gt;;
+      template&lt;typename T&gt; struct as_min&lt;T, std_vector_tag&gt;;
+      template&lt;typename T&gt; struct as_one&lt;T, std_vector_tag&gt;;
+      template&lt;typename T&gt; struct as_zero&lt;T, std_vector_tag&gt;;
+      template&lt;typename Left, typename Right&gt;
+        struct fdiv&lt;Left, Right, std_vector_tag, void&gt;;
+      template&lt;typename Left, typename Right&gt;
+        struct max_assign&lt;Left, Right, std_vector_tag, std_vector_tag&gt;;
+      template&lt;typename Left, typename Right&gt;
+        struct min_assign&lt;Left, Right, std_vector_tag, std_vector_tag&gt;;
+      template&lt;typename To, typename From&gt;
+        struct promote&lt;To, From, std_vector_tag, std_vector_tag&gt;;
+      template&lt;typename ToFrom&gt;
+        struct promote&lt;ToFrom, ToFrom, std_vector_tag, std_vector_tag&gt;;
+      template&lt;typename T, typename Al&gt; struct tag&lt;std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; T, Al &gt;&gt;;
+    }
+    namespace operators {
+      template&lt;typename Left, typename Right&gt;
+        unspecified operator/(std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; const &amp; left,
+                              Right const &amp; right);
+      template&lt;typename Left, typename Right&gt;
+        std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; typename <a href="#doxygen.numeric_operators_library_reference.functional_8hpp">functional</a>::divides&lt; Left, Right &gt;::result_type &gt;
+        operator/(std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; const &amp; left,
+                  std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Right &gt; const &amp; right);
+      template&lt;typename Left, typename Right&gt;
+        unspecified operator*(std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; const &amp; left,
+                              Right const &amp; right);
+      template&lt;typename Left, typename Right&gt;
+        unspecified operator*(Left const &amp; left,
+                              std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Right &gt; const &amp; right);
+      template&lt;typename Left, typename Right&gt;
+        std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; typename <a href="#doxygen.numeric_operators_library_reference.functional_8hpp">functional</a>::multiplies&lt; Left, Right &gt;::result_type &gt;
+        operator*(std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; const &amp; left,
+                  std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Right &gt; const &amp; right);
+      template&lt;typename Left, typename Right&gt;
+        std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; typename <a href="#doxygen.numeric_operators_library_reference.functional_8hpp">functional</a>::plus&lt; Left, Right &gt;::result_type &gt;
+        operator+(std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; const &amp; left,
+                  std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Right &gt; const &amp; right);
+      template&lt;typename Left, typename Right&gt;
+        std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; typename <a href="#doxygen.numeric_operators_library_reference.functional_8hpp">functional</a>::minus&lt; Left, Right &gt;::result_type &gt;
+        operator-(std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; const &amp; left,
+                  std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Right &gt; const &amp; right);
+      template&lt;typename Left&gt;
+        std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; &amp;
+        operator+=(std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; &amp; left,
+                   std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Left &gt; const &amp; right);
+      template&lt;typename Arg&gt;
+        std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; typename <a href="#doxygen.numeric_operators_library_reference.functional_8hpp">functional</a>::unary_minus&lt; Arg &gt;::result_type &gt;
+        operator-(std::<a href="#doxygen.numeric_operators_library_reference.vector_8hpp">vector</a>&lt; Arg &gt; const &amp; arg);
+    }
+  }
+}
+</code></pre>
+</div>
+</div>
+</div>
+  <div class="edit-this-page">
+      <a href="file:///D:/dev/boost/libs/accumulators/doc/modules/ROOT/pages/reference.adoc">Edit this Page</a>
+  </div>
+  </article>
+</div>
+  <div id="footer">
+  <script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script defer src="../_/js/accumulators-keyboard-nav.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/tabs.js" data-sync-storage-key="preferred-tab"></script>
+<script defer src="../_/js/vendor/lunr.js"></script>
+<script defer src="../_/js/search-ui.js" id="search-ui-script" data-site-root-path=".."
+  data-ui-root-path="../_"></script>
+<script defer src="../search-index.js"></script>
+<script>
+(function () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'auto';
+  }
+  function scrollKey() {
+    return 'accumulatorsDocScroll:' + location.pathname + location.search;
+  }
+  function isBackForwardNavigation() {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav && nav.type === 'back_forward') return true;
+    try {
+      var p = performance.navigation;
+      if (p && p.type === 2) return true;
+    } catch (e) {}
+    return false;
+  }
+  window.addEventListener('pagehide', function () {
+    try {
+      sessionStorage.setItem(scrollKey(), String(window.scrollY || window.pageYOffset || 0));
+    } catch (e) {}
+  });
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) return;
+    try {
+      if (!isBackForwardNavigation()) return;
+      var y = sessionStorage.getItem(scrollKey());
+      if (y == null) return;
+      var n = parseInt(y, 10);
+      if (isNaN(n)) return;
+      function applyScroll() {
+        window.scrollTo(0, n);
+      }
+      setTimeout(applyScroll, 0);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(applyScroll);
+      });
+    } catch (e) {}
+  });
+  function scrollToHash() {
+    var h = location.hash;
+    if (!h || h.length < 2) return;
+    var id = decodeURIComponent(h.slice(1));
+    var el = document.getElementById(id);
+    if (!el) {
+      try {
+        var esc = typeof CSS !== 'undefined' && CSS.escape ? CSS.escape(id) : id.replace(/"/g, '');
+        el = document.querySelector('[name="' + esc + '"]');
+      } catch (e) {}
+    }
+    if (el) el.scrollIntoView({ block: 'start' });
+  }
+  window.addEventListener('popstate', function () {
+    setTimeout(scrollToHash, 0);
+  });
+  window.addEventListener('hashchange', scrollToHash);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scrollToHash);
+  } else {
+    scrollToHash();
+  }
+})();
+</script>
+<script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var toolbarNav = document.querySelector('.toolbar .spirit-nav');
+    if (!toolbarNav) return;
+
+    /* Home belongs in breadcrumbs (left). Remove duplicate house icons from the top spirit-nav only. */
+    Array.prototype.slice.call(toolbarNav.querySelectorAll('a')).forEach(function (a) {
+      var sp = a.querySelector('.material-symbols-outlined');
+      if (!sp) return;
+      var t = (sp.textContent || '').replace(/\s+/g, '');
+      if (t === 'home' && a.parentNode === toolbarNav) a.parentNode.removeChild(a);
+    });
+
+    function enableUp(anchor) {
+      if (!anchor) return;
+      if (anchor.classList.contains('disabled') || anchor.getAttribute('aria-disabled') === 'true') {
+        anchor.classList.remove('disabled');
+        anchor.removeAttribute('aria-disabled');
+        anchor.removeAttribute('tabindex');
+      }
+      anchor.setAttribute('href', 'index.html');
+      var ic = anchor.querySelector('.material-symbols-outlined');
+      if (ic) ic.setAttribute('title', 'Up: Boost.Accumulators (home)');
+    }
+
+    function ensureHome(container) {
+      if (!container || container.querySelector('a[accesskey="h"]')) return;
+      var home = document.createElement('a');
+      home.setAttribute('accesskey', 'h');
+      home.setAttribute('href', 'index.html');
+      var span = document.createElement('span');
+      span.className = 'material-symbols-outlined';
+      span.setAttribute('title', 'Home');
+      span.appendChild(document.createTextNode('home'));
+      home.appendChild(span);
+      var next = container.querySelector('a[accesskey="n"]');
+      var up = container.querySelector('a[accesskey="u"]');
+      if (next) {
+        next.parentNode.insertBefore(home, next);
+      } else if (up) {
+        if (up.nextSibling) up.parentNode.insertBefore(home, up.nextSibling);
+        else up.parentNode.appendChild(home);
+      } else {
+        var prev = container.querySelector('a[accesskey="p"]');
+        if (prev) {
+          if (prev.nextSibling) prev.parentNode.insertBefore(home, prev.nextSibling);
+          else prev.parentNode.appendChild(home);
+        } else {
+          container.appendChild(home);
+        }
+      }
+    }
+
+    function ensureNextPlaceholder(container) {
+      if (!container || container.querySelector('a[accesskey="n"]')) return;
+      var a = document.createElement('a');
+      a.className = 'disabled';
+      a.setAttribute('aria-disabled', 'true');
+      a.setAttribute('tabindex', '-1');
+      a.setAttribute('accesskey', 'n');
+      var sp = document.createElement('span');
+      sp.className = 'material-symbols-outlined';
+      sp.setAttribute('title', 'Next');
+      sp.appendChild(document.createTextNode('arrow_forward'));
+      a.appendChild(sp);
+      container.appendChild(a);
+    }
+
+    /* Top bar: keep Antora prev/up/next only; home is already in breadcrumbs (left). */
+    enableUp(toolbarNav.querySelector('a[accesskey="u"]'));
+
+    var article = document.querySelector('article.doc');
+    if (article && !article.querySelector('.spirit-nav-footer-wrap')) {
+      var wrap = document.createElement('div');
+      wrap.className = 'spirit-nav-footer-wrap';
+      wrap.setAttribute('role', 'navigation');
+      var bottom = toolbarNav.cloneNode(true);
+      bottom.classList.add('spirit-nav-bottom');
+      Array.prototype.forEach.call(bottom.querySelectorAll('a[accesskey="u"]'), enableUp);
+      ensureHome(bottom);
+      ensureNextPlaceholder(bottom);
+      wrap.appendChild(bottom);
+      var edit = article.querySelector('.edit-this-page');
+      if (edit) {
+        edit.parentNode.insertBefore(wrap, edit);
+      } else {
+        article.appendChild(wrap);
+      }
+    }
+  });
+})();
+</script>
+</div>
+</div>
+  </body>
+</html>

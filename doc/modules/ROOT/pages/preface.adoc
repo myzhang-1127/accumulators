@@ -1,8 +1,6 @@
 = Preface
 :id: accumulators.preface
 
-[[accumulators.preface]]
-
 [quote]
 ____
 It is better to be approximately right than exactly wrong. -- Old adage

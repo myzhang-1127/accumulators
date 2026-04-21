@@ -6,7 +6,8 @@
 # Distributed under the Boost Software License, Version 1.0.
 #
 # Build Antora site under doc/build/site. Optionally builds Doxygen HTML via b2
-# and copies it to build/site/_/ref/ for the Reference hub.
+# (accdoc/statsdoc/opdoc) into doc/html. Snapshot before removing dead commented
+# post-Antora blocks: build_antora.sh.bak (restore with: cp build_antora.sh.bak build_antora.sh).
 #
 
 set -e
@@ -42,7 +43,7 @@ if [ "${SKIP_LEGACY_DOXYGEN:-}" != "1" ] && [ -n "${BOOST_SRC_DIR:-}" ]; then
   ( cd "$BOOST_SRC_DIR" && ./b2 -q -d0 \
       libs/accumulators/doc//accdoc \
       libs/accumulators/doc//statsdoc \
-      libs/accumulators/doc//opdoc ) || echo "warning: b2 Doxygen targets failed; reference static copy may be empty."
+      libs/accumulators/doc//opdoc ) || echo "warning: b2 Doxygen targets failed (doc/html may be incomplete)."
 fi
 
 echo "Installing npm dependencies..."
@@ -71,61 +72,5 @@ if [ -f "$LEG_HTML_CSS" ]; then
   cp "$LEG_HTML_CSS" "$SITE/_/css/accumulators-legacy-html.css"
   echo "Copied accumulators-legacy-html.css to site _/css/"
 fi
-
-# REF_DST="$SITE/_/ref"
-# mkdir -p "$REF_DST"
-# for d in accdoc statsdoc opdoc; do
-#   if [ -d "$SCRIPT_DIR/html/$d" ]; then
-#    echo "Copying html/$d -> _/ref/"
-#     rm -rf "$REF_DST/$d"
-#     cp -r "$SCRIPT_DIR/html/$d" "$REF_DST/"
-#   fi
-# done
-# Framework struct pages linked from the User's Guide (depends_on<>, feature_of<>, as_feature<>).
-# if [ -d "$SCRIPT_DIR/html/doxygen/accumulators_framework_reference" ]; then
-#  echo "Copying html/doxygen/accumulators_framework_reference -> _/ref/"
-#  rm -rf "$REF_DST/accumulators_framework_reference"
-#  cp -r "$SCRIPT_DIR/html/doxygen/accumulators_framework_reference" "$REF_DST/"
-#fi
-
-# IMG_DST="$SITE/_/img"
-# mkdir -p "$IMG_DST"
-# if [ -n "${BOOST_SRC_DIR:-}" ]; then
-#   if [ -f "$BOOST_SRC_DIR/boost.png" ]; then
-#     cp "$BOOST_SRC_DIR/boost.png" "$IMG_DST/"
-#     echo "Copied boost.png -> _/img/"
-#   fi
-#   for f in prev.png next.png up.png home.png; do
-#     if [ -f "$BOOST_SRC_DIR/doc/src/images/$f" ]; then
-#       cp "$BOOST_SRC_DIR/doc/src/images/$f" "$IMG_DST/"
-#     fi
-#   done
-# fi
-
-# if [ -d "$REF_DST/accumulators_framework_reference" ]; then
-#   echo "Patching framework reference HTML paths for Antora layout..."
-#   PY=python3
-#   command -v python3 >/dev/null 2>&1 || PY=python
-#   "$PY" "$SCRIPT_DIR/tools/fix_framework_ref_html.py" "$REF_DST/accumulators_framework_reference" || true
-# fi
-
-# if [ -n "${BOOST_SRC_DIR:-}" ]; then
-#   BL="$BOOST_SRC_DIR/tools/boostlook/boostlook.css"
-#   if [ -f "$BL" ]; then
-#     cp "$BL" "$SITE/_/css/"
-#     echo "Copied boostlook.css to site _/css/"
-#   fi
-# fi
-
-# # Replace thin Antora reference page with legacy BoostBook reference (Doxygen section anchors + working links).
-# LEGREF="$SCRIPT_DIR/html/accumulators/reference.html"
-# if [ -f "$LEGREF" ]; then
-#   mkdir -p "$SITE/accumulators"
-#   cp "$LEGREF" "$SITE/accumulators/reference.html"
-#   echo "Installed legacy reference.html (Doxygen anchors) under accumulators/"
-#   PY=python3
-#   command -v python3 >/dev/null 2>&1 || PY=python
-#   "$PY" "$SCRIPT_DIR/tools/fix_reference_html_paths.py" "$SITE/accumulators/reference.html" || true
-# fi
 
 echo "Done. Open build/site/index.html or the component index under build/site/accumulators/"

@@ -3,10 +3,10 @@
 <script async src="{{{uiRootPath}}}/js/vendor/highlight.js"></script>
 <script async src="{{{uiRootPath}}}/js/vendor/tabs.js" data-sync-storage-key="preferred-tab"></script>
 {{#if env.SITE_SEARCH_PROVIDER}}
-<script async src="{{{uiRootPath}}}/js/vendor/lunr.js"></script>
-<script async src="{{{uiRootPath}}}/js/search-ui.js" id="search-ui-script" data-site-root-path="{{{siteRootPath}}}"
+<script defer src="{{{uiRootPath}}}/js/vendor/lunr.js"></script>
+<script defer src="{{{uiRootPath}}}/js/search-ui.js" id="search-ui-script" data-site-root-path="{{{siteRootPath}}}"
   data-ui-root-path="{{{uiRootPath}}}"></script>
-<script async src="{{{siteRootPath}}}/search-index.js"></script>
+<script defer src="{{{siteRootPath}}}/search-index.js"></script>
 {{/if}}
 {{!-- Scroll position on back/forward: supplemental dir must be wired as a string in the playbook (not [{path: ...}]). --}}
 <script>

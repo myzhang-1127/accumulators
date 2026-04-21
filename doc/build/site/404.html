@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<style>html.fonts-loading{visibility:hidden;opacity:0}</style>
+<script>document.documentElement.classList.add('fonts-loading');</script>
+
+<link rel="preload" href="/boost-accumulators/_/font/NotoSansDisplay.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="/boost-accumulators/_/font/NotoSansDisplay-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="/boost-accumulators/_/font/MonaspaceNeon-Var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="preload" href="/boost-accumulators/_/font/MonaspaceXenon-Var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+<script>
+(function() {
+  'use strict';
+  
+  var revealed = false;
+  
+  var reveal = function() {
+    if (revealed) return;
+    revealed = true;
+    document.documentElement.classList.remove('fonts-loading');
+  };
+  
+  setTimeout(reveal, 3000);
+  
+  if (!('FontFace' in window) || !('fonts' in document)) {
+    setTimeout(reveal, 100);
+    return;
+  }
+  
+  var uiRoot = '/boost-accumulators/_';
+  var fonts = [
+    { 
+      family: 'Noto Sans', 
+      url: uiRoot + '/font/NotoSansDisplay.woff2',
+      descriptors: { style: 'normal', weight: '100 900', stretch: '62.5% 100%' }
+    },
+    { 
+      family: 'Noto Sans', 
+      url: uiRoot + '/font/NotoSansDisplay-Italic.woff2',
+      descriptors: { style: 'italic', weight: '100 900', stretch: '62.5% 100%' }
+    },
+    { 
+      family: 'Monaspace Neon', 
+      url: uiRoot + '/font/MonaspaceNeon-Var.woff2',
+      descriptors: { style: 'normal', weight: '400' }
+    },
+    { 
+      family: 'Monaspace Xenon', 
+      url: uiRoot + '/font/MonaspaceXenon-Var.woff2',
+      descriptors: { style: 'italic', weight: '400' }
+    }
+  ];
+  
+  var loadPromises = fonts.map(function(f) {
+    try {
+      var face = new FontFace(f.family, 'url("' + f.url + '")', f.descriptors);
+      return face.load().then(function(loaded) {
+        document.fonts.add(loaded);
+        return loaded;
+      }).catch(function() {
+        return null;
+      });
+    } catch (e) {
+      return Promise.resolve(null);
+    }
+  });
+  
+  Promise.all(loadPromises)
+    .then(function() {
+      return document.fonts.ready;
+    })
+    .then(reveal)
+    .catch(reveal);
+})();
+</script>    <title>Page Not Found :: Boost.Accumulators</title>
+  <meta name="generator" content="Antora 3.1.14">
+    <link rel="stylesheet" href="/boost-accumulators/_/css/boostlook.css">
+    <link rel="stylesheet" href="/boost-accumulators/_/css/site.css">
+    <link rel="stylesheet" href="/boost-accumulators/_/css/vendor/tabs.css">
+    <script>
+    (function() {
+      if (window.self !== window.top) return;
+      var theme = localStorage.getItem('antora-theme');
+      if (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        theme = 'dark';
+      }
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+    </script>
+    <script>var uiRootPath = '/boost-accumulators/_'</script>
+<link rel="icon" href="/boost-accumulators/_/img/favicons/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="status-404">
+ <div id="header">
+      <div id="toc" class="nav-container toc2">
+  <aside class="nav">
+    <button class="nav-close"></button>
+    <div class="panels">
+          </div>
+  </aside>
+</div>
+  </div><div class="boostlook">
+   <div id="header">
+      <div id="toc" class="nav-container toc2">
+  <aside class="nav">
+    <button class="nav-close"></button>
+    <div class="panels">
+          </div>
+  </aside>
+</div>
+  </div>  <div id="content">
+    <article class="doc">
+<h1 class="page">Page Not Found</h1>
+<div class="paragraph">
+<p>The page you&#8217;re looking for does not exist. It may have been moved. You can return to the <a href="/accumulators/index.html">start page</a>, or follow one of the links in the navigation to the left.</p>
+</div>
+<div class="paragraph">
+<p>If you arrived on this page by clicking on a link, please notify the owner of the site that the link is broken.
+If you typed the URL of this page manually, please double check that you entered the address correctly.</p>
+</div>
+</article>
+</div>
+  <div id="footer">
+  <script id="site-script" src="/boost-accumulators/_/js/site.js" data-ui-root-path="/boost-accumulators/_"></script>
+<script defer src="/boost-accumulators/_/js/accumulators-keyboard-nav.js"></script>
+<script async src="/boost-accumulators/_/js/vendor/highlight.js"></script>
+<script async src="/boost-accumulators/_/js/vendor/tabs.js" data-sync-storage-key="preferred-tab"></script>
+<script defer src="/boost-accumulators/_/js/vendor/lunr.js"></script>
+<script defer src="/boost-accumulators/_/js/search-ui.js" id="search-ui-script" data-site-root-path="/boost-accumulators"
+  data-ui-root-path="/boost-accumulators/_"></script>
+<script defer src="/boost-accumulators/search-index.js"></script>
+<script>
+(function () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'auto';
+  }
+  function scrollKey() {
+    return 'accumulatorsDocScroll:' + location.pathname + location.search;
+  }
+  function isBackForwardNavigation() {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav && nav.type === 'back_forward') return true;
+    try {
+      var p = performance.navigation;
+      if (p && p.type === 2) return true;
+    } catch (e) {}
+    return false;
+  }
+  window.addEventListener('pagehide', function () {
+    try {
+      sessionStorage.setItem(scrollKey(), String(window.scrollY || window.pageYOffset || 0));
+    } catch (e) {}
+  });
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) return;
+    try {
+      if (!isBackForwardNavigation()) return;
+      var y = sessionStorage.getItem(scrollKey());
+      if (y == null) return;
+      var n = parseInt(y, 10);
+      if (isNaN(n)) return;
+      function applyScroll() {
+        window.scrollTo(0, n);
+      }
+      setTimeout(applyScroll, 0);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(applyScroll);
+      });
+    } catch (e) {}
+  });
+  function scrollToHash() {
+    var h = location.hash;
+    if (!h || h.length < 2) return;
+    var id = decodeURIComponent(h.slice(1));
+    var el = document.getElementById(id);
+    if (!el) {
+      try {
+        var esc = typeof CSS !== 'undefined' && CSS.escape ? CSS.escape(id) : id.replace(/"/g, '');
+        el = document.querySelector('[name="' + esc + '"]');
+      } catch (e) {}
+    }
+    if (el) el.scrollIntoView({ block: 'start' });
+  }
+  window.addEventListener('popstate', function () {
+    setTimeout(scrollToHash, 0);
+  });
+  window.addEventListener('hashchange', scrollToHash);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scrollToHash);
+  } else {
+    scrollToHash();
+  }
+})();
+</script>
+<script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var toolbarNav = document.querySelector('.toolbar .spirit-nav');
+    if (!toolbarNav) return;
+
+    /* Home belongs in breadcrumbs (left). Remove duplicate house icons from the top spirit-nav only. */
+    Array.prototype.slice.call(toolbarNav.querySelectorAll('a')).forEach(function (a) {
+      var sp = a.querySelector('.material-symbols-outlined');
+      if (!sp) return;
+      var t = (sp.textContent || '').replace(/\s+/g, '');
+      if (t === 'home' && a.parentNode === toolbarNav) a.parentNode.removeChild(a);
+    });
+
+    function enableUp(anchor) {
+      if (!anchor) return;
+      if (anchor.classList.contains('disabled') || anchor.getAttribute('aria-disabled') === 'true') {
+        anchor.classList.remove('disabled');
+        anchor.removeAttribute('aria-disabled');
+        anchor.removeAttribute('tabindex');
+      }
+      anchor.setAttribute('href', 'index.html');
+      var ic = anchor.querySelector('.material-symbols-outlined');
+      if (ic) ic.setAttribute('title', 'Up: Boost.Accumulators (home)');
+    }
+
+    function ensureHome(container) {
+      if (!container || container.querySelector('a[accesskey="h"]')) return;
+      var home = document.createElement('a');
+      home.setAttribute('accesskey', 'h');
+      home.setAttribute('href', 'index.html');
+      var span = document.createElement('span');
+      span.className = 'material-symbols-outlined';
+      span.setAttribute('title', 'Home');
+      span.appendChild(document.createTextNode('home'));
+      home.appendChild(span);
+      var next = container.querySelector('a[accesskey="n"]');
+      var up = container.querySelector('a[accesskey="u"]');
+      if (next) {
+        next.parentNode.insertBefore(home, next);
+      } else if (up) {
+        if (up.nextSibling) up.parentNode.insertBefore(home, up.nextSibling);
+        else up.parentNode.appendChild(home);
+      } else {
+        var prev = container.querySelector('a[accesskey="p"]');
+        if (prev) {
+          if (prev.nextSibling) prev.parentNode.insertBefore(home, prev.nextSibling);
+          else prev.parentNode.appendChild(home);
+        } else {
+          container.appendChild(home);
+        }
+      }
+    }
+
+    function ensureNextPlaceholder(container) {
+      if (!container || container.querySelector('a[accesskey="n"]')) return;
+      var a = document.createElement('a');
+      a.className = 'disabled';
+      a.setAttribute('aria-disabled', 'true');
+      a.setAttribute('tabindex', '-1');
+      a.setAttribute('accesskey', 'n');
+      var sp = document.createElement('span');
+      sp.className = 'material-symbols-outlined';
+      sp.setAttribute('title', 'Next');
+      sp.appendChild(document.createTextNode('arrow_forward'));
+      a.appendChild(sp);
+      container.appendChild(a);
+    }
+
+    /* Top bar: keep Antora prev/up/next only; home is already in breadcrumbs (left). */
+    enableUp(toolbarNav.querySelector('a[accesskey="u"]'));
+
+    var article = document.querySelector('article.doc');
+    if (article && !article.querySelector('.spirit-nav-footer-wrap')) {
+      var wrap = document.createElement('div');
+      wrap.className = 'spirit-nav-footer-wrap';
+      wrap.setAttribute('role', 'navigation');
+      var bottom = toolbarNav.cloneNode(true);
+      bottom.classList.add('spirit-nav-bottom');
+      Array.prototype.forEach.call(bottom.querySelectorAll('a[accesskey="u"]'), enableUp);
+      ensureHome(bottom);
+      ensureNextPlaceholder(bottom);
+      wrap.appendChild(bottom);
+      var edit = article.querySelector('.edit-this-page');
+      if (edit) {
+        edit.parentNode.insertBefore(wrap, edit);
+      } else {
+        article.appendChild(wrap);
+      }
+    }
+  });
+})();
+</script>
+</div>
+</div>
+<div id="footer">
+  <script id="site-script" src="/boost-accumulators/_/js/site.js" data-ui-root-path="/boost-accumulators/_"></script>
+<script defer src="/boost-accumulators/_/js/accumulators-keyboard-nav.js"></script>
+<script async src="/boost-accumulators/_/js/vendor/highlight.js"></script>
+<script async src="/boost-accumulators/_/js/vendor/tabs.js" data-sync-storage-key="preferred-tab"></script>
+<script defer src="/boost-accumulators/_/js/vendor/lunr.js"></script>
+<script defer src="/boost-accumulators/_/js/search-ui.js" id="search-ui-script" data-site-root-path="/boost-accumulators"
+  data-ui-root-path="/boost-accumulators/_"></script>
+<script defer src="/boost-accumulators/search-index.js"></script>
+<script>
+(function () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'auto';
+  }
+  function scrollKey() {
+    return 'accumulatorsDocScroll:' + location.pathname + location.search;
+  }
+  function isBackForwardNavigation() {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav && nav.type === 'back_forward') return true;
+    try {
+      var p = performance.navigation;
+      if (p && p.type === 2) return true;
+    } catch (e) {}
+    return false;
+  }
+  window.addEventListener('pagehide', function () {
+    try {
+      sessionStorage.setItem(scrollKey(), String(window.scrollY || window.pageYOffset || 0));
+    } catch (e) {}
+  });
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) return;
+    try {
+      if (!isBackForwardNavigation()) return;
+      var y = sessionStorage.getItem(scrollKey());
+      if (y == null) return;
+      var n = parseInt(y, 10);
+      if (isNaN(n)) return;
+      function applyScroll() {
+        window.scrollTo(0, n);
+      }
+      setTimeout(applyScroll, 0);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(applyScroll);
+      });
+    } catch (e) {}
+  });
+  function scrollToHash() {
+    var h = location.hash;
+    if (!h || h.length < 2) return;
+    var id = decodeURIComponent(h.slice(1));
+    var el = document.getElementById(id);
+    if (!el) {
+      try {
+        var esc = typeof CSS !== 'undefined' && CSS.escape ? CSS.escape(id) : id.replace(/"/g, '');
+        el = document.querySelector('[name="' + esc + '"]');
+      } catch (e) {}
+    }
+    if (el) el.scrollIntoView({ block: 'start' });
+  }
+  window.addEventListener('popstate', function () {
+    setTimeout(scrollToHash, 0);
+  });
+  window.addEventListener('hashchange', scrollToHash);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scrollToHash);
+  } else {
+    scrollToHash();
+  }
+})();
+</script>
+<script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var toolbarNav = document.querySelector('.toolbar .spirit-nav');
+    if (!toolbarNav) return;
+
+    /* Home belongs in breadcrumbs (left). Remove duplicate house icons from the top spirit-nav only. */
+    Array.prototype.slice.call(toolbarNav.querySelectorAll('a')).forEach(function (a) {
+      var sp = a.querySelector('.material-symbols-outlined');
+      if (!sp) return;
+      var t = (sp.textContent || '').replace(/\s+/g, '');
+      if (t === 'home' && a.parentNode === toolbarNav) a.parentNode.removeChild(a);
+    });
+
+    function enableUp(anchor) {
+      if (!anchor) return;
+      if (anchor.classList.contains('disabled') || anchor.getAttribute('aria-disabled') === 'true') {
+        anchor.classList.remove('disabled');
+        anchor.removeAttribute('aria-disabled');
+        anchor.removeAttribute('tabindex');
+      }
+      anchor.setAttribute('href', 'index.html');
+      var ic = anchor.querySelector('.material-symbols-outlined');
+      if (ic) ic.setAttribute('title', 'Up: Boost.Accumulators (home)');
+    }
+
+    function ensureHome(container) {
+      if (!container || container.querySelector('a[accesskey="h"]')) return;
+      var home = document.createElement('a');
+      home.setAttribute('accesskey', 'h');
+      home.setAttribute('href', 'index.html');
+      var span = document.createElement('span');
+      span.className = 'material-symbols-outlined';
+      span.setAttribute('title', 'Home');
+      span.appendChild(document.createTextNode('home'));
+      home.appendChild(span);
+      var next = container.querySelector('a[accesskey="n"]');
+      var up = container.querySelector('a[accesskey="u"]');
+      if (next) {
+        next.parentNode.insertBefore(home, next);
+      } else if (up) {
+        if (up.nextSibling) up.parentNode.insertBefore(home, up.nextSibling);
+        else up.parentNode.appendChild(home);
+      } else {
+        var prev = container.querySelector('a[accesskey="p"]');
+        if (prev) {
+          if (prev.nextSibling) prev.parentNode.insertBefore(home, prev.nextSibling);
+          else prev.parentNode.appendChild(home);
+        } else {
+          container.appendChild(home);
+        }
+      }
+    }
+
+    function ensureNextPlaceholder(container) {
+      if (!container || container.querySelector('a[accesskey="n"]')) return;
+      var a = document.createElement('a');
+      a.className = 'disabled';
+      a.setAttribute('aria-disabled', 'true');
+      a.setAttribute('tabindex', '-1');
+      a.setAttribute('accesskey', 'n');
+      var sp = document.createElement('span');
+      sp.className = 'material-symbols-outlined';
+      sp.setAttribute('title', 'Next');
+      sp.appendChild(document.createTextNode('arrow_forward'));
+      a.appendChild(sp);
+      container.appendChild(a);
+    }
+
+    /* Top bar: keep Antora prev/up/next only; home is already in breadcrumbs (left). */
+    enableUp(toolbarNav.querySelector('a[accesskey="u"]'));
+
+    var article = document.querySelector('article.doc');
+    if (article && !article.querySelector('.spirit-nav-footer-wrap')) {
+      var wrap = document.createElement('div');
+      wrap.className = 'spirit-nav-footer-wrap';
+      wrap.setAttribute('role', 'navigation');
+      var bottom = toolbarNav.cloneNode(true);
+      bottom.classList.add('spirit-nav-bottom');
+      Array.prototype.forEach.call(bottom.querySelectorAll('a[accesskey="u"]'), enableUp);
+      ensureHome(bottom);
+      ensureNextPlaceholder(bottom);
+      wrap.appendChild(bottom);
+      var edit = article.querySelector('.edit-this-page');
+      if (edit) {
+        edit.parentNode.insertBefore(wrap, edit);
+      } else {
+        article.appendChild(wrap);
+      }
+    }
+  });
+})();
+</script>
+</div>
+  </body>
+</html>
