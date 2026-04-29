@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-4.3/Modules/CMakeDependentOption.cmake
+D:/dev/boost/libs/accumulators/build-mrdocs-test/CMakeFiles/cmake.verify_globs
+D:/dev/boost/libs/math/CMakeLists.txt

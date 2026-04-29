@@ -1,10 +1,13 @@
 #
 # Local Antora playbook for Boost.Accumulators
 #
+# site.url is baked into canonical links, sitemap, and Lunr-related output. Set it
+# to the base URL where this site is actually served, or keep a separate playbook
+# (e.g. publish-playbook.yml) for production while this file targets preview/staging.
 
 site:
   title: Boost.Accumulators
-  url: https://example.org/boost-accumulators
+  url: https://antora.cppalliance.org/develop/lib/doc
   start_page: accumulators::index.adoc
   robots: allow
   keys:
@@ -20,17 +23,29 @@ ui:
   bundle:
     url: https://github.com/boostorg/website-v2-docs/releases/download/ui-master/ui-bundle.zip
     snapshot: true
-  # Must be a directory path string (not [{ path: ... }]); the array form is treated as virtual in-memory files and skips this folder entirely.
-  supplemental_files: supplemental-ui
+
 
 antora:
   extensions:
-    - require: '@antora/lunr-extension'
+    - require: '@antora/lunr-extension' # https://gitlab.com/antora/antora-lunr-extension
       index_latest_only: true
+    - require: '@cppalliance/antora-cpp-tagfiles-extension'
+      cpp-tagfiles:
+        using-namespaces:
+          - 'boost::'
+    - require: '@cppalliance/antora-cpp-reference-extension'
+      dependencies:
+        - name: 'boost'
+          repo: 'https://github.com/boostorg/boost.git'
+          tag: 'develop'
+          variable: 'BOOST_SRC_DIR'
+          system-env: 'BOOST_SRC_DIR'
     - require: '@cppalliance/antora-downloads-extension'
 
 asciidoc:
-  attributes: {}
+  attributes:
+    # Enable pagination
+    page-pagination: ''
   extensions:
     - '@cppalliance/asciidoctor-boost-links'
     - '@asciidoctor/tabs'

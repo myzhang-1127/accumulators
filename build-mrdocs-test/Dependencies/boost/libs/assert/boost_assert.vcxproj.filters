@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\dev\boost\libs\assert\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="D:\dev\boost\libs\assert\extra\boost_assert.natvis">
+      <Filter>extra</Filter>
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\dev\boost\libs\assert\include\boost\assert.hpp">
+      <Filter>include\boost</Filter>
+    </None>
+    <None Include="D:\dev\boost\libs\assert\include\boost\assert\source_location.hpp">
+      <Filter>include\boost\assert</Filter>
+    </None>
+    <None Include="D:\dev\boost\libs\assert\include\boost\current_function.hpp">
+      <Filter>include\boost</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="extra">
+      <UniqueIdentifier>{B9CC3170-BE05-3E30-84ED-B716E6CC977D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{DF746590-7E26-33A6-B473-83E62D9A5657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\boost">
+      <UniqueIdentifier>{CEC1732C-A38E-32B9-BB87-E959EFA23CEB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\boost\assert">
+      <UniqueIdentifier>{82FCAAC2-548D-371A-85A7-801AC7CC4EA7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

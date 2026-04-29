@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A6EE8395-078E-3B78-8DEE-41586CC15378}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>boost_locale</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">boost_locale.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">libboost_locale-vc145-mt-gd-x64-1_91</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">boost_locale.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">libboost_locale-vc145-mt-x64-1_91</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">boost_locale.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">libboost_locale-vc145-mt-x64-1_91</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">boost_locale.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">libboost_locale-vc145-mt-x64-1_91</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\Debug\libboost_locale-vc145-mt-gd-x64-1_91.pdb</ProgramDataBaseFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <MASM>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <IncludePaths>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(IncludePaths)</IncludePaths>
+      <AdditionalOptions>%(AdditionalOptions) /W4</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </MASM>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ProgramDataBaseFileName>D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\Release\libboost_locale-vc145-mt-x64-1_91.pdb</ProgramDataBaseFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <MASM>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <IncludePaths>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(IncludePaths)</IncludePaths>
+      <AdditionalOptions>%(AdditionalOptions) /W4</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </MASM>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ProgramDataBaseFileName>D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\MinSizeRel\libboost_locale-vc145-mt-x64-1_91.pdb</ProgramDataBaseFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <MASM>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <IncludePaths>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(IncludePaths)</IncludePaths>
+      <AdditionalOptions>%(AdditionalOptions) /W4</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </MASM>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\RelWithDebInfo\libboost_locale-vc145-mt-x64-1_91.pdb</ProgramDataBaseFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <MASM>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_LOCALE_NO_LIB;BOOST_LOCALE_SOURCE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;BOOST_LOCALE_STATIC_LINK;BOOST_LOCALE_NO_POSIX_BACKEND=1;BOOST_CHARCONV_NO_LIB;BOOST_CHARCONV_STATIC_LINK;BOOST_THREAD_NO_LIB;BOOST_THREAD_STATIC_LINK;BOOST_THREAD_USE_LIB;BOOST_ATOMIC_NO_LIB;BOOST_ATOMIC_STATIC_LINK;BOOST_CHRONO_NO_LIB;BOOST_CHRONO_STATIC_LINK;BOOST_CONTAINER_NO_LIB;BOOST_CONTAINER_STATIC_LINK;BOOST_DATE_TIME_NO_LIB;BOOST_DATE_TIME_STATIC_LINK;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <IncludePaths>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(IncludePaths)</IncludePaths>
+      <AdditionalOptions>%(AdditionalOptions) /W4</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </MASM>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\dev\boost\libs\locale\include;D:\dev\boost\libs\assert\include;D:\dev\boost\libs\config\include;D:\dev\boost\libs\core\include;D:\dev\boost\libs\throw_exception\include;D:\dev\boost\libs\iterator\include;D:\dev\boost\libs\concept_check\include;D:\dev\boost\libs\preprocessor\include;D:\dev\boost\libs\type_traits\include;D:\dev\boost\libs\detail\include;D:\dev\boost\libs\fusion\include;D:\dev\boost\libs\container_hash\include;D:\dev\boost\libs\describe\include;D:\dev\boost\libs\mp11\include;D:\dev\boost\libs\function_types\include;D:\dev\boost\libs\mpl\include;D:\dev\boost\libs\predef\include;D:\dev\boost\libs\utility\include;D:\dev\boost\libs\io\include;D:\dev\boost\libs\tuple\include;D:\dev\boost\libs\typeof\include;D:\dev\boost\libs\functional\include;D:\dev\boost\libs\function\include;D:\dev\boost\libs\bind\include;D:\dev\boost\libs\optional\include;D:\dev\boost\libs\charconv\include;D:\dev\boost\libs\thread\include;D:\dev\boost\libs\atomic\include;D:\dev\boost\libs\winapi\include;D:\dev\boost\libs\chrono\include;D:\dev\boost\libs\integer\include;D:\dev\boost\libs\move\include;D:\dev\boost\libs\ratio\include;D:\dev\boost\libs\system\include;D:\dev\boost\libs\compat\include;D:\dev\boost\libs\variant2\include;D:\dev\boost\libs\container\include;D:\dev\boost\libs\intrusive\include;D:\dev\boost\libs\date_time\include;D:\dev\boost\libs\algorithm\include;D:\dev\boost\libs\array\include;D:\dev\boost\libs\exception\include;D:\dev\boost\libs\smart_ptr\include;D:\dev\boost\libs\range\include;D:\dev\boost\libs\conversion\include;D:\dev\boost\libs\regex\include;D:\dev\boost\libs\unordered\include;D:\dev\boost\libs\lexical_cast\include;D:\dev\boost\libs\numeric\conversion\include;D:\dev\boost\libs\tokenizer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\dev\boost\libs\locale\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/dev/boost/libs/locale/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/dev/boost/libs/accumulators -BD:/dev/boost/libs/accumulators/build-mrdocs-test --check-stamp-file D:/dev/boost/libs/accumulators/build-mrdocs-test/Dependencies/boost/libs/locale/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.3\Modules\CMakePushCheckState.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindICU.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindIconv.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\SelectLibraryConfigurations.cmake;D:\dev\boost\libs\accumulators\build-mrdocs-test\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/dev/boost/libs/locale/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/dev/boost/libs/accumulators -BD:/dev/boost/libs/accumulators/build-mrdocs-test --check-stamp-file D:/dev/boost/libs/accumulators/build-mrdocs-test/Dependencies/boost/libs/locale/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.3\Modules\CMakePushCheckState.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindICU.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindIconv.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\SelectLibraryConfigurations.cmake;D:\dev\boost\libs\accumulators\build-mrdocs-test\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/dev/boost/libs/locale/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/dev/boost/libs/accumulators -BD:/dev/boost/libs/accumulators/build-mrdocs-test --check-stamp-file D:/dev/boost/libs/accumulators/build-mrdocs-test/Dependencies/boost/libs/locale/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-4.3\Modules\CMakePushCheckState.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindICU.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindIconv.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\SelectLibraryConfigurations.cmake;D:\dev\boost\libs\accumulators\build-mrdocs-test\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/dev/boost/libs/locale/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/dev/boost/libs/accumulators -BD:/dev/boost/libs/accumulators/build-mrdocs-test --check-stamp-file D:/dev/boost/libs/accumulators/build-mrdocs-test/Dependencies/boost/libs/locale/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-4.3\Modules\CMakePushCheckState.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindICU.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindIconv.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.3\Modules\SelectLibraryConfigurations.cmake;D:\dev\boost\libs\accumulators\build-mrdocs-test\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\locale\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\encoding\codepage.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\encoding\iconv_converter.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\encoding\uconv_converter.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\encoding\wconv_converter.hpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\date_time.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\format.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\formatting.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\generator.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\iconv_codecvt.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\shared\iconv_codecvt.hpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\ids.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\localization_backend.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\message.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\mo_lambda.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\shared\std_collate_adapter.hpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\codecvt_converter.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\default_locale.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\encoding.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\encoding.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\foreach_char.hpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\info.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\locale_data.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\make_std_unique.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\numeric.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\numeric_conversion.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\timezone.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\boundary_point.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\facets.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\index.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\segment.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\types.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\collator.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\config.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\conversion.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\date_time.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\date_time_facet.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\allocator_traits.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\any_string.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\encoding.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\facet_id.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\is_supported_char.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\encoding.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\encoding_errors.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\encoding_utf.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\format.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\formatting.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\generator.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\generic_codecvt.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\gnu_gettext.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\hold_ptr.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\info.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\localization_backend.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\message.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\time_zone.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\utf.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\utf8_codecvt.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\util.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\util\locale_data.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\util\string.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\std\all_generator.hpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\codecvt.cpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\collate.cpp">
+      <ObjectFileName>$(IntDir)src/std/collate.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\converter.cpp">
+      <ObjectFileName>$(IntDir)src/std/converter.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\numeric.cpp">
+      <ObjectFileName>$(IntDir)src/std/numeric.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\std_backend.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\std\std_backend.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\win32\all_generator.hpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\win32\api.hpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\collate.cpp">
+      <ObjectFileName>$(IntDir)src/win32/collate.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\converter.cpp">
+      <ObjectFileName>$(IntDir)src/win32/converter.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\numeric.cpp">
+      <ObjectFileName>$(IntDir)src/win32/numeric.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\win_backend.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\win32\win_backend.hpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\lcid.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\win32\lcid.hpp" />
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\gregorian.cpp" />
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\gregorian.hpp" />
+    <Natvis Include="D:\dev\boost\libs\assert\extra\boost_assert.natvis">
+    </Natvis>
+    <Natvis Include="D:\dev\boost\libs\unordered\extra\boost_unordered.natvis">
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\ZERO_CHECK.vcxproj">
+      <Project>{EEE46A3A-5B65-34E5-A042-B5A9E2361964}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\assert\boost_assert.vcxproj">
+      <Project>{171B4BC4-9691-3EE8-8A56-7B58F4EDCC72}</Project>
+      <Name>boost_assert</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\atomic\boost_atomic.vcxproj">
+      <Project>{471C7069-4EC4-3482-BA03-F53EC1AA90DC}</Project>
+      <Name>boost_atomic</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\charconv\boost_charconv.vcxproj">
+      <Project>{06FBDA98-75CE-37D9-8602-A1E5064248A9}</Project>
+      <Name>boost_charconv</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\chrono\boost_chrono.vcxproj">
+      <Project>{0C35BA31-D443-389B-A86F-12DED083F31B}</Project>
+      <Name>boost_chrono</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\container\boost_container.vcxproj">
+      <Project>{75281F0D-0EB8-3A0A-BAD5-DBAAE3CD7669}</Project>
+      <Name>boost_container</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\core\boost_core.vcxproj">
+      <Project>{3AAC6577-132D-3D58-94CC-9CA070CA9E01}</Project>
+      <Name>boost_core</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\date_time\boost_date_time.vcxproj">
+      <Project>{23045C62-D294-3261-AEA4-4B52D94F7E2E}</Project>
+      <Name>boost_date_time</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\optional\boost_optional.vcxproj">
+      <Project>{9768D1EA-F77E-34C2-A3BC-7BA82E3B8F2E}</Project>
+      <Name>boost_optional</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\system\boost_system.vcxproj">
+      <Project>{C0D764C5-D7ED-346A-B194-35CD0EBE879C}</Project>
+      <Name>boost_system</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\thread\boost_thread.vcxproj">
+      <Project>{4D89F150-A276-3F15-84A2-DECAC26C58CD}</Project>
+      <Name>boost_thread</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\unordered\boost_unordered.vcxproj">
+      <Project>{65F2DFA2-558E-3F3A-A97A-A458B100FEDD}</Project>
+      <Name>boost_unordered</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\variant2\boost_variant2.vcxproj">
+      <Project>{F29B7750-12E1-36B7-994B-3F0E7991AAC7}</Project>
+      <Name>boost_variant2</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  </ImportGroup>
+</Project>

@@ -1,0 +1,42 @@
+#
+# Antora playbook without @cppalliance/antora-cpp-reference-extension (no MrDocs).
+# Use from WSL when Windows Node/LLVM on PATH would pull win32 MrDocs and hit EPERM
+# on rename under %AppData%. Full API reference: use local-playbook.yml on Windows
+# or a Linux-native toolchain with ACCUMULATORS_FULL_PLAYBOOK=1.
+#
+
+site:
+  title: Boost.Accumulators
+  url: https://antora.cppalliance.org/develop/lib/doc
+  start_page: accumulators::index.adoc
+  robots: allow
+  keys:
+    repo_url: 'https://github.com/boostorg/accumulators'
+
+content:
+  sources:
+    - url: ..
+      start_path: doc
+      edit_url: 'https://github.com/boostorg/accumulators/edit/{refname}/{path}'
+
+ui:
+  bundle:
+    url: https://github.com/boostorg/website-v2-docs/releases/download/ui-master/ui-bundle.zip
+    snapshot: true
+
+antora:
+  extensions:
+    - require: '@antora/lunr-extension'
+      index_latest_only: true
+    - require: '@cppalliance/antora-cpp-tagfiles-extension'
+      cpp-tagfiles:
+        using-namespaces:
+          - 'boost::'
+    - require: '@cppalliance/antora-downloads-extension'
+
+asciidoc:
+  attributes:
+    page-pagination: ''
+  extensions:
+    - '@cppalliance/asciidoctor-boost-links'
+    - '@asciidoctor/tabs'

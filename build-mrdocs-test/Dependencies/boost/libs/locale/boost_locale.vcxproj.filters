@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\encoding\codepage.cpp">
+      <Filter>sources\encoding</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\date_time.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\format.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\formatting.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\generator.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\iconv_codecvt.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\ids.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\localization_backend.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\message.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\shared\mo_lambda.cpp">
+      <Filter>sources\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\codecvt_converter.cpp">
+      <Filter>sources\util</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\default_locale.cpp">
+      <Filter>sources\util</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\encoding.cpp">
+      <Filter>sources\util</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\info.cpp">
+      <Filter>sources\util</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\locale_data.cpp">
+      <Filter>sources\util</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\codecvt.cpp">
+      <Filter>sources\std</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\collate.cpp">
+      <Filter>sources\std</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\converter.cpp">
+      <Filter>sources\std</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\numeric.cpp">
+      <Filter>sources\std</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\std\std_backend.cpp">
+      <Filter>sources\std</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\collate.cpp">
+      <Filter>sources\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\converter.cpp">
+      <Filter>sources\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\numeric.cpp">
+      <Filter>sources\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\win_backend.cpp">
+      <Filter>sources\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\win32\lcid.cpp">
+      <Filter>sources\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\dev\boost\libs\locale\src\util\gregorian.cpp">
+      <Filter>sources\util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\encoding\iconv_converter.hpp">
+      <Filter>sources\encoding</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\encoding\uconv_converter.hpp">
+      <Filter>sources\encoding</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\encoding\wconv_converter.hpp">
+      <Filter>sources\encoding</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\shared\iconv_codecvt.hpp">
+      <Filter>sources\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\shared\std_collate_adapter.hpp">
+      <Filter>sources\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\encoding.hpp">
+      <Filter>sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\foreach_char.hpp">
+      <Filter>sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\make_std_unique.hpp">
+      <Filter>sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\numeric.hpp">
+      <Filter>sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\numeric_conversion.hpp">
+      <Filter>sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\timezone.hpp">
+      <Filter>sources\util</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\boundary_point.hpp">
+      <Filter>headers\boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\facets.hpp">
+      <Filter>headers\boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\index.hpp">
+      <Filter>headers\boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\segment.hpp">
+      <Filter>headers\boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\boundary\types.hpp">
+      <Filter>headers\boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\collator.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\config.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\conversion.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\date_time.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\date_time_facet.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\allocator_traits.hpp">
+      <Filter>headers\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\any_string.hpp">
+      <Filter>headers\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\encoding.hpp">
+      <Filter>headers\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\facet_id.hpp">
+      <Filter>headers\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\detail\is_supported_char.hpp">
+      <Filter>headers\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\encoding.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\encoding_errors.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\encoding_utf.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\format.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\formatting.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\generator.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\generic_codecvt.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\gnu_gettext.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\hold_ptr.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\info.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\localization_backend.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\message.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\time_zone.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\utf.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\utf8_codecvt.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\util.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\util\locale_data.hpp">
+      <Filter>headers\util</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\include\boost\locale\util\string.hpp">
+      <Filter>headers\util</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\std\all_generator.hpp">
+      <Filter>sources\std</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\std\std_backend.hpp">
+      <Filter>sources\std</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\win32\all_generator.hpp">
+      <Filter>sources\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\win32\api.hpp">
+      <Filter>sources\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\win32\win_backend.hpp">
+      <Filter>sources\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\win32\lcid.hpp">
+      <Filter>sources\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\dev\boost\libs\locale\src\util\gregorian.hpp">
+      <Filter>sources\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\dev\boost\libs\locale\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="D:\dev\boost\libs\assert\extra\boost_assert.natvis" />
+    <Natvis Include="D:\dev\boost\libs\unordered\extra\boost_unordered.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{1BD3AC19-2D11-3383-B916-6DEBD782B414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\boundary">
+      <UniqueIdentifier>{D92D24CB-72FC-311C-9F24-8D6ADBC68C82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\detail">
+      <UniqueIdentifier>{0F74438B-1F59-3974-8630-8C9E4BFAF40C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\util">
+      <UniqueIdentifier>{D0E09A42-8575-33FF-9C8F-6BA95680CA95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{9B13E8FD-3376-3D3E-B61F-BA4E312402ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\encoding">
+      <UniqueIdentifier>{E2B4C8A3-0F36-3474-88C3-F62BDF940DB6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\shared">
+      <UniqueIdentifier>{E2BC16AE-1D69-344E-9FAD-BC2B862EE39F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\std">
+      <UniqueIdentifier>{C8CFE7E0-D781-326B-BE59-BF7016908133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\util">
+      <UniqueIdentifier>{06F7EA0B-7AD8-35DC-AD2D-9E4931B82657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\win32">
+      <UniqueIdentifier>{2D4C57EC-6819-343C-ADCA-6584D87AFDE0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
