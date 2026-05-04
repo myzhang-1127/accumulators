@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@mermaid-js/mermaid-cli": "^10.5.1",
-    "gulp-cli": "^2.3.0"
-  }
-}
