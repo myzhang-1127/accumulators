@@ -5,9 +5,8 @@
 #
 # Distributed under the Boost Software License, Version 1.0.
 #
-# Build Antora site under doc/build/site. Optionally builds Doxygen HTML via b2
-# (accdoc/statsdoc/opdoc) into doc/html. Snapshot before removing dead commented
-# post-Antora blocks: build_antora.sh.bak (restore with: cp build_antora.sh.bak build_antora.sh).
+# Build Antora site under doc/build/site.
+# Installs Node dependencies and runs Antora using the selected playbook.
 #
 
 set -xe
