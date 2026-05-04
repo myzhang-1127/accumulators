@@ -1,9 +1,6 @@
 #
 # Local Antora playbook for Boost.Accumulators
 #
-# site.url is baked into canonical links, sitemap, and Lunr-related output. Set it
-# to the base URL where this site is actually served, or keep a separate playbook
-# (e.g. publish-playbook.yml) for production while this file targets preview/staging.
 
 site:
   title: Boost.Accumulators

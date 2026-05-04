@@ -5,8 +5,9 @@
 #
 # Distributed under the Boost Software License, Version 1.0.
 #
-# Delegates to boost/tools/boost-doc-antora/boost_antora_build.sh (see there for
-# BOOST_SRC_DIR, ANTORA_PLAYBOOK, ANTORA_FULL_PLAYBOOK, WSL + lite playbook).
+# Build Antora site under doc/build/site. Optionally builds Doxygen HTML via b2
+# (accdoc/statsdoc/opdoc) into doc/html. Snapshot before removing dead commented
+# post-Antora blocks: build_antora.sh.bak (restore with: cp build_antora.sh.bak build_antora.sh).
 #
 
 set -xe
@@ -34,14 +35,14 @@ fi
 if [ $# -eq 0 ]
   then
     echo "No playbook supplied, using default playbook"
-    PLAYBOOK="local-playbook.yml"
-  else
-    PLAYBOOK=$1
+  PLAYBOOK="local-playbook.yml"
+else
+  PLAYBOOK=$1
 fi
 
 echo "Building documentation with Antora..."
 echo "Installing npm dependencies..."
-npm ci
+npm install
 
 echo "Building docs in custom dir..."
 PATH="$(pwd)/node_modules/.bin:${PATH}"
