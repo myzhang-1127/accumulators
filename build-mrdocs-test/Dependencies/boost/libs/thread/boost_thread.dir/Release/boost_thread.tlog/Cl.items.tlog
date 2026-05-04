@@ -1,5 +1,0 @@
-D:\dev\boost\libs\thread\src\win32\thread.cpp;D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\thread\boost_thread.dir\Release\thread.obj
-D:\dev\boost\libs\thread\src\win32\tss_dll.cpp;D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\thread\boost_thread.dir\Release\tss_dll.obj
-D:\dev\boost\libs\thread\src\win32\tss_pe.cpp;D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\thread\boost_thread.dir\Release\tss_pe.obj
-D:\dev\boost\libs\thread\src\win32\thread_primitives.cpp;D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\thread\boost_thread.dir\Release\thread_primitives.obj
-D:\dev\boost\libs\thread\src\future.cpp;D:\dev\boost\libs\accumulators\build-mrdocs-test\Dependencies\boost\libs\thread\boost_thread.dir\Release\future.obj
