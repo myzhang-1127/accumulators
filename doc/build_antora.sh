@@ -5,8 +5,8 @@
 #
 # Distributed under the Boost Software License, Version 1.0.
 #
-# Build Antora site under doc/build/site.
-# Installs Node dependencies and runs Antora using the selected playbook.
+# Delegates to boost/tools/boost-doc-antora/boost_antora_build.sh (see there for
+# BOOST_SRC_DIR, ANTORA_PLAYBOOK, ANTORA_FULL_PLAYBOOK, WSL + lite playbook).
 #
 
 set -xe
@@ -34,17 +34,21 @@ fi
 if [ $# -eq 0 ]
   then
     echo "No playbook supplied, using default playbook"
-  PLAYBOOK="local-playbook.yml"
-else
-  PLAYBOOK=$1
+    PLAYBOOK="local-playbook.yml"
+  else
+    PLAYBOOK=$1
 fi
 
 echo "Building documentation with Antora..."
 echo "Installing npm dependencies..."
-npm install
+npm ci
 
 echo "Building docs in custom dir..."
 PATH="$(pwd)/node_modules/.bin:${PATH}"
 export PATH
+
+echo "Generating Doxygen framework API (Antora attachments)..."
+bash scripts/run_doxygen_accumulators_framework.sh
+
 npx antora --clean --fetch "$PLAYBOOK" --stacktrace --log-level all
 echo "Done"

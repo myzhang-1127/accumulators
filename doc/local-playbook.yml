@@ -1,6 +1,9 @@
 #
 # Local Antora playbook for Boost.Accumulators
 #
+# site.url is baked into canonical links, sitemap, and Lunr-related output. Set it
+# to the base URL where this site is actually served, or keep a separate playbook
+# (e.g. publish-playbook.yml) for production while this file targets preview/staging.
 
 site:
   title: Boost.Accumulators
@@ -21,15 +24,14 @@ ui:
     url: https://github.com/boostorg/website-v2-docs/releases/download/ui-master/ui-bundle.zip
     snapshot: true
 
-
 antora:
   extensions:
     - require: '@antora/lunr-extension' # https://gitlab.com/antora/antora-lunr-extension
       index_latest_only: true
-    - require: '@cppalliance/antora-cpp-tagfiles-extension'
-      cpp-tagfiles:
-        using-namespaces:
-          - 'boost::'
+    # MrDocs reference must register before cpp-tagfiles: both listen on contentAggregated;
+    # tagfiles consumes playbook.runtime.cppReferenceTagfileRegistry on that event (see
+    # extension tests). At --log-level=debug you may still see one early "No cpp-reference
+    # tagfile registry" from cpp-tagfiles' beforeProcess hook; the registry loads on contentAggregated.
     - require: '@cppalliance/antora-cpp-reference-extension'
       dependencies:
         - name: 'boost'
@@ -37,12 +39,17 @@ antora:
           tag: 'develop'
           variable: 'BOOST_SRC_DIR'
           system-env: 'BOOST_SRC_DIR'
+    - require: '@cppalliance/antora-cpp-tagfiles-extension'
+      cpp-tagfiles:
+        using-namespaces:
+          - 'boost::'
     - require: '@cppalliance/antora-downloads-extension'
 
 asciidoc:
   attributes:
     # Enable pagination
     page-pagination: ''
+    source-highlighter: none
   extensions:
     - '@cppalliance/asciidoctor-boost-links'
     - '@asciidoctor/tabs'

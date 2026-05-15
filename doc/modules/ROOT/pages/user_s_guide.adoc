@@ -1,7 +1,24 @@
 = User's Guide
 :id: accumulators.user_s_guide
+// Doxygen HTML filenames contain `__`; reference them via attributes so xref targets are not mangled by subs.
+:doxy-html-accumulator-set: structboost_1_1accumulators_1_1accumulator__set.html
+:doxy-html-depends-on: structboost_1_1accumulators_1_1depends__on.html
+:doxy-html-feature-of: structboost_1_1accumulators_1_1feature__of.html
+:doxy-html-as-feature: structboost_1_1accumulators_1_1as__feature.html
 
 [[accumulators.user_s_guide]]
+
+++++
+<style>
+/* Include-path links inside synopsis blocks (same intent as reference.adoc). */
+.doc pre.programlisting code a,
+.doc pre.programlisting a {
+  color: #0b5cad;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+</style>
+++++
 
 [.accumulators-mini-toc]
 ****
@@ -75,11 +92,11 @@ Moment: 9.635
 
 The Accumulators Framework is framework for performing incremental calculations. Usage of the framework follows the following pattern:
 
-* Users build a computational object, called an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], by selecting the computations in which they are interested, or authoring their own computational primitives which fit within the framework.
-* Users push data into the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] object one sample at a time.
-* The xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] computes the requested quantities in the most efficient method possible, resolving dependencies between requested calculations, possibly caching intermediate results.
+* Users build a computational object, called an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], by selecting the computations in which they are interested, or authoring their own computational primitives which fit within the framework.
+* Users push data into the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] object one sample at a time.
+* The xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] computes the requested quantities in the most efficient method possible, resolving dependencies between requested calculations, possibly caching intermediate results.
 
-The Accumulators Framework defines the utilities needed for defining primitive computational elements, called _accumulators_. It also provides the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] type, described above.
+The Accumulators Framework defines the utilities needed for defining primitive computational elements, called _accumulators_. It also provides the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] type, described above.
 
 [[accumulators.user_s_guide.the_accumulators_framework.h0]]
 
@@ -90,13 +107,13 @@ The Accumulators Framework defines the utilities needed for defining primitive c
 The following terms are used in the rest of the documentation.
 
 Sample::
-  [[sample_type]] A datum that is pushed into an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. The type of the sample is the _sample type_.
+  [[sample_type]] A datum that is pushed into an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. The type of the sample is the _sample type_.
 
 Weight::
   [[weight_type]] An optional scalar value passed along with the sample specifying the weight of the sample. Conceptually, each sample is multiplied with its weight. The type of the weight is the _weight type_.
 
 Feature::
-  An abstract primitive computational entity. When defining an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], users specify the features in which they are interested, and the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] figures out which _accumulators_ would best provide those features. Features may depend on other features. If they do, the accumulator set figures out which accumulators to add to satisfy the dependencies.
+  An abstract primitive computational entity. When defining an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], users specify the features in which they are interested, and the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] figures out which _accumulators_ would best provide those features. Features may depend on other features. If they do, the accumulator set figures out which accumulators to add to satisfy the dependencies.
 
 Accumulator::
   A concrete primitive computational entity. An accumulator is a concrete implementation of a feature. It satisfies exactly one abstract feature. Several different accumulators may provide the same feature, but may represent different implementation strategies.
@@ -105,7 +122,7 @@ Accumulator Set::
   A collection of accumulators. An accumulator set is specified with a sample type and a list of features. The accumulator set uses this information to generate an ordered set of accumulators depending on the feature dependency graph. An accumulator set accepts samples one datum at a time, propagating them to each accumulator in order. At any point, results can be extracted from the accumulator set.
 
 Extractor::
-  A function or function object that can be used to extract a result from an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
+  A function or function object that can be used to extract a result from an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
 
 [[accumulators.user_s_guide.the_accumulators_framework.h1]]
 
@@ -121,19 +138,19 @@ Here is a list of the important types and functions in the Accumulator Framework
 |===
 | Tool | Description
 
-| xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] | This is the most important type in the Accumulators Framework. It is a collection of accumulators. A datum pushed into an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] is forwarded to each accumulator, in an order determined by the dependency relationships between the accumulators. Computational results can be extracted from an accumulator at any time.
+| xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] | This is the most important type in the Accumulators Framework. It is a collection of accumulators. A datum pushed into an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] is forwarded to each accumulator, in an order determined by the dependency relationships between the accumulators. Computational results can be extracted from an accumulator at any time.
 
-| xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++] | Used to specify which other features a feature depends on.
+| xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-depends-on}[+++<em><code>depends_on&lt;&gt;</code></em>+++] | Used to specify which other features a feature depends on.
 
-| xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>feature_of&lt;&gt;</code></em>+++] | Trait used to tell the Accumulators Framework that, for the purpose of feature-based dependency resolution, one feature should be treated the same as another.
+| xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-feature-of}[+++<em><code>feature_of&lt;&gt;</code></em>+++] | Trait used to tell the Accumulators Framework that, for the purpose of feature-based dependency resolution, one feature should be treated the same as another.
 
-| xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>as_feature&lt;&gt;</code></em>+++] | Used to create an alias for a feature. For example, if there are two features, fast_X and accurate_X, they can be mapped to X(fast) and X(accurate) with xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>as_feature&lt;&gt;</code></em>+++]. This is just syntactic sugar.
+| xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-as-feature}[+++<em><code>as_feature&lt;&gt;</code></em>+++] | Used to create an alias for a feature. For example, if there are two features, fast_X and accurate_X, they can be mapped to X(fast) and X(accurate) with xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-as-feature}[+++<em><code>as_feature&lt;&gt;</code></em>+++]. This is just syntactic sugar.
 
-| xref:reference.adoc#doxygen.accumulators_framework_reference.features_8hpp[+++<em><code>features&lt;&gt;</code></em>+++] | An link:../../libs/mpl/index.html[MPL] sequence. We can use xref:reference.adoc#doxygen.accumulators_framework_reference.features_8hpp[+++<em><code>features&lt;&gt;</code></em>+++] as the second template parameter when declaring an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
+| xref:ROOT:attachment$doxygen/accumulators_framework_reference/structboost_1_1accumulators_1_1features.html[+++<em><code>features&lt;&gt;</code></em>+++] | An link:https://www.boost.org/doc/libs/latest/libs/mpl/index.html[MPL] sequence. We can use xref:ROOT:attachment$doxygen/accumulators_framework_reference/structboost_1_1accumulators_1_1features.html[+++<em><code>features&lt;&gt;</code></em>+++] as the second template parameter when declaring an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
 
-| xref:reference.adoc#+++doxygen.accumulators_framework_reference.external__accumulator_8hpp+++[+++<em><code>external&lt;&gt;</code></em>+++] | Used when declaring an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. If the weight type is specified with xref:reference.adoc#+++doxygen.accumulators_framework_reference.external__accumulator_8hpp+++[+++<em><code>external&lt;&gt;</code></em>+++], then the weight accumulators are assumed to reside in a separate accumulator set which will be passed in with a named parameter.
+| xref:ROOT:attachment$doxygen/accumulators_framework_reference/structboost_1_1accumulators_1_1external.html[+++<em><code>external&lt;&gt;</code></em>+++] | Used when declaring an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. If the weight type is specified with xref:ROOT:attachment$doxygen/accumulators_framework_reference/structboost_1_1accumulators_1_1external.html[+++<em><code>external&lt;&gt;</code></em>+++], then the weight accumulators are assumed to reside in a separate accumulator set which will be passed in with a named parameter.
 
-| +++<em><code>extractor&lt;&gt;</code></em>+++ | A class template useful for creating an extractor function object. It is parameterized on a feature, and it has member functions for extracting from an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] the result corresponding to that feature.
+| +++<em><code>extractor&lt;&gt;</code></em>+++ | A class template useful for creating an extractor function object. It is parameterized on a feature, and it has member functions for extracting from an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] the result corresponding to that feature.
 
 |===
 
@@ -142,7 +159,7 @@ Here is a list of the important types and functions in the Accumulator Framework
 
 === Using `accumulator_set<>`
 
-Our tour of the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] class template begins with the forward declaration:
+Our tour of the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] class template begins with the forward declaration:
 
 [source,c++]
 ----
@@ -157,12 +174,12 @@ Sample::
   The type of the data that will be accumulated.
 
 Features::
-  An link:../../libs/mpl/index.html[MPL] sequence of features to be calculated.
+  An link:https://www.boost.org/doc/libs/latest/libs/mpl/index.html[MPL] sequence of features to be calculated.
 
 Weight::
   The type of the (optional) weight paramter.
 
-For example, the following line declares an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that will accept a sequence of doubles one at a time and calculate the min and mean:
+For example, the following line declares an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that will accept a sequence of doubles one at a time and calculate the min and mean:
 
 [source,text]
 ----
@@ -170,7 +187,7 @@ accumulator_set< double, features< tag::min, tag::mean > > acc;
 ----
 
 
-Notice that we use the xref:reference.adoc#doxygen.accumulators_framework_reference.features_8hpp[+++<em><code>features&lt;&gt;</code></em>+++] template to specify a list of features to be calculated. xref:reference.adoc#doxygen.accumulators_framework_reference.features_8hpp[+++<em><code>features&lt;&gt;</code></em>+++] is an MPL sequence of features.
+Notice that we use the xref:ROOT:attachment$doxygen/accumulators_framework_reference/structboost_1_1accumulators_1_1features.html[+++<em><code>features&lt;&gt;</code></em>+++] template to specify a list of features to be calculated. xref:ROOT:attachment$doxygen/accumulators_framework_reference/structboost_1_1accumulators_1_1features.html[+++<em><code>features&lt;&gt;</code></em>+++] is an MPL sequence of features.
 
 [NOTE]
 ====
@@ -178,7 +195,7 @@ features<> is a synonym of mpl::vector<>. In fact, we could use mpl::vector<> or
 ====
 
 
-Once we have defined an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], we can then push data into it, and it will calculate the quantities you requested, as shown below.
+Once we have defined an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], we can then push data into it, and it will calculate the quantities you requested, as shown below.
 
 [source,text]
 ----
@@ -189,7 +206,7 @@ acc(3.4);
 ----
 
 
-Since xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] defines its accumulate function to be the function call operator, we might be tempted to use an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] as a UnaryFunction to a standard algorithm such as `std::for_each`. That's fine as long as we keep in mind that the standard algorithms take UnaryFunction objects by value, which involves making a copy of the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] object. Consider the following:
+Since xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] defines its accumulate function to be the function call operator, we might be tempted to use an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] as a UnaryFunction to a standard algorithm such as `std::for_each`. That's fine as long as we keep in mind that the standard algorithms take UnaryFunction objects by value, which involves making a copy of the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] object. Consider the following:
 
 [source,text]
 ----
@@ -204,7 +221,7 @@ acc = std::for_each( data.begin(), data.end(), acc );
 ----
 
 
-Notice how we must assign the return value of `std::for_each` back to the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. This works, but some accumulators are not cheap to copy. For example, the xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] accumulators must store a `std::vector<>`, so copying these accumulators involves a dynamic allocation. We might be better off in this case passing the accumulator by reference, with the help of `boost::bind()` and `boost::ref()`. See below:
+Notice how we must assign the return value of `std::for_each` back to the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. This works, but some accumulators are not cheap to copy. For example, the xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] accumulators must store a `std::vector<>`, so copying these accumulators involves a dynamic allocation. We might be better off in this case passing the accumulator by reference, with the help of `boost::bind()` and `boost::ref()`. See below:
 
 [source,text]
 ----
@@ -231,7 +248,7 @@ To use boost::bind() and boost::ref(), you must #include <boost/bind.hpp> and <b
 
 === Extracting Results
 
-Once we have declared an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] and pushed data into it, we need to be able to extract results from it. For each feature we can add to an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], there is a corresponding extractor for fetching its result. Usually, the extractor has the same name as the feature, but in a different namespace. For example, if we accumulate the `tag::min` and `tag::max` features, we can extract the results with the `min` and `max` extractors, as follows:
+Once we have declared an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] and pushed data into it, we need to be able to extract results from it. For each feature we can add to an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++], there is a corresponding extractor for fetching its result. Usually, the extractor has the same name as the feature, but in a different namespace. For example, if we accumulate the `tag::min` and `tag::max` features, we can extract the results with the `min` and `max` extractors, as follows:
 
 [source,text]
 ----
@@ -254,7 +271,7 @@ On the Windows platform, min and max are preprocessor macros defined in WinDef.h
 ====
 
 
-Another way to extract a result from an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] is with the `extract_result()` function. This can be more convenient if there isn't an extractor object handy for a certain feature. The line above which displays results could equally be written as:
+Another way to extract a result from an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] is with the `extract_result()` function. This can be more convenient if there isn't an extractor object handy for a certain feature. The line above which displays results could equally be written as:
 
 [source,text]
 ----
@@ -279,7 +296,7 @@ std::cout << '(' << min_( acc ) << ", " << max_( acc ) << ")\n";
 
 === Passing Optional Parameters
 
-Some accumulators need initialization parameters. In addition, perhaps some auxiliary information needs to be passed into the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] along with each sample. Boost.Accumulators handles these cases with named parameters from the link:../../libs/parameter/index.html[Boost.Parameter] library.
+Some accumulators need initialization parameters. In addition, perhaps some auxiliary information needs to be passed into the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] along with each sample. Boost.Accumulators handles these cases with named parameters from the link:https://www.boost.org/doc/libs/latest/libs/parameter/index.html[Boost.Parameter] library.
 
 For example, consider the xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] and xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] features. xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++] keeps an ordered list of the largest `N` samples, where `N` can be specified at construction time. Also, the xref:reference.adoc#+++doxygen.statistics_library_reference.tail__variate_8hpp+++[+++<em><code>tail_variate&lt;&gt;</code></em>+++] feature, which depends on xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++], keeps track of some data that is covariate with the `N` samples tracked by xref:reference.adoc#doxygen.statistics_library_reference.tail_8hpp[+++<em><code>tail</code></em>+++]. The code below shows how this all works, and is described in more detail below.
 
@@ -327,7 +344,7 @@ Even the extractors can accept named parameters. In a bit, we'll see a situation
 
 Some accumulators, statistical accumulators in particular, deal with data that are _weighted_. Each sample pushed into the accumulator has an associated weight, by which the sample is conceptually multiplied. The Statistical Accumulators Library provides an assortment of these weighted statistical accumulators. And many unweighted statistical accumulators have weighted variants. For instance, the weighted variant of the `sum` accumulator is called `weighted_sum`, and is calculated by accumulating all the samples multiplied by their weights.
 
-To declare an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that accepts weighted samples, you must specify the type of the weight parameter as the 3rd template parameter, as follows:
+To declare an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that accepts weighted samples, you must specify the type of the weight parameter as the 3rd template parameter, as follows:
 
 [source,text]
 ----
@@ -337,7 +354,7 @@ accumulator_set< int, features< tag::sum >, int > acc;
 ----
 
 
-When you specify a weight, all the accumulators in the set are replaced with their weighted equivalents. For example, the above xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] declaration is equivalent to the following:
+When you specify a weight, all the accumulators in the set are replaced with their weighted equivalents. For example, the above xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] declaration is equivalent to the following:
 
 [source,text]
 ----
@@ -446,7 +463,7 @@ private:
 ----
 
 
-Much of the above should be pretty self-explanatory, except for the use of argument packs which may be confusing if you have never used the link:../../libs/parameter/index.html[Boost.Parameter] library before. An argument pack is a cluster of values, each of which can be accessed with a key. So `args[sample]` extracts from the pack the value associated with the `sample` key. And the cryptic `args[sample | Sample()]` evaluates to the value associated with the `sample` key if it exists, or a default-constructed `Sample` if it doesn't.
+Much of the above should be pretty self-explanatory, except for the use of argument packs which may be confusing if you have never used the link:https://www.boost.org/doc/libs/latest/libs/parameter/index.html[Boost.Parameter] library before. An argument pack is a cluster of values, each of which can be accessed with a key. So `args[sample]` extracts from the pack the value associated with the `sample` key. And the cryptic `args[sample | Sample()]` evaluates to the value associated with the `sample` key if it exists, or a default-constructed `Sample` if it doesn't.
 
 The example above demonstrates the most common attributes of an accumulator. There are other optional member functions that have special meaning. In particular:
 
@@ -461,7 +478,7 @@ on_drop(Args)::
 
 === Accessing Other Accumulators in the Set
 
-Some accumulators depend on other accumulators within the same accumulator set. In those cases, it is necessary to be able to access those other accumulators. To make this possible, the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] passes a reference to itself when invoking the member functions of its contained accumulators. It can be accessed by using the special `accumulator` key with the argument pack. Consider how we might implement `mean_accumulator`:
+Some accumulators depend on other accumulators within the same accumulator set. In those cases, it is necessary to be able to access those other accumulators. To make this possible, the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] passes a reference to itself when invoking the member functions of its contained accumulators. It can be accessed by using the special `accumulator` key with the argument pack. Consider how we might implement `mean_accumulator`:
 
 [source,c++]
 ----
@@ -481,7 +498,7 @@ struct mean_accumulator : accumulator_base
 ----
 
 
-`mean` depends on the `sum` and `count` accumulators. (We'll see in the next section how to specify these dependencies.) The result of the mean accumulator is merely the result of the sum accumulator divided by the result of the count accumulator. Consider how we write that: `sum(args[accumulator]) / count(args[accumulator])`. The expression `args[accumulator]` evaluates to a reference to the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that contains this `mean_accumulator`. It also contains the `sum` and `count` accumulators, and we can access their results with the extractors defined for those features: `sum` and `count`.
+`mean` depends on the `sum` and `count` accumulators. (We'll see in the next section how to specify these dependencies.) The result of the mean accumulator is merely the result of the sum accumulator divided by the result of the count accumulator. Consider how we write that: `sum(args[accumulator]) / count(args[accumulator])`. The expression `args[accumulator]` evaluates to a reference to the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] that contains this `mean_accumulator`. It also contains the `sum` and `count` accumulators, and we can access their results with the extractors defined for those features: `sum` and `count`.
 
 [NOTE]
 ====
@@ -489,7 +506,7 @@ Accumulators that inherit from accumulator_base get an empty operator (), so acc
 ====
 
 
-All the member functions that accept an argument pack have access to the enclosing xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] via the `accumulator` key, including the constructor. The accumulators within the set are constructed in an order determined by their interdependencies. As a result, it is safe for an accumulator to access one on which it depends during construction.
+All the member functions that accept an argument pack have access to the enclosing xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] via the `accumulator` key, including the constructor. The accumulators within the set are constructed in an order determined by their interdependencies. As a result, it is safe for an accumulator to access one on which it depends during construction.
 
 [[accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.h1]]
 
@@ -507,7 +524,7 @@ Consider `mean_accumulator` defined above. It divides the sum of the samples by 
 
 === Droppable Accumulators
 
-The term "droppable" refers to an accumulator that can be removed from the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. You can request that an accumulator be made droppable by using the xref:reference.adoc#+++doxygen.accumulators_framework_reference.droppable__accumulator_8hpp+++[+++<em><code>droppable&lt;&gt;</code></em>+++] class template.
+The term "droppable" refers to an accumulator that can be removed from the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. You can request that an accumulator be made droppable by using the xref:ROOT:attachment$doxygen/accumulators_framework_reference/structboost_1_1accumulators_1_1droppable.html[+++<em><code>droppable&lt;&gt;</code></em>+++] class template.
 
 [source,text]
 ----
@@ -592,7 +609,7 @@ And as an optimization:
 
 ==== __Defining a New Feature__
 
-Once we have implemented an accumulator, we must define a feature for it so that users can specify the feature when declaring an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. We typically put the features into a nested namespace, so that later we can define an extractor of the same name. All features must satisfy the xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework.concepts.feature_concept[Feature Concept]. Using xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++] makes satisfying the concept simple. Below is an example of a feature definition.
+Once we have implemented an accumulator, we must define a feature for it so that users can specify the feature when declaring an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++]. We typically put the features into a nested namespace, so that later we can define an extractor of the same name. All features must satisfy the xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework.concepts.feature_concept[Feature Concept]. Using xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-depends-on}[+++<em><code>depends_on&lt;&gt;</code></em>+++] makes satisfying the concept simple. Below is an example of a feature definition.
 
 [source,text]
 ----
@@ -610,9 +627,9 @@ struct mean                         // Features should inherit from
 ----
 
 
-The only two things we must do to define the `mean` feature is to specify the dependencies with xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++] and define the nested `impl` typedef. Even features that have no dependencies should inherit from xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++]. The nested `impl` type must be an link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. The result of `mpl::apply< impl, sample-type, weight-type >::type` must be be the type of the accumulator that implements this feature. The use of link:../../libs/mpl/index.html[MPL] placeholders like `mpl::_1` make it especially easy to make a template such as `mean_accumulator<>` an link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. Here, `mpl::_1` will be replaced with the sample type. Had we used `mpl::_2`, it would have been replaced with the weight type.
+The only two things we must do to define the `mean` feature is to specify the dependencies with xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-depends-on}[+++<em><code>depends_on&lt;&gt;</code></em>+++] and define the nested `impl` typedef. Even features that have no dependencies should inherit from xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-depends-on}[+++<em><code>depends_on&lt;&gt;</code></em>+++]. The nested `impl` type must be an link:https://www.boost.org/doc/libs/latest/libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. The result of `mpl::apply< impl, sample-type, weight-type >::type` must be be the type of the accumulator that implements this feature. The use of link:https://www.boost.org/doc/libs/latest/libs/mpl/index.html[MPL] placeholders like `mpl::_1` make it especially easy to make a template such as `mean_accumulator<>` an link:https://www.boost.org/doc/libs/latest/libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. Here, `mpl::_1` will be replaced with the sample type. Had we used `mpl::_2`, it would have been replaced with the weight type.
 
-What about accumulator types that are not templates? If you have a `foo_accumulator` which is a plain struct and not a template, you could turn it into an link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression] using `mpl::always<>`, like this:
+What about accumulator types that are not templates? If you have a `foo_accumulator` which is a plain struct and not a template, you could turn it into an link:https://www.boost.org/doc/libs/latest/libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression] using `mpl::always<>`, like this:
 
 [source,text]
 ----
@@ -638,9 +655,9 @@ struct impl
 ----
 
 
-Here, `impl` is a binary link:../../libs/mpl/doc/refmanual/metafunction-class.html[MPL Metafunction Class], which is a kind of link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. The nested `apply<>` template is part of the metafunction class protocol and tells MPL how to build the accumulator type given the sample and weight types.
+Here, `impl` is a binary link:https://www.boost.org/doc/libs/latest/libs/mpl/doc/refmanual/metafunction-class.html[MPL Metafunction Class], which is a kind of link:https://www.boost.org/doc/libs/latest/libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression]. The nested `apply<>` template is part of the metafunction class protocol and tells MPL how to build the accumulator type given the sample and weight types.
 
-All features must also provide a nested `is_weight_accumulator` typedef. It must be either `mpl::true_` or `mpl::false_`. xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>depends_on&lt;&gt;</code></em>+++] provides a default of `mpl::false_` for all features that inherit from it, but that can be overridden (or hidden, technically speaking) in the derived type. When the feature represents an accumulation of information about the weights instead of the samples, we can mark this feature as such with `typedef mpl::true_ is_weight_accumulator;`. The weight accumulators are made external if the weight type is specified using the xref:reference.adoc#+++doxygen.accumulators_framework_reference.external__accumulator_8hpp+++[+++<em><code>external&lt;&gt;</code></em>+++] template.
+All features must also provide a nested `is_weight_accumulator` typedef. It must be either `mpl::true_` or `mpl::false_`. xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-depends-on}[+++<em><code>depends_on&lt;&gt;</code></em>+++] provides a default of `mpl::false_` for all features that inherit from it, but that can be overridden (or hidden, technically speaking) in the derived type. When the feature represents an accumulation of information about the weights instead of the samples, we can mark this feature as such with `typedef mpl::true_ is_weight_accumulator;`. The weight accumulators are made external if the weight type is specified using the xref:ROOT:attachment$doxygen/accumulators_framework_reference/structboost_1_1accumulators_1_1external.html[+++<em><code>external&lt;&gt;</code></em>+++] template.
 
 [[accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_extractor]]
 
@@ -663,7 +680,7 @@ using extract::mean;                    // Pull the extractor into the
 ----
 
 
-Once defined, the `mean` extractor can be used to extract the result of the `tag::mean` feature from an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
+Once defined, the `mean` extractor can be used to extract the result of the `tag::mean` feature from an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++].
 
 Parameterized features complicate this simple picture. Consider the `moment` feature, for calculating the `N`-th moment, where `N` is specified as a template parameter:
 
@@ -701,7 +718,7 @@ using extract::moment;                  // Pull the extractor into the
 ----
 
 
-The return type deserves some explanation. Every xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] type is actually a unary link:../../libs/mpl/doc/refmanual/metafunction-class.html[MPL Metafunction Class]. When you `mpl::apply<>` an xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] and a feature, the result is the type of the accumulator within the set that implements that feature. And every accumulator provides a nested `result_type` typedef that tells what its return type is. The extractor simply delegates its work to the xref:reference.adoc#+++doxygen.accumulators_framework_reference.accumulator__set_8hpp+++[+++<em><code>extract_result()</code></em>+++] function.
+The return type deserves some explanation. Every xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] type is actually a unary link:https://www.boost.org/doc/libs/latest/libs/mpl/doc/refmanual/metafunction-class.html[MPL Metafunction Class]. When you `mpl::apply<>` an xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>accumulator_set&lt;&gt;</code></em>+++] and a feature, the result is the type of the accumulator within the set that implements that feature. And every accumulator provides a nested `result_type` typedef that tells what its return type is. The extractor simply delegates its work to the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-accumulator-set}[+++<em><code>extract_result()</code></em>+++] function.
 
 [[accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.controlling_dependencies]]
 
@@ -711,7 +728,7 @@ The feature-based dependency resolution of the Accumulators Framework is designe
 
 *Aliasing feature dependencies with `feature_of<>`*
 
-Imagine that you would like to implement the hypothetical _fubar_ statistic, and that you know two ways to calculate fubar on a bunch of samples: an accurate but slow calculation and an approximate but fast calculation. You might opt to make the accurate calculation the default, so you implement two accumulators and call them `impl::fubar_impl` and `impl::fast_fubar_impl`. You would also define the `tag::fubar` and `tag::fast_fubar` features as described xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_feature[above]. Now, you would like to inform the Accumulators Framework that these two features are the same from the point of view of dependency resolution. You can do that with xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>feature_of&lt;&gt;</code></em>+++], as follows:
+Imagine that you would like to implement the hypothetical _fubar_ statistic, and that you know two ways to calculate fubar on a bunch of samples: an accurate but slow calculation and an approximate but fast calculation. You might opt to make the accurate calculation the default, so you implement two accumulators and call them `impl::fubar_impl` and `impl::fast_fubar_impl`. You would also define the `tag::fubar` and `tag::fast_fubar` features as described xref:user_s_guide.adoc#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_feature[above]. Now, you would like to inform the Accumulators Framework that these two features are the same from the point of view of dependency resolution. You can do that with xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-feature-of}[+++<em><code>feature_of&lt;&gt;</code></em>+++], as follows:
 
 [source,c++]
 ----
@@ -732,7 +749,7 @@ The above code instructs the Accumulators Framework that, if another accumulator
 
 *Registering feature variants with `as_feature<>`*
 
-You may have noticed that some feature variants in the Accumulators Framework can be specified with a nicer syntax. For instance, instead of `tag::mean` and `tag::immediate_mean` you can specify them with `tag::mean(lazy)` and `tag::mean(immediate)` respectively. These are merely aliases, but the syntax makes the relationship between the two clearer. You can create these feature aliases with the xref:reference.adoc#+++doxygen.accumulators_framework_reference.depends__on_8hpp+++[+++<em><code>as_feature&lt;&gt;</code></em>+++] trait. Given the fubar example above, you might decide to alias `tag::fubar(accurate)` with `tag::fubar` and `tag::fubar(fast)` with `tag::fast_fubar`. You would do that as follows:
+You may have noticed that some feature variants in the Accumulators Framework can be specified with a nicer syntax. For instance, instead of `tag::mean` and `tag::immediate_mean` you can specify them with `tag::mean(lazy)` and `tag::mean(immediate)` respectively. These are merely aliases, but the syntax makes the relationship between the two clearer. You can create these feature aliases with the xref:ROOT:attachment$doxygen/accumulators_framework_reference/{doxy-html-as-feature}[+++<em><code>as_feature&lt;&gt;</code></em>+++] trait. Given the fubar example above, you might decide to alias `tag::fubar(accurate)` with `tag::fubar` and `tag::fubar(fast)` with `tag::fast_fubar`. You would do that as follows:
 
 [source,c++]
 ----
@@ -844,7 +861,7 @@ Once you have done this, `numeric::fdiv()` will use your specialization of `nume
 
 == Accumulator Concept
 
-In the following table, `Acc` is the type of an accumulator, `acc` and `acc2` are objects of type `Acc`, and `args` is the name of an argument pack from the link:../../libs/parameter/index.html[Boost.Parameter] library.
+In the following table, `Acc` is the type of an accumulator, `acc` and `acc2` are objects of type `Acc`, and `args` is the name of an argument pack from the link:https://www.boost.org/doc/libs/latest/libs/parameter/index.html[Boost.Parameter] library.
 
 [caption="Table 1.2. "]
 .Accumulator Requirements
@@ -885,7 +902,7 @@ In the following table, `F` is the type of a feature and `S` is some scalar type
 
 | `F::is_weight_accumulator` | `mpl::true_` or `mpl::false_` | `mpl::true_` if the accumulator for this feature should be made external when the weight type for the accumulator set is `external<S>`, `mpl::false_` otherwise.
 
-| `F::impl` | _unspecified_ | An link:../../libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression] that returns the type of the accumulator that implements this feature when passed a sample type and a weight type.
+| `F::impl` | _unspecified_ | An link:https://www.boost.org/doc/libs/latest/libs/mpl/doc/refmanual/lambda-expression.html[MPL Lambda Expression] that returns the type of the accumulator that implements this feature when passed a sample type and a weight type.
 
 |===
 
@@ -2458,7 +2475,7 @@ Extractor Complexity::
 *Header*
 
 ++++
-<pre class="programlisting"><code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.rolling__mean_8hpp">boost/accumulators/statistics/rolling_mean.hpp</a>&gt;
+<pre class="programlisting"> <code class="language-c++">#include &lt;<a href="reference.html#doxygen.statistics_library_reference.rolling__mean_8hpp">boost/accumulators/statistics/rolling_mean.hpp</a>&gt;
 </code></pre>
 ++++
 

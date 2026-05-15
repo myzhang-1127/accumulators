@@ -1,0 +1,272 @@
+/*
+ * Unified bridge: Doxygen HTML under Antora attachment trees.
+ * Scope with html.boost-doc-antora (added by postprocess_doxygen_antora_bridge.py).
+ * Goals: typography and code blocks closer to Antora default UI; tame Doxygen blues.
+ */
+
+html.boost-doc-antora {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #191919;
+  background-color: #fff;
+}
+
+html.boost-doc-antora body {
+  max-width: 52rem;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+html.boost-doc-antora #doc-content,
+html.boost-doc-antora #top {
+  font-size: 1rem;
+}
+
+html.boost-doc-antora #titlearea {
+  border-bottom: 1px solid #e1e1e1;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+html.boost-doc-antora #projectname {
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+html.boost-doc-antora #projectbrief {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+html.boost-doc-antora .navpath ul {
+  font-size: 0.9rem;
+}
+
+html.boost-doc-antora .navpath a,
+html.boost-doc-antora a.el,
+html.boost-doc-antora a.code,
+html.boost-doc-antora a:link {
+  color: #1565c0;
+  text-decoration: none;
+}
+
+html.boost-doc-antora .navpath a:hover,
+html.boost-doc-antora a.el:hover {
+  text-decoration: underline;
+}
+
+html.boost-doc-antora h1,
+html.boost-doc-antora h2,
+html.boost-doc-antora h3,
+html.boost-doc-antora .title,
+html.boost-doc-antora .headertitle .title {
+  font-weight: 500;
+  color: #191919;
+}
+
+html.boost-doc-antora .headertitle .title {
+  font-size: 1.75rem;
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 0.25rem;
+  margin-top: 0;
+}
+
+html.boost-doc-antora h2.groupheader,
+html.boost-doc-antora .groupheader {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid #eee;
+}
+
+html.boost-doc-antora .boost-ref-subtitle {
+  color: #555;
+  font-size: 0.95rem;
+  font-weight: normal;
+  margin-top: 0.35rem;
+}
+
+html.boost-doc-antora pre.fragment,
+html.boost-doc-antora div.fragment,
+html.boost-doc-antora pre.programlisting,
+html.boost-doc-antora .fragment {
+  font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  background: #f7f7f8 !important;
+  border: 1px solid #e1e1e1 !important;
+  border-radius: 4px;
+  padding: 0.75rem 1rem !important;
+  overflow-x: auto;
+}
+
+html.boost-doc-antora .memitem,
+html.boost-doc-antora .memproto,
+html.boost-doc-antora .memdoc {
+  border-radius: 4px;
+}
+
+html.boost-doc-antora .memtitle {
+  font-weight: 500;
+  background: #f0f7ff !important;
+  border: 1px solid #c5d8ef !important;
+}
+
+html.boost-doc-antora table.memberdecls,
+html.boost-doc-antora table.markdownTable,
+html.boost-doc-antora table.fieldtable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+html.boost-doc-antora td.memItemLeft,
+html.boost-doc-antora td.memItemRight,
+html.boost-doc-antora td.memTemplItemLeft,
+html.boost-doc-antora td.memTemplItemRight {
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+}
+
+html.boost-doc-antora .memSeparator {
+  border: none;
+  height: 1px;
+  background: #eee;
+}
+
+html.boost-doc-antora #main-nav:empty {
+  display: none;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+html.boost-doc-antora .dynheader {
+  font-weight: 500;
+}
+
+html.boost-doc-antora .textblock {
+  max-width: 100%;
+}
+
+html.boost-doc-antora hr.footer {
+  margin-top: 2rem;
+}
+
+/* Injected handbook chrome; attachments do not load Antora UI. */
+html.boost-doc-antora .boost-doxy-site-toolbar {
+  border-bottom: 1px solid #e1e1e1;
+  margin: -1.5rem -1rem 1rem -1rem;
+  padding: 0.5rem 1rem;
+  background: #fafafa;
+  font-size: 0.95rem;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  background: #fff;
+  text-decoration: none;
+  color: #191919;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex: 1;
+  justify-content: center;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__links a {
+  color: #1565c0;
+  text-decoration: none;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__links a:hover {
+  text-decoration: underline;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__aux {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__aux a {
+  color: #555;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__aux a:hover {
+  color: #1565c0;
+  text-decoration: underline;
+}
+
+html.boost-doc-antora .boost-doxy-site-toolbar__searchhint {
+  border-left: 1px solid #ddd;
+  padding-left: 0.75rem;
+  margin-left: 0.25rem;
+}
+
+html.boost-doc-antora .boost-doxy-page-nav {
+  margin: 2rem -1rem -1rem -1rem;
+  padding: 1rem;
+  border-top: 1px solid #e1e1e1;
+  background: #fafafa;
+}
+
+html.boost-doc-antora .boost-doxy-page-nav__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+html.boost-doc-antora .boost-doxy-page-nav__cell {
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  background: #fff;
+}
+
+html.boost-doc-antora .boost-doxy-page-nav__dir {
+  display: block;
+  font-size: 0.8rem;
+  color: #777;
+  margin-bottom: 0.25rem;
+}
+
+html.boost-doc-antora .boost-doxy-page-nav__title {
+  font-weight: 600;
+  color: #191919;
+  text-decoration: none;
+}
+
+html.boost-doc-antora .boost-doxy-page-nav__title:hover {
+  color: #1565c0;
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  html.boost-doc-antora .boost-doxy-page-nav__inner {
+    grid-template-columns: 1fr;
+  }
+}

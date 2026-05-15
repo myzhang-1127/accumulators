@@ -11,6 +11,8 @@
     "@cppalliance/antora-cpp-reference-extension": "^0.1.0",
     "@cppalliance/antora-cpp-tagfiles-extension": "^0.1.0",
     "@cppalliance/antora-downloads-extension": "^0.0.2",
-    "@cppalliance/asciidoctor-boost-links": "^0.0.2"
+    "@cppalliance/asciidoctor-boost-links": "^0.0.2",
+    "@mermaid-js/mermaid-cli": "^10.5.1",
+    "gulp-cli": "^2.3.0"
   }
 }
