@@ -1,5 +1,6 @@
 ////
-Copyright Eric Niebler 2005.
+Copyright (C) 2005, 2006 Eric Niebler
+Copyright (C) 2026 Ming Yang Zhang, Leo Chen
 Distributed under the Boost Software License, Version 1.0.
 ////
 

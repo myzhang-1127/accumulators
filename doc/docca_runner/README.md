@@ -1,3 +1,9 @@
+<!--
+Copyright (C) 2026 Ming Yang Zhang, Leo Chen
+
+Distributed under the Boost Software License, Version 1.0.
+-->
+
 # Docca runner (Accumulators)
 
 Boost.Accumulators needs small Docca behavior changes for Doxygen output that stock
