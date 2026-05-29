@@ -1,0 +1,20 @@
+////
+Copyright Eric Niebler 2005.
+Distributed under the Boost Software License, Version 1.0.
+////
+
+[[acknowledgements]]
+= Acknowledgements
+
+Boost.Accumulators represents the efforts of many individuals. I would like to thank
+Daniel Egloff of {zkb} for helping to conceive the library and realize its
+implementation. I would also like to thank David Abrahams and Matthias Troyer for
+their key contributions to the design of the library. Many thanks are due to Michael
+Gauckler and Olivier Gygi, who, along with Daniel Egloff, implemented many of the
+statistical accumulators.
+
+I would also like to thank Simon West for all his assistance maintaining
+Boost.Accumulators.
+
+Finally, I would like to thank {zkb} for sponsoring the work on Boost.Accumulators
+and graciously donating it to the community.

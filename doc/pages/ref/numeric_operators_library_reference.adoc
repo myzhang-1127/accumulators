@@ -1,0 +1,10 @@
+////
+Copyright Eric Niebler 2005.
+////
+
+:source-location: pages/ref/numeric_operators_library_reference.adoc
+
+[#numeric_operators_library_reference,pagelevels=3,toclevels=1]
+= Numeric Operators Library Reference
+
+include::{entities-numeric-file}[leveloffset=+1]

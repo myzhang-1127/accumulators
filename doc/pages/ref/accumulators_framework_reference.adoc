@@ -1,0 +1,10 @@
+////
+Copyright Eric Niebler 2005.
+////
+
+:source-location: pages/ref/accumulators_framework_reference.adoc
+
+[#accumulators_framework_reference,pagelevels=3,toclevels=1]
+= Accumulators Framework Reference
+
+include::{entities-framework-file}[leveloffset=+1]

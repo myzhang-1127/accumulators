@@ -1,0 +1,11 @@
+{
+  "include_private": false,
+  "legacy_behavior": false,
+  "external_marker": "!EXTERNAL!",
+  "link_prefix": "ref_",
+  "default_namespace": "boost::accumulators",
+  "convenience_header": "boost/accumulators/accumulators.hpp",
+  "github_repo": "boostorg/accumulators",
+  "github_branch": "develop",
+  "replace_strings": { "__see_below__": "pass:q,a[__see{nbsp}below__]" }
+}

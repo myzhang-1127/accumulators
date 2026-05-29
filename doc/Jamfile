@@ -1,0 +1,196 @@
+#
+# Copyright Eric Niebler 2005.
+# Copyright (c) 2025 Dmitry Arkhipov (grisumbras@gmail.com)
+#
+# Distributed under the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Official repository: https://github.com/boostorg/accumulators
+#
+
+project accumulators/doc
+  : default-build
+    <warnings-as-errors>on
+  ;
+
+import path ;
+
+local here-dir = [ path.root $(__file__:D) [ path.pwd ] ] ;
+
+import-search $(here-dir)/docca_runner ;
+import-search /boost/docca ;
+using asciidoctor ;
+
+import common ;
+import docca ;
+import accumulators_docca ;
+import feature ;
+import property-set ;
+
+if ! ( htmldir in [ feature.values asciidoctor-backend ] )
+{
+    feature.extend asciidoctor-backend : htmldir ;
+}
+
+local include-prefix = [ path.native $(here-dir:D)/include ] ;
+
+local docca-sources =
+    [ glob-tree-ex ../include/boost/accumulators : *.hpp : detail ]
+    externals.hpp ;
+
+local docca-params =
+    <doxygen:param>ALIASES="esafe=\"@par Exception Safety\""
+    <doxygen:param>DISTRIBUTE_GROUP_DOC=YES
+    <doxygen:param>MACRO_EXPANSION=YES
+    <doxygen:param>EXPAND_ONLY_PREDEF=YES
+    <doxygen:param>"PREDEFINED=\\
+        BOOST_ACCUMULATORS_DOXYGEN_INVOKED=1 \\
+        BOOST_NUMERIC_FUNCTIONAL_DOXYGEN_INVOKED=1 \\
+        BOOST_NUMERIC_FUNCTIONAL_STD_VECTOR_SUPPORT=1 \\
+        BOOST_NUMERIC_FUNCTIONAL_STD_VALARRAY_SUPPORT=1 \\
+        BOOST_NUMERIC_FUNCTIONAL_STD_COMPLEX_SUPPORT=1 \\
+        BOOST_PP_REPEAT_FROM_TO(a,b,c,d)= \\
+        BOOST_PP_REPEAT(a,b,c)= \\
+        \"BOOST_PARAMETER_KEYWORD(a,b)=namespace a { struct b {}; } boost::parameter::keyword<a::b> const b;\" \\
+        \"BOOST_PP_ENUM_PARAMS(a,b)=b ## 1, b ## 2, ...\" \\
+        \"BOOST_NUMERIC_FUNCTIONAL_DEFINE_BINARY_OP(a,b,c)=namespace functional { template<class Left,class Right,class EnableIf=void> struct a ## _base : std::binary_function<Left, Right, typeof(lvalue<Left>() b lvalue<Right>())> { result_type operator()(Left &left, Right &right) const; }; template<class Left,class Right, class LeftTag=typename tag<Left>::type, class RightTag=typename tag<Right>::type> struct a : a ## _base<Left,Right,void> {}; } namespace op { struct a : boost::detail::function2< functional::a<_1,_2,functional::tag<_1>,functional::tag<_2> > > {}; } namespace { op::a const & a = boost::detail::pod_singleton<op::min_assign>::instance; }\" \\
+        \"BOOST_NUMERIC_FUNCTIONAL_DEFINE_UNARY_OP(a,b)=namespace functional { template<class Arg,class EnableIf=void> struct a ## _base : std::unary_function<Arg, typeof(b lvalue<Arg>())> { result_type operator()(Arg & arg) const; }; template<class Arg,class Tag=typename tag<Arg>::type> struct a : a ## _base<Arg,void> {}; } namespace op { struct a : boost::detail::function1< functional::a<_,functional::tag<_> > > {}; } namespace { op::a const & a = boost::detail::pod_singleton<op::min_assign>::instance; }\""
+    <doxygen:param>HIDE_UNDOC_MEMBERS=NO
+    <doxygen:param>EXTRACT_PRIVATE=NO
+    <doxygen:param>ENABLE_PREPROCESSING=YES
+    <doxygen:param>SEARCH_INCLUDES=NO
+    <doxygen:param>ABBREVIATE_BRIEF=
+    <doxygen:param>INLINE_INHERITED_MEMB=YES
+    <doxygen:param>JAVADOC_AUTOBRIEF=YES
+    <doxygen:param>AUTOLINK_SUPPORT=NO
+    <doxygen:param>EXTRACT_ALL=YES
+    <doxygen:param>EXTRACT_LOCAL_CLASSES=NO
+    <doxygen:param>STRIP_FROM_PATH=$(include-prefix)
+    <docca:template>reference.adoc.jinja2
+    <docca:config>config.json ;
+
+accumulators_docca.pyreference entities_framework.adoc
+    : $(docca-sources)
+    : $(docca-params)
+      <docca:param>partition=framework
+    ;
+
+make _entities_statistics-dir/docca-config.json
+    : : docca.make-docca-config
+    : $(docca-params)
+      <docca:param>partition=statistics
+    ;
+
+make _entities_numeric-dir/docca-config.json
+    : : docca.make-docca-config
+    : $(docca-params)
+      <docca:param>partition=numeric
+    ;
+
+make entities_statistics.adoc
+    : entities_framework.adoc reference.adoc.jinja2 config.json
+      _entities_statistics-dir/docca-config.json
+    : accumulators_docca.partition-reference
+    : $(docca-params)
+      <docca:param>partition=statistics
+    ;
+
+make entities_numeric.adoc
+    : entities_framework.adoc reference.adoc.jinja2 config.json
+      _entities_numeric-dir/docca-config.json
+    : accumulators_docca.partition-reference
+    : $(docca-params)
+      <docca:param>partition=numeric
+    ;
+
+generate with-path-framework : entities_framework.adoc
+    : <generating-rule>@with-path-framework ;
+generate with-path-statistics : entities_statistics.adoc
+    : <generating-rule>@with-path-statistics ;
+generate with-path-numeric : entities_numeric.adoc
+    : <generating-rule>@with-path-numeric ;
+
+install images
+    : [ glob images/*.png ]
+    : <location>html/images
+    ;
+explicit images ;
+
+#-------------------------------------------------------------------------------
+#
+# HTML documentation
+#
+#-------------------------------------------------------------------------------
+
+local backend-module = [ path.root htmldir.rb $(here-dir) ] ;
+html index
+    : pages/main.adoc
+    : <location>html
+      <dependency>images
+      <dependency>with-path-framework
+      <dependency>with-path-statistics
+      <dependency>with-path-numeric
+
+      <use>/boost/boostlook//boostlook
+
+      <asciidoctor-attribute>nofooter
+      <asciidoctor-attribute>nofootnotes
+      <asciidoctor-attribute>source-highlighter=highlightjs
+      <asciidoctor-attribute>source-language=c++
+      <asciidoctor-attribute>pagelevels=1
+      <asciidoctor-attribute>icons=font
+      <asciidoctor-attribute>project-dir=$(here-dir:D)
+      <asciidoctor-attribute>"project-gh=https://github.com/boostorg/accumulators/edit/develop"
+
+      <asciidoctor-attribute>docinfo=shared-head,shared-footer
+      <dependency>pages/docinfo.html
+      <dependency>pages/docinfo-footer.html
+
+      <asciidoctor-backend>htmldir
+      <dependency>htmldir.rb
+      <flags>"-r $(backend-module)"
+
+      <asciidoctor-attribute>attribute-missing=warn
+      <flags>-v
+      <flags>--trace
+      <warnings>all:<flags>-w
+      <warnings>extra:<flags>-w
+      <warnings>pedantic:<flags>-w
+      <warnings-as-errors>on:<flags>--failure-level=WARN
+    ;
+
+alias boostdoc ;
+explicit boostdoc ;
+
+alias boostrelease : index ;
+explicit boostrelease ;
+
+rule with-path-partition ( project name : ps : src : attr-name )
+{
+    local pwd = [ path.pwd ] ;
+    local here = [ path.root $(__file__:D) $(pwd) ] ;
+
+    local path = [ path.root [ $(src).name ] [ $(src).path ] ] ;
+    path = [ path.root $(path) $(pwd) ] ;
+    path = [ path.relative-to $(here)/pages/ref $(path) ] ;
+    return [ $(ps).add-raw <asciidoctor-attribute>$(attr-name)=$(path) ]
+        $(src) ;
+}
+
+rule with-path-framework ( project name : ps : src )
+{
+    return [ with-path-partition $(project) $(name) : $(ps) : $(src)
+        : entities-framework-file ] ;
+}
+
+rule with-path-statistics ( project name : ps : src )
+{
+    return [ with-path-partition $(project) $(name) : $(ps) : $(src)
+        : entities-statistics-file ] ;
+}
+
+rule with-path-numeric ( project name : ps : src )
+{
+    return [ with-path-partition $(project) $(name) : $(ps) : $(src)
+        : entities-numeric-file ] ;
+}

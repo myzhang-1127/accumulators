@@ -1,0 +1,1129 @@
+////
+Copyright Eric Niebler 2005.
+Distributed under the Boost Software License, Version 1.0.
+////
+[[user_s_guide]]
+= User's Guide
+
+This section describes how to use the Boost.Accumulators framework to create new
+accumulators and how to use the existing statistical accumulators to perform incremental
+statistical computation. For detailed information regarding specific components in
+Boost.Accumulators, check the <<accumulators_framework_reference,Reference>> section.
+
+[[hello_world]]
+== Hello, World!
+
+
+Below is a complete example of how to use the Accumulators Framework and the 
+Statistical Accumulators to perform an incremental statistical calculation. It
+calculates the mean and 2nd moment of a sequence of doubles.
+
+[source,c++]
+----
+#include <iostream>
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/moment.hpp>
+using namespace boost::accumulators;
+
+int main()
+{
+    // Define an accumulator set for calculating the mean and the
+    // 2nd moment ...
+    accumulator_set<double, stats<tag::mean, tag::moment<2> > > acc;
+
+    // push in some data ...
+    acc(1.2);
+    acc(2.3);
+    acc(3.4);
+    acc(4.5);
+
+    // Display the results ...
+    std::cout << "Mean:   " << mean(acc) << std::endl;
+    std::cout << "Moment: " << moment<2>(acc) << std::endl;
+
+    return 0;
+}
+----
+
+
+This program displays the following:
+
+[source,c++]
+----
+Mean:   2.85
+Moment: 9.635
+----
+
+[[the_accumulators_framework]]
+== The Accumulators Framework
+
+The Accumulators Framework is framework for performing incremental calculations. Usage
+of the framework follows the following pattern:
+
+* Users build a computational object, called an _{accumulator_set}_, by selecting
+  the computations in which they are interested, or authoring their own computational
+  primitives which fit within the framework.
+* Users push data into the {accumulator_set} object one sample at a time.
+* The {accumulator_set} computes the requested quantities in the most efficient method
+  possible, resolving dependencies between requested calculations, possibly caching
+  intermediate results.
+
+The Accumulators Framework defines the utilities needed for defining primitive
+computational elements, called accumulators. It also provides the {accumulator_set}
+type, described above.
+
+[[terminology]]
+== Terminology
+
+
+The following terms are used in the rest of the documentation.
+
+[dlist]
+Sample::
+A datum that is pushed into an {accumulator_set}. The type of the sample is the
+_sample type_.
+
+Weight::
+An optional scalar value passed along with the sample specifying the weight of the
+sample. Conceptually, each sample is multiplied with its weight. The type of the
+weight is the _weight type_.
+
+Feature::
+An abstract primitive computational entity. When defining an {accumulator_set}, users
+specify the features in which they are interested, and the {accumulator_set} figures
+out which _accumulators_ would best provide those features. Features may depend on
+other features. If they do, the accumulator set figures out which accumulators to add
+to satisfy the dependencies.
+
+Accumulator::
+A concrete primitive computational entity. An accumulator is a concrete implementation
+of a feature. It satisfies exactly one abstract feature. Several different
+accumulators may provide the same feature, but may represent different implementation
+strategies.
+
+Accumulator Set::
+A collection of accumulators. An accumulator set is specified with a sample type and a
+list of features. The accumulator set uses this information to generate an ordered set
+of accumulators depending on the feature dependency graph. An accumulator set accepts
+samples one datum at a time, propagating them to each accumulator in order. At any
+point, results can be extracted from the accumulator set.
+
+
+[[overview]]
+== Overview
+
+
+Here is a list of the important types and functions in the Accumulator Framework and
+a brief description of each.
+
+.Accumulators Toolbox
+|===
+|Tool |Description
+
+|{accumulator_set}
+|This is the most important type in the Accumulators Framework. It is a collection of
+accumulators. A datum pushed into an {accumulator_set} is forwarded to each
+accumulator, in an order determined by the dependency relationships between the
+accumulators. Computational results can be extracted from an accumulator at any time.
+
+|{depends_on}
+|Used to specify which other features a feature depends on.
+
+|{feature_of}
+|Trait used to tell the Accumulators Framework that, for the purpose of feature-based
+dependency resolution, one feature should be treated the same as another.
+
+|{as_feature}
+|Used to create an alias for a feature. For example, if there are two features,
+`fast_X` and `accurate_X`, they can be mapped to `X(fast)` and `X(accurate)` with
+{as_feature}. This is just syntactic sugar.
+
+|{features}
+|An {mpl} sequence. We can use {features} as the second template parameter when
+declaring an {accumulator_set}.
+
+|{external}
+|Used when declaring an {accumulator_set}. If the weight type is specified with
+{external}, then the weight accumulators are assumed to reside in a separate
+accumulator set which will be passed in with a named parameter.
+
+|{extractor}
+|A class template useful for creating an extractor function object. It is
+parameterized on a feature, and it has member functions for extracting from an
+{accumulator_set} the result corresponding to that feature.
+|===
+
+[[using_accumulator_set_]]
+=== Using `accumulator_set<>`
+
+Our tour of the {accumulator_set} class template begins with the forward declaration:
+
+[source,c++]
+----
+template< typename Sample, typename Features, typename Weight = void >
+struct accumulator_set;
+----
+
+
+The template parameters have the following meaning:
+
+[dlist]
+Sample::
+The type of the data that will be accumulated.
+
+Features::
+An {mpl} sequence of features to be calculated.
+
+Weight::
+The type of the (optional) weight paramter.
+
+For example, the following line declares an {accumulator_set} that will accept
+a sequence of doubles one at a time and calculate the min and mean:
+
+[source,c++]
+----
+accumulator_set< double, features< tag::min, tag::mean > > acc;
+----
+
+
+Notice that we use the {features} template to specify a list of features to be calculated.
+{features} is an MPL sequence of features.
+
+[NOTE]
+====
+{features} is a synonym of `mpl::vector<>`. In fact, we could use `mpl::vector<>` or any
+MPL sequence if we prefer, and the meaning would be the same.
+====
+
+Once we have defined an {accumulator_set}, we can then push data into it, and it will
+calculate the quantities you requested, as shown below.
+
+[source,c++]
+----
+// push some data into the accumulator_set ...
+acc(1.2);
+acc(2.3);
+acc(3.4);
+----
+
+Since {accumulator_set} defines its accumulate function to be the function call operator,
+we might be tempted to use an {accumulator_set} as a UnaryFunction to a standard algorithm
+such as `std::for_each`. That's fine as long as we keep in mind that the standard
+algorithms take UnaryFunction objects by value, which involves making a copy of the
+{accumulator_set} object. Consider the following:
+
+[source,c++]
+----
+// The data for which we wish to calculate statistical properties:
+std::vector< double > data( /* stuff */ );
+
+// The accumulator set which will calculate the properties for us:
+accumulator_set< double, features< tag::min, tag::mean > > acc;
+
+// Use std::for_each to accumulate the statistical properties:
+acc = std::for_each( data.begin(), data.end(), acc );
+----
+
+Notice how we must assign the return value of `std::for_each` back to the
+{accumulator_set}. This works, but some accumulators are not cheap to copy. For example,
+the {tail} and {tail_variate} accumulators must store a `std::vector<>`, so copying these
+accumulators involves a dynamic allocation. We might be better off in this case passing
+the accumulator by reference, with the help of `boost::bind()` and `boost::ref()`. See
+below:
+
+[source,c++]
+----
+// The data for which we wish to calculate statistical properties:
+std::vector< double > data( /* stuff */ );
+
+// The accumulator set which will calculate the properties for us:
+accumulator_set< double, features< tag::tail<left> > > acc(
+    tag::tail<left>::cache_size = 4 );
+
+// Use std::for_each to accumulate the statistical properties:
+std::for_each( data.begin(), data.end(), bind<void>( ref(acc), _1 ) );
+----
+
+Notice now that we don't care about the return value of `std::for_each()` anymore because
+`std::for_each()` is modifying `acc` directly.
+
+[NOTE]
+====
+To use `boost::bind()` and `boost::ref()`, you must `#include <boost/bind.hpp>` and
+`<boost/ref.hpp>`
+====
+
+[[extracting_results]]
+=== Extracting Results
+
+Once we have declared an {accumulator_set} and pushed data into it, we need to be able
+to extract results from it. For each feature we can add to an {accumulator_set}, there
+is a corresponding extractor for fetching its result. Usually, the extractor has the
+same name as the feature, but in a different namespace. For example, if we accumulate
+the `tag::min` and `tag::max` features, we can extract the results with the `min` and `max`
+extractors, as follows:
+
+[source,c++]
+----
+// Calculate the minimum and maximum for a sequence of integers.
+accumulator_set< int, features< tag::min, tag::max > > acc;
+acc( 2 );
+acc( -1 );
+acc( 1 );
+----
+
+
+[source,c++]
+----
+// This displays "(-1, 2)"
+std::cout << '(' << min( acc ) << ", " << max( acc ) << ")\n";
+----
+
+
+The extractors are all declared in the `boost::accumulators::extract` namespace, but they
+are brought into the `boost::accumulators` namespace with a `using` declaration.
+
+[TIP]
+====
+On the Windows platform, `min` and `max` are preprocessor macros defined in `WinDef.h`.
+To use the `min` and `max` extractors, you should either compile with `NOMINMAX` defined, or
+you should invoke the extractors like: `(min)( acc )` and `(max)( acc )`. The parentheses
+keep the macro from being invoked.
+====
+
+Another way to extract a result from an {accumulator_set} is with the
+`extract_result()` function. This can be more convenient if there isn't an extractor
+object handy for a certain feature. The line above which displays results could 
+equally be written as:
+
+[source,c++]
+----
+// This displays "(-1, 2)"
+std::cout << '('  << extract_result< tag::min >( acc )
+          << ", " << extract_result< tag::max >( acc ) << ")\n";
+----
+
+
+Finally, we can define our own extractor using the {extractor} class template. For
+instance, another way to avoid the `min` / `max` macro business would be to define 
+extractors with names that don't conflict with the macros, like this:
+
+[source,c++]
+----
+extractor< tag::min > min_;
+extractor< tag::min > max_;
+
+// This displays "(-1, 2)"
+std::cout << '(' << min_( acc ) << ", " << max_( acc ) << ")\n";
+----
+
+[[passing_optional_parameters]]
+=== Passing Optional Parameters
+
+Some accumulators need initialization parameters. In addition, perhaps some auxiliary
+information needs to be passed into the {accumulator_set} along with each sample.
+Boost.Accumulators handles these cases with named parameters from the {parameter}
+library.
+
+For example, consider the {tail} and {tail_variate} features. {tail} keeps
+an ordered list of the largest `N` samples, where `N` can be specified at
+construction time. Also, the {tail_variate} feature, which depends on {tail}, keeps
+track of some data that is covariate with the `N` samples tracked by {tail}. The
+code below shows how this all works, and is described in more detail below.
+
+[source,c++]
+----
+// Define a feature for tracking covariate data
+typedef tag::tail_variate< int, tag::covariate1, left > my_tail_variate_tag;
+
+// This will calculate the left tail and my_tail_variate_tag for N == 2
+// using the tag::tail<left>::cache_size named parameter
+accumulator_set< double, features< my_tail_variate_tag > > acc( 
+    tag::tail<left>::cache_size = 2 );
+
+// push in some samples and some covariates by using 
+// the covariate1 named parameter
+acc( 1.2, covariate1 =  12 );
+acc( 2.3, covariate1 = -23 );
+acc( 3.4, covariate1 =  34 );
+acc( 4.5, covariate1 = -45 );
+
+// Define an extractor for the my_tail_variate_tag feature
+extractor< my_tail_variate_tag > my_tail_variate;
+
+// Write the tail statistic to std::cout. This will print "4.5, 3.4, "
+std::ostream_iterator< double > dout( std::cout, ", " );
+std::copy( tail( acc ).begin(), tail( acc ).end(), dout );
+
+// Write the tail_variate statistic to std::cout. This will print "-45, 34, "
+std::ostream_iterator< int > iout( std::cout, ", " );
+std::copy( my_tail_variate( acc ).begin(), my_tail_variate( acc ).end(), iout );
+----
+
+
+There are several things to note about the code above. First, notice that we didn't have
+to request that the {tail} feature be calculated. That is implicit because the {tail_variate}
+feature depends on the {tail} feature. Next, notice how the `acc` object
+is initialized: `acc( tag::tail<left>::cache_size = 2 )`. Here, `cache_size` is a named parameter.
+It is used to tell the {tail} and {tail_variate} accumulators how many samples and
+covariates to store. Conceptually, every construction parameter is made available to
+every accumulator in an accumulator set. 
+
+We also use a named parameter to pass covariate data into the accumulator set along with
+the samples. As with the constructor parameters, all parameters to the accumulate function
+are made available to all the accumulators in the set. In this case, only the accumulator
+for the `my_tail_variate` feature would be interested in the value of the `covariate1` named
+parameter.
+
+We can make one final observation about the example above. Since {tail} and {tail_variate}
+are multi-valued features, the result we extract for them is represented as an iterator
+range. That is why we can say `tail( acc ).begin()` and `tail( acc ).end()`.
+
+Even the extractors can accept named parameters. In a bit, we'll see a situation where that
+is useful.
+
+[[weighted_samples]]
+=== Weighted Samples
+
+Some accumulators, statistical accumulators in particular, deal with data that are
+weighted. Each sample pushed into the accumulator has an associated weight, by which
+the sample is conceptually multiplied. The Statistical Accumulators Library provides an 
+assortment of these weighted statistical accumulators. And many unweighted statistical
+accumulators have weighted variants. For instance, the weighted variant of the `sum`
+accumulator is called `weighted_sum`, and is calculated by accumulating all the
+samples multiplied by their weights.
+
+To declare an {accumulator_set} that accepts weighted samples, you must specify the
+type of the weight parameter as the 3rd template parameter, as follows:
+
+[source,c++]
+----
+// 3rd template parameter 'int' means this is a weighted
+// accumulator set where the weights have type 'int'
+accumulator_set< int, features< tag::sum >, int > acc;
+----
+
+
+When you specify a weight, all the accumulators in the set are replaced with
+their weighted equivalents. For example, the above {accumulator_set} declaration
+is equivalent to the following:
+
+[source,c++]
+----
+// Since we specified a weight, tag::sum becomes tag::weighted_sum
+accumulator_set< int, features< tag::weighted_sum >, int > acc;
+----
+
+
+When passing samples to the accumulator set, you must also specify the 
+weight of each sample. You can do that with the `weight` named parameter,
+as follows:
+
+[source,c++]
+----
+acc(1, weight = 2); //   1 * 2
+acc(2, weight = 4); //   2 * 4
+acc(3, weight = 6); // + 3 * 6
+                    // -------
+                    // =    28
+----
+
+
+You can then extract the result with the `sum()` extractor, as follows:
+
+[source,c++]
+----
+// This prints "28"
+std::cout << sum(acc) << std::endl;
+----
+
+
+[NOTE]
+====
+When working with weighted statistical accumulators from the Statistical Accumulators
+Library, be sure to include the appropriate header. For instance, `weighted_sum` is
+defined in {weighted_sum_hpp}.
+====
+
+[[numeric_operators_sub_library]]
+=== Numeric Operators Sub-Library
+
+This section describes the function objects in the `boost::numeric` namespace, which
+is a sub-library that provides function objects and meta-functions corresponding
+to the infix operators in C++.
+
+In the `boost::numeric::operators` namespace are additional operator overloads for
+some useful operations not provided by the standard library, such as multiplication 
+of a `std::complex<>` with a scalar.
+
+In the `boost::numeric::functional` namespace are function object equivalents of 
+the infix operators. These function object types are heterogeneous, and so are more 
+general than the standard ones found in the `<functional>` header. They use the
+Boost.Typeof library to deduce the return types of the infix expressions they
+evaluate. In addition, they look within the `boost::numeric::operators` namespace
+to consider any additional overloads that might be defined there.
+
+In the `boost::numeric` namespace are global polymorphic function objects 
+corresponding to the function object types defined in the `boost::numeric::functional`
+namespace. For example, `boost::numeric::plus(a, b)` is equivalent to
+`boost::numeric::functional::plus<A, B>()(a, b)`, and both are equivalent to
+`using namespace boost::numeric::operators; a + b;`.
+
+The Numeric Operators Sub-Library also gives several ways to sub-class and
+a way to sub-class and specialize operations. One way uses tag dispatching on
+the types of the operands. The other way is based on the compile-time
+properties of the operands.
+
+[[extending_the_accumulators_framework]]
+=== Extending the Accumulators Framework
+
+This section describes how to extend the Accumulators Framework by defining new accumulators, features and extractors. Also covered are how to control the dependency resolution of features within an accumulator set.
+
+[[defining_a_new_accumulator]]
+==== _Defining a New Accumulator_
+
+All new accumulators must satisfy the <<accumulator_concept,Accumulator Concept>>. Below is a
+sample class that satisfies the accumulator concept, which simply sums
+the values of all samples passed into it.
+
+[source,c++]
+----
+#include <boost/accumulators/framework/accumulator_base.hpp>
+#include <boost/accumulators/framework/parameters/sample.hpp>
+
+namespace boost {                           // Putting your accumulators in the
+namespace accumulators {                    // impl namespace has some
+namespace impl {                            // advantages. See below.
+
+template<typename Sample>
+struct sum_accumulator                      // All accumulators should inherit from
+  : accumulator_base                        // accumulator_base.
+{
+    typedef Sample result_type;             // The type returned by result() below.
+    
+    template<typename Args>                 // The constructor takes an argument pack.
+    sum_accumulator(Args const & args)
+      : sum(args[sample | Sample()])        // Maybe there is an initial value in the
+    {                                       // argument pack. ('sample' is defined in
+    }                                       // sample.hpp, included above.)
+    
+    template<typename Args>                 // The accumulate function is the function
+    void operator ()(Args const & args)     // call operator, and it also accepts an
+    {                                       // argument pack.
+        this->sum += args[sample];
+    }
+    
+    result_type result(dont_care) const     // The result function will also be passed
+    {                                       // an argument pack, but we don't use it here,
+        return this->sum;                   // so we use "dont_care" as the argument type.
+    }
+private:
+    Sample sum;
+};
+
+}}}
+----
+
+
+Much of the above should be pretty self-explanatory, except for the use of argument packs
+which may be confusing if you have never used the {parameter} library before. An argument
+pack is a cluster of values, each of which can be accessed with a key. So `args[sample]`
+extracts from the pack the value associated with the `sample` key. And the cryptic
+`args[sample | Sample()]` evaluates to the value associated with the `sample` key if it
+exists, or a default-constructed `Sample` if it doesn't.
+
+The example above demonstrates the most common attributes of an accumulator. There are
+other optional member functions that have special meaning. In particular:
+
+*Optional Accumulator Member Functions*
+
+[dlist]
+`on_drop(Args)`::
+Defines an action to be taken when this accumulator is dropped. See the section on 
+<<droppable_accumulators,Droppable Accumulators>>.
+
+[[accessing_other_accumulators_in_the_set]]
+==== Accessing Other Accumulators in the Set
+
+
+Some accumulators depend on other accumulators within the same accumulator set. In those
+cases, it is necessary to be able to access those other accumulators. To make this possible,
+the {accumulator_set} passes a reference to itself when invoking the member functions of
+its contained accumulators. It can be accessed by using the special `accumulator` key with
+the argument pack. Consider how we might implement `mean_accumulator`:
+
+[source,c++]
+----
+// Mean == (Sum / Count)
+template<typename Sample>
+struct mean_accumulator : accumulator_base
+{
+    typedef Sample result_type;
+    mean_accumulator(dont_care) {}
+    
+    template<typename Args>
+    result_type result(Args const &args) const
+    {
+        return sum(args[accumulator]) / count(args[accumulator]);
+    }
+};
+----
+
+
+`mean` depends on the `sum` and `count` accumulators. (We'll see in the next section how
+to specify these dependencies.) The result of the mean accumulator is merely the result of 
+the sum accumulator divided by the result of the count accumulator. Consider how we write
+that: `sum(args[accumulator]) / count(args[accumulator])`. The expression `args[accumulator]`
+evaluates to a reference to the {accumulator_set} that contains this `mean_accumulator`. It
+also contains the `sum` and `count` accumulators, and we can access their results with the
+extractors defined for those features: `sum` and `count`.
+
+[NOTE]
+====
+Accumulators that inherit from {accumulator_base} get an empty `operator ()`, so accumulators
+like `mean_accumulator` above need not define one.
+====
+
+All the member functions that accept an argument pack have access to the enclosing
+{accumulator_set} via the `accumulator` key, including the constructor. The accumulators
+within the set are constructed in an order determined by their interdependencies. As a
+result, it is safe for an accumulator to access one on which it depends during construction.
+
+[[infix_notation_and_the_numeric_operators_sub_libra]]
+==== Infix Notation and the Numeric Operators Sub-Library
+
+
+Although not necessary, it can be a good idea to put your accumulator implementations in 
+the `boost::accumulators::impl` namespace. This namespace pulls in any operators defined
+in the `boost::numeric::operators` namespace with a using directive. The Numeric Operators 
+Sub-Library defines some additional overloads that will make your accumulators work with 
+all sorts of data types.
+
+Consider `mean_accumulator` defined above. It divides the sum of the samples by the count.
+The type of the count is `std::size_t`. What if the sample type doesn't define division by
+`std::size_t`? That's the case for `std::complex<>`. You might think that if the sample type
+is `std::complex<>`, the code would not work, but in fact it does. That's because
+Numeric Operators Sub-Library defines an overloaded `operator/` for `std::complex<>` 
+and `std::size_t`. This operator is defined in the `boost::numeric::operators` namespace and
+will be found within the `boost::accumulators::impl` namespace. That's why it's a good idea
+to put your accumulators there.
+
+[[droppable_accumulators]]
+==== Droppable Accumulators
+
+
+The term "droppable" refers to an accumulator that can be removed from the {accumulator_set}.
+You can request that an accumulator be made droppable by using the {droppable} class template.
+
+[source,c++]
+----
+// calculate sum and count, make sum droppable:
+accumulator_set< double, features< tag::count, droppable<tag::sum> > > acc;
+
+// add some data
+acc(3.0);
+acc(2.0);
+
+// drop the sum (sum is 5 here)
+acc.drop<tag::sum>();
+
+// add more data
+acc(1.0);
+
+// This will display "3" and "5"
+std::cout << count(acc) << ' ' << sum(acc);    
+----
+
+
+Any accumulators that get added to an accumulator set in order to satisfy
+dependencies on droppable accumulators are themselves droppable. Consider
+the following accumulator:
+
+[source,c++]
+----
+// Sum is not droppable. Mean is droppable. Count, brought in to 
+// satisfy mean's dependencies, is implicitly droppable, too.
+accumulator_set< double, features< tag::sum, droppable<tag::mean> > > acc;
+----
+
+
+`mean` depends on `sum` and `count`. Since `mean` is droppable, so too is `count`.
+However, we have explicitly requested that `sum` be not droppable, so it isn't. Had
+we left `tag::sum` out of the above declaration, the `sum` accumulator would have
+been implicitly droppable.
+
+A droppable accumulator is reference counted, and is only really dropped after all the
+accumulators that depend on it have been dropped. This can lead to some surprising
+behavior in some situations. 
+[source,c++]
+----
+
+// calculate sum and mean, make mean droppable. 
+accumulator_set< double, features< tag::sum, droppable<tag::mean> > > acc;
+
+// add some data
+acc(1.0);
+acc(2.0);
+
+// drop the mean. mean's reference count
+// drops to 0, so it's really dropped. So
+// too, count's reference count drops to 0
+// and is really dropped.
+acc.drop<tag::mean>();
+
+// add more data. Sum continues to accumulate!
+acc(3.0);
+
+// This will display "6 2 3"
+std::cout << sum(acc) << ' '
+          << count(acc) << ' '    
+          << mean(acc);
+----
+
+
+Note that at the point at which `mean` is dropped, `sum` is 3, `count` is 2, and
+therefore `mean` is 1.5. But since `sum` continues to accumulate even after `mean`
+has been dropped, the value of `mean` continues to change. If you want to remember
+the value of `mean` at the point it is dropped, you should save its value into
+a local variable.
+
+The following rules more precisely specify how droppable and non-droppable
+accumulators behave within an accumulator set.
+
+* There are two types of accumulators: droppable and non-droppable.
+  The default is non-droppable.
+* For any feature `X`, both `X` and `droppable<X>` satisfy the `X` dependency.
+* If feature `X` depends on `Y` and `Z`, then `droppable<X>` depends on
+  `droppable<Y>` and `droppable<Z>`.
+* All accumulators have `add_ref()` and `drop()` member functions.
+* For non-droppable accumulators, `drop()` is a no-op, and `add_ref()`
+  invokes `add_ref()` on all accumulators corresponding to the features
+  upon which the current accumulator depends.
+* Droppable accumulators have a reference count and define `add_ref()`
+  and `drop()` to manipulate the reference count.
+* For droppable accumulators, `add_ref()` increments the accumulator's
+  reference count, and also `add_ref()`'s the accumulators corresponding
+  to the features upon which the current accumulator depends.
+* For droppable accumulators, `drop()` decrements the accumulator's
+  reference count, and also `drop()`'s the accumulators corresponding to
+  the features upon which the current accumulator depends.
+* The accumulator_set constructor walks the list of *user-specified*
+  features and `add_ref()`'s the accumulator that corresponds to each of
+  them. (Note: that means that an accumulator that is not user-specified
+  but in the set merely to satisfy a dependency will be dropped as soon
+  as all its dependencies have been dropped. Ones that have been user
+  specified are not dropped until their dependencies have been
+  dropped *and* the user has explicitly dropped the accumulator.)
+* Droppable accumulators check their reference count in their
+  accumulate member function. If the reference count is 0, the function
+  is a no-op.
+* Users are not allowed to drop a feature that is not user-specified and
+  marked as droppable.
+
+And as an optimization:
+
+* If the user specifies the non-droppable feature `X`, which depends on `Y`
+  and `Z`, then the accumulators for `Y` and `Z` can be safely made
+  non-droppable, as well as any accumulators on which they depend.
+
+[[defining_a_new_feature]]
+==== _Defining a New Feature_
+
+Once we have implemented an accumulator, we must define a feature for it so
+that users can specify the feature when declaring an {accumulator_set}. We
+typically put the features into a nested namespace, so that later we can
+define an extractor of the same name. All features must satisfy the
+<<feature_concept,Feature Concept>>. Using {depends_on} makes satisfying the concept simple.
+Below is an example of a feature definition.
+
+[source,c++]
+----
+namespace boost { namespace accumulators { namespace tag {
+
+struct mean                         // Features should inherit from
+  : depends_on< count, sum >        // depends_on<> to specify dependencies
+{
+    // Define a nested typedef called 'impl' that specifies which
+    // accumulator implements this feature. 
+    typedef accumulators::impl::mean_accumulator< mpl::_1 > impl;
+};
+
+}}}
+----
+
+
+The only two things we must do to define the `mean` feature is to specify the
+dependencies with {depends_on} and define the nested `impl` typedef. Even features
+that have no dependencies should inherit from {depends_on}. The nested `impl` type
+must be an {mpl_lambda_expression}. The result of 
+`mpl::apply< impl, {sample_type}, {weight_type} >::type` must be
+be the type of the accumulator that implements this feature. The use of {mpl}
+placeholders like `mpl::_1` make it especially easy to make a template such
+as `mean_accumulator<>` an {mpl_lambda_expression}. Here, `mpl::_1` will be
+replaced with the sample type. Had we used `mpl::_2`, it would have been replaced
+with the weight type.
+
+What about accumulator types that are not templates? If you have a `foo_accumulator`
+which is a plain struct and not a template, you could turn it into an
+{mpl_lambda_expression} using `mpl::always<>`, like this:
+
+[source,c++]
+----
+// An MPL lambda expression that always evaluates to
+// foo_accumulator:
+typedef mpl::always< foo_accumulator > impl;
+----
+
+
+If you are ever unsure, or if you are not comfortable with MPL lambda expressions,
+you could always define `impl` explicitly:
+
+[source,c++]
+----
+// Same as 'typedef mpl::always< foo_accumulator > impl;'
+struct impl
+{
+    template< typename Sample, typename Weight >
+    struct apply
+    {
+        typedef foo_accumulator type;
+    };
+};
+----
+
+
+Here, `impl` is a binary {mpl_metafunction_class}, which is a kind of
+{mpl_lambda_expression}. The nested
+`apply<>` template is part of the metafunction class protocol and tells MPL how
+to build the accumulator type given the sample and weight types.
+
+All features must also provide a nested `is_weight_accumulator` typedef. It must
+be either `mpl::true_` or `mpl::false_`. {depends_on} provides a default of 
+`mpl::false_` for all features that inherit from it, but that can be overridden
+(or hidden, technically speaking) in the derived type. When the feature represents
+an accumulation of information about the weights instead of the samples, we
+can mark this feature as such with `typedef mpl::true_ is_weight_accumulator;`.
+The weight accumulators are made external if the weight type is specified using
+the {external} template.
+
+[[defining_a_new_extractor]]
+==== _Defining a New Extractor_
+
+Now that we have an accumulator and a feature, the only thing lacking is a way
+to get results from the accumulator set. The Accumulators Framework provides the
+{extractor} class template to make it simple to define an extractor for your
+feature. Here's an extractor for the `mean` feature we defined above:
+
+[source,c++]
+----
+namespace boost {
+namespace accumulators {                // By convention, we put extractors
+namespace extract {                     // in the 'extract' namespace
+
+extractor< tag::mean > const mean = {}; // Simply define our extractor with
+                                        // our feature tag, like this.
+}
+using extract::mean;                    // Pull the extractor into the
+                                        // enclosing namespace.
+}}                                            
+----
+
+
+Once defined, the `mean` extractor can be used to extract the result of the
+`tag::mean` feature from an {accumulator_set}.
+
+Parameterized features complicate this simple picture. Consider the `moment`
+feature, for calculating the `N`-th moment, where `N` is specified as
+a template parameter:
+
+[source,c++]
+----
+// An accumulator set for calculating the N-th moment, for N == 2 ...
+accumulator_set< double, features< tag::moment<2> > > acc;
+
+// ... add some data ...
+
+// Display the 2nd moment ...
+std::cout << "2nd moment is " << accumulators::moment<2>(acc) << std::endl;
+----
+
+
+In the expression `accumulators::moment<2>(acc)`, what is `moment`? It cannot be an object --
+the syntax of C++ will not allow it. Clearly, if we want to provide this syntax,
+we must make `moment` a function template. Here's what the definition of the 
+`moment` extractor looks like:
+
+[source,c++]
+----
+namespace boost {
+namespace accumulators {                // By convention, we put extractors
+namespace extract {                     // in the 'extract' namespace
+
+template<int N, typename AccumulatorSet>
+typename mpl::apply<AccumulatorSet, tag::moment<N> >::type::result_type
+moment(AccumulatorSet const &acc)
+{
+    return extract_result<tag::moment<N> >(acc);
+}
+
+}
+using extract::moment;                  // Pull the extractor into the
+                                        // enclosing namespace.
+}}                                            
+----
+
+
+The return type deserves some explanation. Every {accumulator_set} type
+is actually a unary {mpl_metafunction_class}. When you `mpl::apply<>` an
+{accumulator_set} and
+a feature, the result is the type of the accumulator within the set that
+implements that feature. And every accumulator provides a nested `result_type`
+typedef that tells what its return type is. The extractor simply delegates
+its work to the {extract_result} function.
+
+[[controlling_dependencies]]
+==== _Controlling Dependencies_
+
+The feature-based dependency resolution of the Accumulators Framework is
+designed to allow multiple different implementation strategies for each
+feature. For instance, two different accumulators may calculate the same
+quantity with different rounding modes, or using different algorithms with
+different size/speed tradeoffs. Other accumulators that depend on that
+quantity shouldn't care how it's calculated. The Accumulators Framework
+handles this by allowing several different accumulators satisfy the same
+feature.
+
+*Aliasing feature dependencies with `feature_of<>`*
+
+Imagine that you would like to implement the hypothetical _fubar_ statistic,
+and that you know two ways to calculate fubar on a bunch of samples: an
+accurate but slow calculation and an approximate but fast calculation. You
+might opt to make the accurate calculation the default, so you implement
+two accumulators and call them `impl::fubar_impl` and `impl::fast_fubar_impl`.
+You would also define the `tag::fubar` and `tag::fast_fubar` features as described
+<<defining_a_new_feature,above>>.
+Now, you would like to inform the Accumulators Framework that these two features
+are the same from the point of view of dependency resolution. You can do that
+with {feature_of}, as follows:
+
+[source,c++]
+----
+namespace boost { namespace accumulators
+{
+    // For the purposes of feature-based dependency resolution,
+    // fast_fubar provides the same feature as fubar
+    template<>
+    struct feature_of<tag::fast_fubar>
+      : feature_of<tag::fubar>
+    {
+    };
+}}
+----
+
+
+The above code instructs the Accumulators Framework that, if another accumulator
+in the set depends on the `tag::fubar` feature, the `tag::fast_fubar` feature
+is an acceptable substitute.
+
+*Registering feature variants with `as_feature<>`*
+
+You may have noticed that some feature variants in the Accumulators Framework can be
+specified with a nicer syntax. For instance, instead of `tag::mean` and `tag::immediate_mean`
+you can specify them with `tag::mean(lazy)` and `tag::mean(immediate)` respectively.
+These are merely aliases, but the syntax makes the relationship between the two clearer.
+You can create these feature aliases with the {as_feature} trait. Given the fubar example
+above, you might decide to alias `tag::fubar(accurate)` with `tag::fubar` and
+`tag::fubar(fast)` with `tag::fast_fubar`. You would do that as follows:
+
+[source,c++]
+----
+namespace boost { namespace accumulators
+{
+    struct fast {};     // OK to leave these tags empty
+    struct accurate {};
+    
+    template<>
+    struct as_feature<tag::fubar(accurate)>
+    {
+        typedef tag::fubar type;
+    };
+    
+    template<>
+    struct as_feature<tag::fubar(fast)>
+    {
+        typedef tag::fast_fubar type;
+    };
+}}
+----
+
+
+Once you have done this, users of your fubar accumulator can request the `tag::fubar(fast)` 
+and `tag::fubar(accurate)` features when defining their `accumulator_set`s and get the correct
+accumulator.
+
+[[operators_ex]]
+==== _Specializing Numeric Operators_
+
+This section describes how to adapt third-party numeric types to work with the Accumulator
+Framework.
+
+Rather than relying on the built-in operators, the Accumulators Framework relies on functions
+and operator overloads defined in the
+<<numeric_operators_sub_library,Numeric Operators Sub-Library>> for many of its numeric
+operations. This is so that it
+is possible to assign non-standard meanings to arithmetic operations. For instance, when
+calculating an average by dividing two integers, the standard integer division behavior
+would be mathematically incorrect for most statistical quantities. So rather than use `x / y`,
+the Accumulators Framework uses `numeric::fdiv(x, y)`, which does floating-point division
+even if both `x` and `y` are integers.
+
+Another example where the Numeric Operators Sub-Library is useful is when a type does not
+define the operator overloads required to use it for some statistical calculations. For instance, 
+`std::vector<>` does not overload any arithmetic operators, yet it may be useful to use
+`std::vector<>` as a sample or variate type. The Numeric Operators Sub-Library
+defines the necessary operator overloads in the `boost::numeric::operators` namespace,
+which is brought into scope by the Accumulators Framework with a using directive. 
+
+*Numeric Function Objects and Tag Dispatching*
+
+How are the numeric function object defined by the Numeric Operators Sub-Library made
+to work with types such as `std::vector<>`? The free functions in the `boost::numeric` namespace
+are implemented in terms of the function objects in the `boost::numeric::functional` namespace,
+so to make `boost::numeric::fdiv()` do something sensible with a `std::vector<>`, for instance,
+we'll need to partially specialize the `boost::numeric::functional::fdiv<>` function object.
+
+The functional objects make use of a technique known as 
+link:http://www.boost.org/community/generic_programming.html#tag_dispatching[tag dispatching] to
+select the proper implementation for the given operands. It works as follows:
+
+[source,c++]
+----
+namespace boost { namespace numeric { namespace functional
+{
+    // Metafunction for looking up the tag associated with
+    // a given numeric type T.
+    template<typename T>
+    struct tag
+    {
+        // by default, all types have void as a tag type
+        typedef void type;
+    };
+
+    // Forward declaration looks up the tag types of each operand
+    template<
+        typename Left
+      , typename Right
+      , typename LeftTag = typename tag<Left>::type
+      , typename RightTag = typename tag<Right>::type
+    >
+    struct fdiv;
+}}}
+
+----
+
+If you have some user-defined type `MyDouble` for which you would like to customize the behavior
+of `numeric::fdiv()`, you would specialize `numeric::functional::fdiv<>` by
+first defining a tag type, as shown below:
+
+[source,c++]
+----
+namespace boost { namespace numeric { namespace functional
+{
+    // Tag type for MyDouble
+    struct MyDoubleTag {};
+    
+    // Specialize tag<> for MyDouble.
+    // This only needs to be done once.
+    template<>
+    struct tag<MyDouble>
+    {
+        typedef MyDoubleTag type;
+    };
+
+    // Specify how to divide a MyDouble by an integral count
+    template<typename Left, typename Right>
+    struct fdiv<Left, Right, MyDoubleTag, void>
+    {
+        // Define the type of the result
+        typedef ... result_type;
+        
+        result_type operator()(Left & left, Right & right) const
+        {
+            return ...;
+        }
+    };
+}}}
+
+----
+
+Once you have done this, `numeric::fdiv()` will use your specialization 
+of `numeric::functional::fdiv<>` when the first argument is a `MyDouble`
+object. All of the function objects in the Numeric Operators Sub-Library can
+be customized in a similar fashion.
+
+[[concepts]]
+==== Concepts
+
+[[accumulator_concept]]
+===== Accumulator Concept
+
+
+In the following table, `Acc` is the type of an accumulator, `acc` and `acc2` are objects of type
+`Acc`, and `args` is the name of an argument pack from the {parameter} library.
+
+.Accumulator Requirements
+|===
+|Expression |Return type |Assertion / Note / Pre- / Post-condition
+
+|`Acc::result_type`
+|_implementation defined_
+|The type returned by `Acc::result()`.
+
+|`Acc acc(args)`
+|none
+|Construct from an argument pack.
+
+|`Acc acc(acc2)`
+|none
+|Post: `acc.result(args)` is equivalent to `acc2.result(args)`.
+
+|`acc(args)`
+|_unspecified_
+|
+
+|`acc.on_drop(args)`
+|_unspecified_
+|
+
+|`acc.result(args)`
+|`Acc::result_type`
+|
+|===
+
+
+[[feature_concept]]
+===== Feature Concept
+
+
+In the following table, `F` is the type of a feature and `S` is some scalar type.
+
+.Feature Requirements
+|===
+|Expression |Return type |Assertion / Note / Pre- / Post-condition
+
+|`F::dependencies`
+|_unspecified_
+|An MPL sequence of other features on which `F` depends.
+
+|`F::is_weight_accumulator`
+|`mpl::true_` or `mpl::false_`
+|`mpl::true_` if the accumulator for this feature should be made external when the
+weight type for the accumulator set is `external<S>`, `mpl::false_` otherwise.
+
+|`F::impl`
+|_unspecified_
+|An {mpl_lambda_expression} that returns the type of the accumulator that implements
+this feature when passed a sample type and a weight type.
+|===
